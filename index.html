@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nicholai Chasseau — UX Researcher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F7F7F5;
+    --surface: #FFFFFF;
+    --border: #E4E4E0;
+    --text-primary: #141412;
+    --text-secondary: #6B6B65;
+    --text-tertiary: #A0A09A;
+    --accent: #0D6B5E;
+    --accent-light: #E0F2EE;
+    --accent-mid: #1D9E8A;
+    --mono: 'DM Mono', monospace;
+    --sans: 'Inter', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--bg); color: var(--text-primary); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(247,247,245,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav-inner { max-width: 1080px; margin: 0 auto; padding: 0 2rem; height: 56px; display: flex; align-items: center; justify-content: space-between; }
+  .nav-logo { font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--accent); letter-spacing: 0.02em; text-decoration: none; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 13px; color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text-primary); }
+
+  /* HERO */
+  .hero { max-width: 1080px; margin: 0 auto; padding: 140px 2rem 100px; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+  .hero-eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.25rem; }
+  .hero-name { font-size: clamp(36px, 5vw, 52px); font-weight: 300; color: var(--text-primary); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 0.25rem; }
+  .hero-name span { font-weight: 600; }
+  .hero-title { font-size: clamp(36px, 5vw, 52px); font-weight: 300; color: var(--text-tertiary); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+  .hero-bio { font-size: 16px; color: var(--text-secondary); line-height: 1.75; max-width: 480px; margin-bottom: 2rem; }
+  .hero-cta-row { display: flex; gap: 12px; align-items: center; }
+  .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #fff; font-size: 13px; font-weight: 500; padding: 10px 20px; border-radius: 6px; text-decoration: none; transition: background 0.2s; }
+  .btn-primary:hover { background: #0a5549; }
+  .btn-secondary { display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); font-size: 13px; font-weight: 500; padding: 10px 20px; border-radius: 6px; border: 1px solid var(--border); text-decoration: none; transition: all 0.2s; background: var(--surface); }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+  .hero-visual { display: flex; flex-direction: column; gap: 12px; }
+  .stat-pill { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.25rem; display: flex; align-items: center; gap: 1rem; }
+  .stat-pill-num { font-family: var(--mono); font-size: 22px; font-weight: 500; color: var(--accent); min-width: 60px; }
+  .stat-pill-text { font-size: 13px; color: var(--text-secondary); line-height: 1.4; }
+  .stat-pill-bar { flex: 1; height: 4px; background: var(--accent-light); border-radius: 99px; overflow: hidden; }
+  .stat-pill-fill { height: 100%; background: var(--accent-mid); border-radius: 99px; }
+
+  /* SKILLS */
+  .skills-strip { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 1.5rem 2rem; }
+  .skills-inner { max-width: 1080px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .skills-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-tertiary); margin-right: 8px; }
+  .skill-tag { font-size: 12px; padding: 5px 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 99px; color: var(--text-secondary); }
+
+  /* SECTION */
+  section { max-width: 1080px; margin: 0 auto; padding: 80px 2rem; }
+  .section-header { margin-bottom: 3rem; }
+  .section-eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+  .section-title { font-size: 28px; font-weight: 500; color: var(--text-primary); letter-spacing: -0.01em; }
+  .section-sub { font-size: 15px; color: var(--text-secondary); margin-top: 0.5rem; max-width: 560px; line-height: 1.7; }
+
+  /* CASE STUDY CARDS */
+  .cs-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+  .cs-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; display: grid; grid-template-columns: 1fr 2fr; transition: box-shadow 0.2s, border-color 0.2s; text-decoration: none; }
+  .cs-card:hover { border-color: var(--accent); box-shadow: 0 4px 24px rgba(13,107,94,0.08); }
+  .cs-card.coming-soon { opacity: 0.55; pointer-events: none; }
+  .cs-card-visual { background: var(--accent-light); padding: 2rem; display: flex; flex-direction: column; justify-content: space-between; min-height: 200px; }
+  .cs-card-visual.v2 { background: #EEF0FC; }
+  .cs-card-visual.v3 { background: #F5F0FC; }
+  .cs-num { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; color: var(--accent); }
+  .cs-num.v2 { color: #4A52C2; }
+  .cs-num.v3 { color: #7C3DB5; }
+  .cs-chart { margin-top: auto; }
+  .cs-bar { height: 6px; border-radius: 99px; background: var(--accent); margin-bottom: 6px; }
+  .cs-bar.v2 { background: #6972E8; }
+  .cs-bar.v3 { background: #A855D8; }
+  .cs-card-body { padding: 2rem; display: flex; flex-direction: column; justify-content: space-between; }
+  .cs-card-meta { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1rem; }
+  .cs-tag { font-size: 11px; padding: 3px 10px; background: var(--bg); border: 1px solid var(--border); border-radius: 99px; color: var(--text-secondary); }
+  .cs-card-title { font-size: 18px; font-weight: 500; color: var(--text-primary); letter-spacing: -0.01em; margin-bottom: 0.5rem; line-height: 1.3; }
+  .cs-card-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 1.25rem; }
+  .cs-card-footer { display: flex; align-items: center; justify-content: space-between; }
+  .cs-card-link { font-size: 13px; font-weight: 500; color: var(--accent); display: flex; align-items: center; gap: 6px; }
+  .cs-card-link svg { transition: transform 0.2s; }
+  .cs-card:hover .cs-card-link svg { transform: translateX(4px); }
+  .cs-badge { font-size: 11px; padding: 3px 10px; border-radius: 99px; font-weight: 500; }
+  .cs-badge.complete { background: var(--accent-light); color: var(--accent); }
+  .cs-badge.soon { background: var(--bg); color: var(--text-tertiary); border: 1px solid var(--border); }
+
+  /* ABOUT */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .about-text p { font-size: 15px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 1rem; }
+  .about-text p:last-child { margin-bottom: 0; }
+  .toolkit { display: flex; flex-direction: column; gap: 1rem; }
+  .toolkit-item { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.25rem; }
+  .toolkit-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 6px; }
+  .toolkit-skills { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+
+  /* CONTACT */
+  .contact-band { background: var(--accent); }
+  .contact-inner { max-width: 1080px; margin: 0 auto; padding: 60px 2rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+  .contact-text h2 { font-size: 24px; font-weight: 500; color: #fff; margin-bottom: 0.5rem; letter-spacing: -0.01em; }
+  .contact-text p { font-size: 15px; color: rgba(255,255,255,0.75); }
+  .contact-links { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-light { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.15); color: #fff; font-size: 13px; font-weight: 500; padding: 10px 20px; border-radius: 6px; text-decoration: none; border: 1px solid rgba(255,255,255,0.25); transition: background 0.2s; }
+  .btn-light:hover { background: rgba(255,255,255,0.25); }
+
+  /* FOOTER */
+  footer { border-top: 1px solid var(--border); }
+  .footer-inner { max-width: 1080px; margin: 0 auto; padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+  .footer-inner p { font-size: 12px; color: var(--text-tertiary); }
+
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; padding: 100px 1.5rem 60px; gap: 3rem; }
+    .hero-visual { display: none; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .cs-card { grid-template-columns: 1fr; }
+    .cs-card-visual { min-height: 100px; padding: 1.25rem; }
+    .contact-inner { flex-direction: column; }
+    .nav-links { display: none; }
+    section { padding: 60px 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="#">NC_research</a>
+    <ul class="nav-links">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-content">
+    <p class="hero-eyebrow">UX Researcher · Mixed-Methods</p>
+    <h1 class="hero-name"><span>Nicholai</span> Chasseau</h1>
+    <p class="hero-title">Behavioral Researcher</p>
+    <p class="hero-bio">I design studies, analyze behavioral data, and translate findings into decisions that product teams can act on. Background in quantitative psychology — M.A. Hunter College, CUNY.</p>
+    <div class="hero-cta-row">
+      <a href="#work" class="btn-primary">
+        View work
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="mailto:nnchasseau@gmail.com" class="btn-secondary">Get in touch</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="stat-pill">
+      <div class="stat-pill-num">538</div>
+      <div>
+        <div class="stat-pill-text">survey participants<br>Master's thesis study</div>
+      </div>
+      <div class="stat-pill-bar"><div class="stat-pill-fill" style="width:85%"></div></div>
+    </div>
+    <div class="stat-pill">
+      <div class="stat-pill-num">3.96</div>
+      <div>
+        <div class="stat-pill-text">GPA · M.A. Psychology<br>Hunter College, CUNY</div>
+      </div>
+      <div class="stat-pill-bar"><div class="stat-pill-fill" style="width:96%"></div></div>
+    </div>
+    <div class="stat-pill">
+      <div class="stat-pill-num">5k+</div>
+      <div>
+        <div class="stat-pill-text">bootstrap samples<br>mediation analyses</div>
+      </div>
+      <div class="stat-pill-bar"><div class="stat-pill-fill" style="width:70%"></div></div>
+    </div>
+    <div class="stat-pill">
+      <div class="stat-pill-num">α .949</div>
+      <div>
+        <div class="stat-pill-text">peak scale reliability<br>across 7 instruments</div>
+      </div>
+      <div class="stat-pill-bar"><div class="stat-pill-fill" style="width:95%"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS STRIP -->
+<div class="skills-strip">
+  <div class="skills-inner">
+    <span class="skills-label">Methods</span>
+    <span class="skill-tag">Survey Design</span>
+    <span class="skill-tag">Regression Analysis</span>
+    <span class="skill-tag">Mediation Analysis</span>
+    <span class="skill-tag">SPSS · PROCESS Macro</span>
+    <span class="skill-tag">Mixed Methods</span>
+    <span class="skill-tag">Behavioral Observation</span>
+    <span class="skill-tag">Usability Research</span>
+    <span class="skill-tag">Data Storytelling</span>
+  </div>
+</div>
+
+<!-- WORK -->
+<section id="work">
+  <div class="section-header">
+    <p class="section-eyebrow">Selected work</p>
+    <h2 class="section-title">Research case studies</h2>
+    <p class="section-sub">Each study is documented from research question through recommendation — including the messy middle.</p>
+  </div>
+
+  <div class="cs-grid">
+
+    <!-- Case Study 1 -->
+    <a href="case-studies/fear-of-crime.html" class="cs-card">
+      <div class="cs-card-visual">
+        <span class="cs-num">01</span>
+        <div class="cs-chart">
+          <div class="cs-bar" style="width:85%"></div>
+          <div class="cs-bar" style="width:55%; opacity:0.6"></div>
+          <div class="cs-bar" style="width:40%; opacity:0.35"></div>
+        </div>
+      </div>
+      <div class="cs-card-body">
+        <div>
+          <div class="cs-card-meta">
+            <span class="cs-tag">Quantitative</span>
+            <span class="cs-tag">Mediation analysis</span>
+            <span class="cs-tag">n=538</span>
+            <span class="cs-tag">Cross-cultural</span>
+          </div>
+          <h3 class="cs-card-title">Fear of Crime & Psychological Vulnerability</h3>
+          <p class="cs-card-desc">How do personality traits like intolerance of uncertainty and trait worry shape fear of crime — and does the cognitive pathway linking them work differently across ethnic groups?</p>
+        </div>
+        <div class="cs-card-footer">
+          <span class="cs-card-link">Read case study <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          <span class="cs-badge complete">Complete</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Case Study 2 -->
+    <div class="cs-card coming-soon">
+      <div class="cs-card-visual v2">
+        <span class="cs-num v2">02</span>
+        <div class="cs-chart">
+          <div class="cs-bar v2" style="width:70%"></div>
+          <div class="cs-bar v2" style="width:50%; opacity:0.6"></div>
+          <div class="cs-bar v2" style="width:30%; opacity:0.35"></div>
+        </div>
+      </div>
+      <div class="cs-card-body">
+        <div>
+          <div class="cs-card-meta">
+            <span class="cs-tag">Survey design</span>
+            <span class="cs-tag">Correlational</span>
+            <span class="cs-tag">Health behavior</span>
+          </div>
+          <h3 class="cs-card-title">Social Media & Vaccine Hesitancy</h3>
+          <p class="cs-card-desc">Examining the psychological predictors of vaccine hesitancy through original survey design — from operationalization through behavioral interpretation.</p>
+        </div>
+        <div class="cs-card-footer">
+          <span class="cs-card-link" style="color:var(--text-tertiary)">Coming soon</span>
+          <span class="cs-badge soon">In progress</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Case Study 3 -->
+    <div class="cs-card coming-soon">
+      <div class="cs-card-visual v3">
+        <span class="cs-num v3">03</span>
+        <div class="cs-chart">
+          <div class="cs-bar v3" style="width:60%"></div>
+          <div class="cs-bar v3" style="width:80%; opacity:0.6"></div>
+          <div class="cs-bar v3" style="width:45%; opacity:0.35"></div>
+        </div>
+      </div>
+      <div class="cs-card-body">
+        <div>
+          <div class="cs-card-meta">
+            <span class="cs-tag">Usability research</span>
+            <span class="cs-tag">Product framing</span>
+            <span class="cs-tag">Digital behavior</span>
+          </div>
+          <h3 class="cs-card-title">Digital Behavior & User Engagement</h3>
+          <p class="cs-card-desc">An original product-framed study examining user behavior and engagement patterns in a digital product context — applying UXR methods to a real-world interface.</p>
+        </div>
+        <div class="cs-card-footer">
+          <span class="cs-card-link" style="color:var(--text-tertiary)">Coming soon</span>
+          <span class="cs-badge soon">Planned</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" style="background: var(--surface); max-width:100%; padding: 0;">
+  <div style="max-width:1080px; margin:0 auto; padding: 80px 2rem;">
+    <div class="section-header">
+      <p class="section-eyebrow">About</p>
+      <h2 class="section-title">Psychology background, product mindset</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm a mixed-methods UX researcher with an M.A. in Psychology from Hunter College, CUNY (GPA 3.96) and a first-class B.Sc. from the University of the West Indies. My training is in social and quantitative psychology — which means I know how to form a precise research question, design an instrument to answer it, and analyze the results rigorously.</p>
+        <p>My thesis was a 538-person survey study using regression and mediation analysis in SPSS to examine how psychological traits shape fear of crime across ethnic groups in Trinidad and Tobago. The most important finding wasn't the one I expected — and that's what makes it interesting.</p>
+        <p>I'm drawn to UX research because it applies the same toolkit — study design, behavioral data, mixed methods — to questions that directly shape what people experience. I'm particularly interested in how people engage with digital products, what drives their decisions, and how research can move organizations to act differently.</p>
+        <p>Outside of research, I'm deeply embedded in gaming and digital media culture — which informs how I think about user behavior, community dynamics, and engagement at companies building products people genuinely love.</p>
+      </div>
+      <div class="toolkit">
+        <div class="toolkit-item">
+          <div class="toolkit-label">Quantitative methods</div>
+          <div class="toolkit-skills">Regression analysis · Mediation analysis · Survey design & validation · SPSS · PROCESS macro · Cronbach's alpha · Bootstrapping · Pearson correlation</div>
+        </div>
+        <div class="toolkit-item">
+          <div class="toolkit-label">Qualitative & mixed methods</div>
+          <div class="toolkit-skills">Behavioral observation · Thematic coding · Content analysis · Stakeholder readouts · Mixed-methods study design</div>
+        </div>
+        <div class="toolkit-item">
+          <div class="toolkit-label">UXR methods</div>
+          <div class="toolkit-skills">Usability research · Behavioral data analysis · Audience research · Data storytelling · Research synthesis</div>
+        </div>
+        <div class="toolkit-item">
+          <div class="toolkit-label">Education</div>
+          <div class="toolkit-skills">M.A. Psychology — Hunter College, CUNY · 2026 · GPA 3.96<br>B.Sc. Psychology — UWI St. Augustine · 2022 · First Class Honours</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="contact-band" id="contact">
+  <div class="contact-inner">
+    <div class="contact-text">
+      <h2>Let's work together</h2>
+      <p>Open to UX Researcher and Research Analyst roles. Based in Brooklyn, NY — open to remote.</p>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:nnchasseau@gmail.com" class="btn-light">
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        nnchasseau@gmail.com
+      </a>
+      <a href="https://www.linkedin.com/in/nicholai-chasseau-4330b32a8/" target="_blank" class="btn-light">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <p>© 2026 Nicholai Chasseau</p>
+    <p>UX Researcher · Brooklyn, NY</p>
+  </div>
+</footer>
+
+</body>
+</html>
