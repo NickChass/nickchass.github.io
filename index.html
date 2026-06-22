@@ -94,6 +94,8 @@
   .cs-card:hover .cs-card-link svg { transform: translateX(4px); }
   .cs-badge { font-size: 11px; padding: 3px 10px; border-radius: 99px; font-weight: 500; }
   .cs-badge.complete { background: var(--accent-light); color: var(--accent); }
+  .cs-badge.live { background: #E3F6EF; color: #0F7A60; display: inline-flex; align-items: center; gap: 6px; }
+  .cs-badge.live::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #18A085; box-shadow: 0 0 0 3px rgba(24,160,133,0.2); }
   .cs-badge.soon { background: var(--bg); color: var(--text-tertiary); border: 1px solid var(--border); }
 
   /* ABOUT */
@@ -150,7 +152,7 @@
     <p class="hero-eyebrow">UX Researcher · Mixed-Methods</p>
     <h1 class="hero-name"><span>Nicholai</span> Chasseau</h1>
     <p class="hero-title">Behavioral Researcher</p>
-    <p class="hero-bio">I design studies, analyze behavioral data, and translate findings into decisions that product teams can act on. Background in quantitative psychology — M.A. Hunter College, CUNY.</p>
+    <p class="hero-bio">I design studies, analyze behavioral data, and translate findings into decisions that product teams can act on — sometimes building the product myself. Background in quantitative psychology — M.A. Hunter College, CUNY.</p>
     <div class="hero-cta-row">
       <a href="#work" class="btn-primary">
         View work
@@ -199,8 +201,8 @@
     <span class="skill-tag">Regression Analysis</span>
     <span class="skill-tag">Mediation Analysis</span>
     <span class="skill-tag">SPSS · PROCESS Macro</span>
+    <span class="skill-tag">Experience Sampling</span>
     <span class="skill-tag">Mixed Methods</span>
-    <span class="skill-tag">Behavioral Observation</span>
     <span class="skill-tag">Usability Research</span>
     <span class="skill-tag">Data Storytelling</span>
   </div>
@@ -234,8 +236,8 @@
             <span class="cs-tag">n=538</span>
             <span class="cs-tag">Cross-cultural</span>
           </div>
-          <h3 class="cs-card-title">Fear of Crime & Psychological Vulnerability</h3>
-          <p class="cs-card-desc">How do personality traits like intolerance of uncertainty and trait worry shape fear of crime — and does the cognitive pathway linking them work differently across ethnic groups?</p>
+          <h3 class="cs-card-title">Fear of Crime &amp; Psychological Vulnerability</h3>
+          <p class="cs-card-desc">My master's thesis. How do personality traits like intolerance of uncertainty and trait worry shape fear of crime — and does the cognitive pathway linking them work differently across ethnic groups?</p>
         </div>
         <div class="cs-card-footer">
           <span class="cs-card-link">Read case study <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
@@ -245,9 +247,37 @@
     </a>
 
     <!-- Case Study 2 -->
+    <a href="case-studies/driftline.html" class="cs-card">
+      <div class="cs-card-visual v4">
+        <span class="cs-num v4">02</span>
+        <div class="cs-chart">
+          <div class="cs-bar v4" style="width:90%"></div>
+          <div class="cs-bar v4" style="width:66%; opacity:0.6"></div>
+          <div class="cs-bar v4" style="width:43%; opacity:0.35"></div>
+        </div>
+      </div>
+      <div class="cs-card-body">
+        <div>
+          <div class="cs-card-meta">
+            <span class="cs-tag">Research-through-design</span>
+            <span class="cs-tag">Experience sampling</span>
+            <span class="cs-tag">R · lme4</span>
+            <span class="cs-tag">Pre-registered (OSF)</span>
+          </div>
+          <h3 class="cs-card-title">Driftline — Screen Time &amp; Wellbeing</h3>
+          <p class="cs-card-desc">A self-initiated, pre-registered experience-sampling study testing whether how people appraise their screen time predicts wellbeing better than how much they use — with a working prototype and a validated R analysis pipeline.</p>
+        </div>
+        <div class="cs-card-footer">
+          <span class="cs-card-link">Read case study <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          <span class="cs-badge prereg">Pre-registered</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Case Study 3 -->
     <a href="case-studies/alertt.html" class="cs-card">
       <div class="cs-card-visual v2">
-        <span class="cs-num v2">02</span>
+        <span class="cs-num v2">03</span>
         <div class="cs-chart">
           <div class="cs-bar v2" style="width:81%"></div>
           <div class="cs-bar v2" style="width:62%; opacity:0.6"></div>
@@ -258,73 +288,19 @@
         <div>
           <div class="cs-card-meta">
             <span class="cs-tag">Discovery research</span>
-            <span class="cs-tag">Survey design</span>
-            <span class="cs-tag">n=76</span>
-            <span class="cs-tag">Product framing</span>
+            <span class="cs-tag">n=83</span>
+            <span class="cs-tag">Research → build</span>
+            <span class="cs-tag">Shipped app</span>
           </div>
           <h3 class="cs-card-title">AlerTT — Crime Awareness App</h3>
-          <p class="cs-card-desc">Discovery research examining how Trinidadians navigate crime information and what they'd need from a real-time safety app — from behavioral baseline to product recommendations.</p>
+          <p class="cs-card-desc">Discovery research (n=83) on how Trinidadians navigate crime information, built directly into a live, working safety app. The one project here that runs end-to-end: study → recommendations → shipped product.</p>
         </div>
         <div class="cs-card-footer">
           <span class="cs-card-link">Read case study <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-          <span class="cs-badge complete">Complete</span>
+          <span class="cs-badge live">Live app</span>
         </div>
       </div>
     </a>
-
-    <!-- Case Study 3 -->
-    <a href="case-studies/gaming-wellbeing.html" class="cs-card">
-      <div class="cs-card-visual v3">
-        <span class="cs-num v3">03</span>
-        <div class="cs-chart">
-          <div class="cs-bar v3" style="width:80%"></div>
-          <div class="cs-bar v3" style="width:55%; opacity:0.6"></div>
-          <div class="cs-bar v3" style="width:11%; opacity:0.35"></div>
-        </div>
-      </div>
-      <div class="cs-card-body">
-        <div>
-          <div class="cs-card-meta">
-            <span class="cs-tag">Secondary data analysis</span>
-            <span class="cs-tag">R · ggplot2</span>
-            <span class="cs-tag">n=6,844</span>
-            <span class="cs-tag">Gaming behavior</span>
-          </div>
-          <h3 class="cs-card-title">Gaming & Psychological Wellbeing</h3>
-          <p class="cs-card-desc">Does playing more make you feel better — or does it matter more why you play? A regression analysis of the Open Play dataset examining gaming value vs. playtime as predictors of mental wellbeing.</p>
-        </div>
-        <div class="cs-card-footer">
-          <span class="cs-card-link">Read case study <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-          <span class="cs-badge complete">Complete</span>
-        </div>
-      </div>
-    </a><!-- Case Study 4 -->
-<a href="case-studies/driftline.html" class="cs-card">
-  <div class="cs-card-visual v4">
-    <span class="cs-num v4">04</span>
-    <div class="cs-chart">
-      <div class="cs-bar v4" style="width:90%"></div>
-      <div class="cs-bar v4" style="width:66%; opacity:0.6"></div>
-      <div class="cs-bar v4" style="width:43%; opacity:0.35"></div>
-    </div>
-  </div>
-  <div class="cs-card-body">
-    <div>
-      <div class="cs-card-meta">
-        <span class="cs-tag">Research-through-design</span>
-        <span class="cs-tag">Experience sampling</span>
-        <span class="cs-tag">R · lme4</span>
-        <span class="cs-tag">Pre-registered (OSF)</span>
-      </div>
-      <h3 class="cs-card-title">Driftline — Screen Time &amp; Wellbeing</h3>
-      <p class="cs-card-desc">A self-initiated, pre-registered experience-sampling study testing whether how people appraise their screen time predicts wellbeing better than how much they use — with a working prototype and a validated R analysis pipeline.</p>
-    </div>
-    <div class="cs-card-footer">
-      <span class="cs-card-link">Read case study <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-      <span class="cs-badge prereg">Pre-registered</span>
-    </div>
-  </div>
-</a>
 
   </div>
 </section>
@@ -340,21 +316,21 @@
       <div class="about-text">
         <p>I'm a mixed-methods UX researcher with an M.A. in Psychology from Hunter College, CUNY (GPA 3.96) and a first-class B.Sc. from the University of the West Indies. My training is in social and quantitative psychology — which means I know how to form a precise research question, design an instrument to answer it, and analyze the results rigorously.</p>
         <p>My thesis was a 538-person survey study using regression and mediation analysis in SPSS to examine how psychological traits shape fear of crime across ethnic groups in Trinidad and Tobago. The most important finding wasn't the one I expected — and that's what makes it interesting.</p>
-        <p>I'm drawn to UX research because it applies the same toolkit — study design, behavioral data, mixed methods — to questions that directly shape what people experience. I'm particularly interested in how people engage with digital products, what drives their decisions, and how research can move organizations to act differently.</p>
+        <p>I'm drawn to UX research because it applies the same toolkit — study design, behavioral data, mixed methods — to questions that directly shape what people experience. With AlerTT, I took that all the way: from a discovery study to a live, shipped app built on the findings.</p>
         <p>Outside of research, I'm deeply embedded in gaming and digital media culture — which informs how I think about user behavior, community dynamics, and engagement at companies building products people genuinely love.</p>
       </div>
       <div class="toolkit">
         <div class="toolkit-item">
           <div class="toolkit-label">Quantitative methods</div>
-          <div class="toolkit-skills">Regression analysis · Mediation analysis · Survey design & validation · SPSS · PROCESS macro · Cronbach's alpha · Bootstrapping · Pearson correlation</div>
+          <div class="toolkit-skills">Regression analysis · Mediation analysis · Multilevel modeling (lme4) · Survey design &amp; validation · SPSS · PROCESS macro · Bootstrapping</div>
         </div>
         <div class="toolkit-item">
-          <div class="toolkit-label">Qualitative & mixed methods</div>
+          <div class="toolkit-label">Qualitative &amp; mixed methods</div>
           <div class="toolkit-skills">Behavioral observation · Thematic coding · Content analysis · Stakeholder readouts · Mixed-methods study design</div>
         </div>
         <div class="toolkit-item">
-          <div class="toolkit-label">UXR methods</div>
-          <div class="toolkit-skills">Usability research · Behavioral data analysis · Audience research · Data storytelling · Research synthesis</div>
+          <div class="toolkit-label">UXR &amp; build</div>
+          <div class="toolkit-skills">Usability research · Behavioral data analysis · Experience sampling (ESM) · Data storytelling · Research synthesis · React / React Native</div>
         </div>
         <div class="toolkit-item">
           <div class="toolkit-label">Education</div>
