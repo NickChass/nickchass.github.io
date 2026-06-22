@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AlerTT — UX Discovery Research · Nicholai Chasseau</title>
+<title>AlerTT — Discovery Research to a Shipped App · Nicholai Chasseau</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -40,6 +40,12 @@
   .cs-meta-val { font-size: 14px; color: var(--text-secondary); }
   .cs-tags { display: flex; flex-wrap: wrap; gap: 8px; }
   .cs-tag { font-size: 12px; padding: 4px 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 99px; color: var(--text-secondary); }
+  .live-banner { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; background: var(--accent-light); border: 1px solid #C9E7E0; border-radius: 12px; padding: 1.1rem 1.4rem; margin-bottom: 2rem; }
+  .live-dot { width: 9px; height: 9px; border-radius: 50%; background: #18A085; box-shadow: 0 0 0 4px rgba(24,160,133,0.18); flex-shrink: 0; }
+  .live-text { font-size: 14px; color: var(--accent); line-height: 1.5; flex: 1; min-width: 220px; }
+  .live-text strong { font-weight: 600; }
+  .btn-live { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #fff; font-size: 13px; font-weight: 500; padding: 10px 18px; border-radius: 6px; text-decoration: none; transition: background 0.2s; white-space: nowrap; }
+  .btn-live:hover { background: #0a5549; }
 
   .cs-body { max-width: 820px; margin: 0 auto; padding: 60px 2rem; }
   .cs-section { margin-bottom: 56px; }
@@ -107,6 +113,9 @@
   .demo-item { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-secondary); padding: 3px 0; }
   .demo-count { font-family: var(--mono); color: var(--text-primary); font-weight: 500; }
 
+  .stack-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 1.25rem 0 0.5rem; }
+  .stack-tag { font-size: 12px; padding: 5px 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 99px; color: var(--text-secondary); }
+
   @media (max-width: 600px) {
     .stats-row { grid-template-columns: 1fr 1fr; }
     .quote-grid { grid-template-columns: 1fr; }
@@ -129,28 +138,38 @@
 <div class="cs-header">
   <div class="cs-header-inner">
     <div class="cs-eyebrow">
-      Case study 02
+      Case study 03
       <span class="cs-eyebrow-divider"></span>
-      UX Discovery Research · Trinidad & Tobago · 2026
+      Discovery Research → Shipped Product · Trinidad &amp; Tobago · 2026
     </div>
     <h1 class="cs-title">AlerTT — Crime Awareness App</h1>
-    <p class="cs-subtitle">Discovery research to understand how Trinidadians navigate crime information and what they'd need from a real-time safety app</p>
+    <p class="cs-subtitle">From a discovery study on how Trinidadians navigate crime information to a live, working safety app built directly on the findings</p>
+
+    <div class="live-banner">
+      <span class="live-dot"></span>
+      <span class="live-text"><strong>The app is live.</strong> Every feature traces back to a finding from the n=83 study — and you can use it right now in the browser.</span>
+      <a class="btn-live" href="https://alertt-tt.netlify.app/" target="_blank" rel="noopener">
+        Open the live app
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
     <div class="cs-meta-row">
       <div class="cs-meta-item">
         <div class="cs-meta-label">Sample</div>
-        <div class="cs-meta-val">76 adults · Trinidad & Tobago</div>
+        <div class="cs-meta-val">83 adults · Trinidad &amp; Tobago</div>
       </div>
       <div class="cs-meta-item">
         <div class="cs-meta-label">Methods</div>
         <div class="cs-meta-val">Survey · Thematic analysis</div>
       </div>
       <div class="cs-meta-item">
-        <div class="cs-meta-label">Timeline</div>
-        <div class="cs-meta-val">June 2026</div>
+        <div class="cs-meta-label">Outcome</div>
+        <div class="cs-meta-val">Live web app (Expo / React Native + Supabase)</div>
       </div>
       <div class="cs-meta-item">
         <div class="cs-meta-label">Role</div>
-        <div class="cs-meta-val">Sole researcher</div>
+        <div class="cs-meta-val">Sole researcher &amp; builder</div>
       </div>
     </div>
     <div class="cs-tags">
@@ -158,8 +177,8 @@
       <span class="cs-tag">Survey design</span>
       <span class="cs-tag">Thematic analysis</span>
       <span class="cs-tag">Product framing</span>
-      <span class="cs-tag">Behavioral data</span>
-      <span class="cs-tag">Original study</span>
+      <span class="cs-tag">Research → build</span>
+      <span class="cs-tag">Shipped app</span>
     </div>
   </div>
 </div>
@@ -172,13 +191,13 @@
       <span class="section-num">01</span>
       <div class="section-line"></div>
     </div>
-    <h2 class="section-heading">Context & research question</h2>
+    <h2 class="section-heading">Context &amp; research question</h2>
     <p class="body-text">Trinidad and Tobago has experienced a significant spike in violent crime in recent years — yet no localized, real-time crime awareness tool exists for residents. In the US, apps like Citizen have changed how people navigate safety in their cities. Nothing comparable exists for Trinidad.</p>
-    <p class="body-text">AlerTT is a concept for a real-time crime awareness app built specifically for the Trinidadian context. Before any product decisions could be made, a discovery research study was needed to understand the actual problem space — how people currently access crime information, how that gap affects their behavior, and what they'd need from an app to actually trust and use it.</p>
+    <p class="body-text">AlerTT is a real-time crime awareness app built specifically for the Trinidadian context. Before any product decisions could be made, a discovery research study was needed to understand the actual problem space — how people currently access crime information, how that gap affects their behavior, and what they'd need from an app to actually trust and use it.</p>
     <div class="callout">
       <p>Primary research questions: How do Trinidadians currently navigate crime awareness? How does the information gap affect daily behavior? What would make a real-time safety app trustworthy and usable in this specific cultural context?</p>
     </div>
-    <p class="body-text">Critically, this study was designed to surface not just feature preferences, but the psychological and behavioral reality of living with crime anxiety in Trinidad — grounding product decisions in real user experience rather than assumption.</p>
+    <p class="body-text">Critically, this study was designed to surface not just feature preferences, but the psychological and behavioral reality of living with crime anxiety in Trinidad — grounding product decisions in real user experience rather than assumption. The research didn't end at a slide deck: its findings became the specification for a working app, now live.</p>
   </div>
 
   <!-- 02 APPROACH -->
@@ -192,8 +211,8 @@
 
     <div class="stats-row">
       <div class="stat-box">
-        <span class="stat-num">42</span>
-        <div class="stat-label">Adults across Trinidad & Tobago</div>
+        <span class="stat-num">83</span>
+        <div class="stat-label">Adults across Trinidad &amp; Tobago</div>
       </div>
       <div class="stat-box">
         <span class="stat-num">6</span>
@@ -204,7 +223,7 @@
         <div class="stat-label">Questions across 5 thematic sections</div>
       </div>
       <div class="stat-box">
-        <span class="stat-num">8.14</span>
+        <span class="stat-num">7.94</span>
         <div class="stat-label">Mean likelihood to use AlerTT (out of 10)</div>
       </div>
     </div>
@@ -212,26 +231,26 @@
     <div class="demo-grid">
       <div class="demo-card">
         <div class="demo-label">Age range</div>
-        <div class="demo-item"><span>18–24</span><span class="demo-count">1</span></div>
-        <div class="demo-item"><span>25–34</span><span class="demo-count">18</span></div>
-        <div class="demo-item"><span>35–44</span><span class="demo-count">4</span></div>
-        <div class="demo-item"><span>45–54</span><span class="demo-count">6</span></div>
-        <div class="demo-item"><span>55–64</span><span class="demo-count">10</span></div>
-        <div class="demo-item"><span>65+</span><span class="demo-count">3</span></div>
+        <div class="demo-item"><span>18–24</span><span class="demo-count">4</span></div>
+        <div class="demo-item"><span>25–34</span><span class="demo-count">26</span></div>
+        <div class="demo-item"><span>35–44</span><span class="demo-count">11</span></div>
+        <div class="demo-item"><span>45–54</span><span class="demo-count">10</span></div>
+        <div class="demo-item"><span>55–64</span><span class="demo-count">25</span></div>
+        <div class="demo-item"><span>65+</span><span class="demo-count">7</span></div>
       </div>
       <div class="demo-card">
         <div class="demo-label">Region</div>
-        <div class="demo-item"><span>North</span><span class="demo-count">8</span></div>
-        <div class="demo-item"><span>East</span><span class="demo-count">10</span></div>
-        <div class="demo-item"><span>West</span><span class="demo-count">10</span></div>
-        <div class="demo-item"><span>Central</span><span class="demo-count">3</span></div>
-        <div class="demo-item"><span>South</span><span class="demo-count">2</span></div>
-        <div class="demo-item"><span>Tobago</span><span class="demo-count">3</span></div>
+        <div class="demo-item"><span>East</span><span class="demo-count">24</span></div>
+        <div class="demo-item"><span>West</span><span class="demo-count">17</span></div>
+        <div class="demo-item"><span>North</span><span class="demo-count">13</span></div>
+        <div class="demo-item"><span>Multiple areas</span><span class="demo-count">11</span></div>
+        <div class="demo-item"><span>Tobago</span><span class="demo-count">8</span></div>
+        <div class="demo-item"><span>Central / South</span><span class="demo-count">8</span></div>
       </div>
       <div class="demo-card">
         <div class="demo-label">Gender</div>
-        <div class="demo-item"><span>Man</span><span class="demo-count">31</span></div>
-        <div class="demo-item"><span>Woman</span><span class="demo-count">11</span></div>
+        <div class="demo-item"><span>Man</span><span class="demo-count">54</span></div>
+        <div class="demo-item"><span>Woman</span><span class="demo-count">29</span></div>
       </div>
     </div>
   </div>
@@ -258,29 +277,29 @@
     <div class="finding">
       <div class="finding-label">Finding 01</div>
       <h3 class="finding-title">The information gap is real, felt, and consequential</h3>
-      <p class="finding-body">Only 2 of 42 respondents typically find out about crime incidents near them within minutes. The majority hear the same day (17) or the next day or later (11). Three respondents rarely find out at all. The dominant channels — Facebook/Instagram (13), word of mouth (8), WhatsApp groups (7) — are slow, unverified, and fragmented. Mean satisfaction with current crime information access was just 4.67 out of 10.</p>
+      <p class="finding-body">Only 7 of 83 respondents typically find out about crime incidents near them within minutes. The majority hear the same day (23) or the next day or later (26), and 3 rarely find out at all. The dominant channels — social media, word of mouth, and WhatsApp groups — are slow, unverified, and fragmented. Mean satisfaction with current crime information access was just 4.89 out of 10.</p>
 
       <div class="chart-block" style="margin-top: 1.25rem;">
         <div class="chart-title">How quickly respondents find out about nearby crime</div>
         <div class="bar-row">
-          <div class="bar-info"><span>The same day</span><span class="bar-val">17 respondents</span></div>
-          <div class="bar-track"><div class="bar-fill" style="width:81%"></div></div>
+          <div class="bar-info"><span>The next day or later</span><span class="bar-val">26 respondents</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:100%"></div></div>
         </div>
         <div class="bar-row">
-          <div class="bar-info"><span>The next day or later</span><span class="bar-val">11 respondents</span></div>
-          <div class="bar-track"><div class="bar-fill mid" style="width:52%"></div></div>
+          <div class="bar-info"><span>The same day</span><span class="bar-val">23 respondents</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:88%"></div></div>
         </div>
         <div class="bar-row">
-          <div class="bar-info"><span>Within a few hours</span><span class="bar-val">9 respondents</span></div>
-          <div class="bar-track"><div class="bar-fill mid" style="width:43%"></div></div>
+          <div class="bar-info"><span>Within a few hours</span><span class="bar-val">23 respondents</span></div>
+          <div class="bar-track"><div class="bar-fill mid" style="width:88%"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-info"><span>Within minutes</span><span class="bar-val">7 respondents</span></div>
+          <div class="bar-track"><div class="bar-fill low" style="width:27%"></div></div>
         </div>
         <div class="bar-row">
           <div class="bar-info"><span>I rarely find out at all</span><span class="bar-val">3 respondents</span></div>
-          <div class="bar-track"><div class="bar-fill low" style="width:14%"></div></div>
-        </div>
-        <div class="bar-row">
-          <div class="bar-info"><span>Within minutes</span><span class="bar-val">2 respondents</span></div>
-          <div class="bar-track"><div class="bar-fill low" style="width:10%"></div></div>
+          <div class="bar-track"><div class="bar-fill low" style="width:12%"></div></div>
         </div>
       </div>
     </div>
@@ -288,25 +307,25 @@
     <div class="finding">
       <div class="finding-label">Finding 02</div>
       <h3 class="finding-title">Crime fear is actively constraining how people live</h3>
-      <p class="finding-body">This was the most striking behavioral finding. Crime concern affects daily decisions — routes taken, places visited, travel times — at a mean score of 6.19 out of 10. More concretely: 73% of respondents have avoided a place or activity due to fear of crime in the past 6 months, with 43% having done so multiple times. Only 3 respondents (7%) said they had never avoided anything. Crime anxiety isn't abstract — it's shaping real behavior across the country.</p>
+      <p class="finding-body">This was the most striking behavioral finding. Crime concern affects daily decisions — routes taken, places visited, travel times — at a mean score of 6.07 out of 10. More concretely: two-thirds of respondents (56 of 83, or 67%) have avoided a place or activity due to fear of crime in the past 6 months, with 31% having done so multiple times. Only 5 respondents (6%) said they had never avoided anything. Crime anxiety isn't abstract — it's shaping real behavior across the country.</p>
 
       <div class="chart-block" style="margin-top: 1.25rem;">
         <div class="chart-title">Has fear of crime caused you to avoid a place or activity in the past 6 months?</div>
         <div class="bar-row">
-          <div class="bar-info"><span>Yes, multiple times</span><span class="bar-val">18 (43%)</span></div>
-          <div class="bar-track"><div class="bar-fill" style="width:86%"></div></div>
+          <div class="bar-info"><span>Yes, once or twice</span><span class="bar-val">30 (36%)</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:100%"></div></div>
         </div>
         <div class="bar-row">
-          <div class="bar-info"><span>Yes, once or twice</span><span class="bar-val">13 (31%)</span></div>
-          <div class="bar-track"><div class="bar-fill mid" style="width:62%"></div></div>
+          <div class="bar-info"><span>Yes, multiple times</span><span class="bar-val">26 (31%)</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:87%"></div></div>
         </div>
         <div class="bar-row">
-          <div class="bar-info"><span>No, but I've considered it</span><span class="bar-val">8 (19%)</span></div>
-          <div class="bar-track"><div class="bar-fill low" style="width:38%"></div></div>
+          <div class="bar-info"><span>No, but I've considered it</span><span class="bar-val">21 (25%)</span></div>
+          <div class="bar-track"><div class="bar-fill mid" style="width:70%"></div></div>
         </div>
         <div class="bar-row">
-          <div class="bar-info"><span>No, never</span><span class="bar-val">3 (7%)</span></div>
-          <div class="bar-track"><div class="bar-fill low" style="width:14%"></div></div>
+          <div class="bar-info"><span>No, never</span><span class="bar-val">5 (6%)</span></div>
+          <div class="bar-track"><div class="bar-fill low" style="width:17%"></div></div>
         </div>
       </div>
     </div>
@@ -314,33 +333,33 @@
     <div class="finding">
       <div class="finding-label">Finding 03</div>
       <h3 class="finding-title">Demand for AlerTT is exceptionally strong</h3>
-      <p class="finding-body">Mean likelihood to use AlerTT if it existed: 8.14 out of 10. For a concept product with no existing market presence, this is a strong signal. The most wanted alert types were shooting/gun violence (34 of 42), robbery/theft (30), gang-related activity (30), and kidnapping (26) — all violent crime categories, not property crime. This has direct implications for alert prioritization in the product design.</p>
+      <p class="finding-body">Mean likelihood to use AlerTT if it existed: 7.94 out of 10 (median 9). For a concept product with no existing market presence, this is a strong signal. The most-wanted alert types were shooting / gun violence (66 of 83), robbery / theft (62), gang-related activity (57), and police activity / roadblocks (49). The top three are all violent-crime categories — a clear steer for how alerts should be prioritized in the product.</p>
 
       <div class="chart-block" style="margin-top: 1.25rem;">
-        <div class="chart-title">Most wanted alert types (of 42 respondents)</div>
+        <div class="chart-title">Most-wanted alert types (of 83 respondents)</div>
         <div class="bar-row">
-          <div class="bar-info"><span>Shooting / gun violence</span><span class="bar-val">34</span></div>
+          <div class="bar-info"><span>Shooting / gun violence</span><span class="bar-val">66</span></div>
           <div class="bar-track"><div class="bar-fill" style="width:100%"></div></div>
         </div>
         <div class="bar-row">
-          <div class="bar-info"><span>Robbery / theft</span><span class="bar-val">30</span></div>
-          <div class="bar-track"><div class="bar-fill mid" style="width:88%"></div></div>
+          <div class="bar-info"><span>Robbery / theft</span><span class="bar-val">62</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:94%"></div></div>
         </div>
         <div class="bar-row">
-          <div class="bar-info"><span>Gang-related activity</span><span class="bar-val">30</span></div>
-          <div class="bar-track"><div class="bar-fill mid" style="width:88%"></div></div>
+          <div class="bar-info"><span>Gang-related activity</span><span class="bar-val">57</span></div>
+          <div class="bar-track"><div class="bar-fill mid" style="width:86%"></div></div>
         </div>
         <div class="bar-row">
-          <div class="bar-info"><span>Kidnapping</span><span class="bar-val">26</span></div>
-          <div class="bar-track"><div class="bar-fill mid" style="width:76%"></div></div>
+          <div class="bar-info"><span>Police activity / roadblocks</span><span class="bar-val">49</span></div>
+          <div class="bar-track"><div class="bar-fill mid" style="width:74%"></div></div>
         </div>
         <div class="bar-row">
-          <div class="bar-info"><span>Physical assault</span><span class="bar-val">25</span></div>
-          <div class="bar-track"><div class="bar-fill low" style="width:74%"></div></div>
+          <div class="bar-info"><span>Physical assault</span><span class="bar-val">47</span></div>
+          <div class="bar-track"><div class="bar-fill low" style="width:71%"></div></div>
         </div>
         <div class="bar-row">
-          <div class="bar-info"><span>Police activity / roadblocks</span><span class="bar-val">25</span></div>
-          <div class="bar-track"><div class="bar-fill low" style="width:74%"></div></div>
+          <div class="bar-info"><span>Suspicious activity</span><span class="bar-val">45</span></div>
+          <div class="bar-track"><div class="bar-fill low" style="width:68%"></div></div>
         </div>
       </div>
     </div>
@@ -348,34 +367,34 @@
     <div class="finding">
       <div class="finding-label">Finding 04 · Most important</div>
       <h3 class="finding-title">Trust and verification are the critical design challenge — not features</h3>
-      <p class="finding-body">The open-ended responses told a consistent and nuanced story. Misinformation and fake news was the single most cited concern. But the trust picture is more complex than "people want verified information." Three distinct trust themes emerged from thematic analysis of Q11 and Q13:</p>
+      <p class="finding-body">The open-ended responses told a consistent and nuanced story. Misinformation and fake news was the single most cited concern. But the trust picture is more complex than "people want verified information." Several distinct trust themes emerged from thematic analysis of the open-ended trust and concern questions:</p>
 
       <div class="quote-grid" style="margin-top: 1rem;">
         <div class="quote-card">
           <div class="quote-text">"I'd trust alerts if the events were real and verifiable. I'd distrust if the app was filled with spam/fake reports."</div>
-          <div class="quote-meta">Respondent · 25–34 · East</div>
+          <div class="quote-meta">Respondent · 25–34 · North</div>
         </div>
         <div class="quote-card">
-          <div class="quote-text">"The visibility of users would be a concern — it can be potentially used by criminals to target those who report through the app."</div>
+          <div class="quote-text">"[My distrust would come from] users' ability to view me on the app, as it can be potentially used by criminals to target those who report through the app."</div>
           <div class="quote-meta">Respondent · 25–34 · West</div>
         </div>
         <div class="quote-card">
           <div class="quote-text">"I am very distrusting of Police so I would not want to share my location in situations where it is accessible by police."</div>
-          <div class="quote-meta">Respondent · 35–44 · North</div>
+          <div class="quote-meta">Respondent · 35–44 · West</div>
         </div>
         <div class="quote-card">
-          <div class="quote-text">"Compilation of videos related to a particular incident would be useful. If no video evidence can be provided, I would generally trust the validity of an alert out of an abundance of caution."</div>
-          <div class="quote-meta">Respondent · 25–34 · West</div>
+          <div class="quote-text">"Compilation of videos related to a particular incident would be useful… if no video evidence can be provided, I would generally trust the validity of an alert out of an abundance of caution."</div>
+          <div class="quote-meta">Respondent · 25–34 · North</div>
         </div>
       </div>
 
-      <p class="finding-body" style="margin-top: 1rem;">A significant finding on report handling: 50% of respondents (21 of 42) want both anonymous AND verified options to coexist — not one or the other. This suggests a dual-track verification system rather than a single approach.</p>
+      <p class="finding-body" style="margin-top: 1rem;">A significant finding on report handling: 53% of respondents (44 of 83) want both anonymous AND verified options to coexist — not one or the other. This suggests a dual-track verification system rather than a single approach.</p>
     </div>
 
     <div class="finding">
       <div class="finding-label">Finding 05</div>
       <h3 class="finding-title">Location sharing is conditional — not a dealbreaker</h3>
-      <p class="finding-body">Only 6 of 42 respondents (14%) said they would not share their location at all. The majority are willing under the right conditions: 17 would share only while using the app, 7 are comfortable with always-on, and 9 said it depends on what more information they received. Privacy anxiety is real but addressable through transparent design — not a fundamental barrier to adoption.</p>
+      <p class="finding-body">Only 12 of 83 respondents (14%) said they would not share their location at all. The majority are willing under the right conditions: 29 would share only while using the app, 13 are comfortable with always-on, 9 only in certain areas or times, and 20 said it depends on what more information they received. Privacy anxiety is real but addressable through transparent design — not a fundamental barrier to adoption.</p>
     </div>
   </div>
 
@@ -385,15 +404,15 @@
       <span class="section-num">05</span>
       <div class="section-line"></div>
     </div>
-    <h2 class="section-heading">Impact & recommendations</h2>
-    <p class="body-text">These findings translate directly into five product decisions a team building AlerTT would need to make:</p>
+    <h2 class="section-heading">Impact &amp; recommendations</h2>
+    <p class="body-text">These findings translated directly into five product decisions — and every one of them is now built into the live app:</p>
 
     <ul class="rec-list">
       <li class="rec-item">
         <span class="rec-num">01</span>
         <div class="rec-content">
           <div class="rec-title">Build verification into the core experience — not as an afterthought</div>
-          <div class="rec-body">A dual-track system — clearly labeled unverified community reports alongside confirmed reports — directly addresses the trust barrier. Half of respondents explicitly want both options. Design the information hierarchy around verification status, not recency.</div>
+          <div class="rec-body">A dual-track system — clearly labeled unverified community reports alongside confirmed reports — directly addresses the trust barrier. Over half of respondents explicitly want both options. Design the information hierarchy around verification status, not recency.</div>
         </div>
       </li>
       <li class="rec-item">
@@ -414,14 +433,14 @@
         <span class="rec-num">04</span>
         <div class="rec-content">
           <div class="rec-title">Prioritize violent crime alerts in the alert hierarchy</div>
-          <div class="rec-body">Shooting, robbery, kidnapping, and gang activity are the top four wanted alert types — all violent crime. Property crime ranked lower. The alert priority system should reflect this, ensuring the highest-urgency incidents surface fastest and most prominently.</div>
+          <div class="rec-body">Shooting, robbery, and gang activity are the top three wanted alert types — all violent crime. The alert priority system should reflect this, ensuring the highest-urgency incidents surface fastest and most prominently.</div>
         </div>
       </li>
       <li class="rec-item">
         <span class="rec-num">05</span>
         <div class="rec-content">
           <div class="rec-title">Solve the speed problem first</div>
-          <div class="rec-body">The most urgent user need is timeliness — only 2 of 42 respondents currently hear about incidents within minutes. The app's core value proposition is getting people from same-day awareness to real-time awareness. Every architectural decision should be evaluated against this primary metric.</div>
+          <div class="rec-body">The most urgent user need is timeliness — only 7 of 83 respondents currently hear about incidents within minutes. The app's core value proposition is getting people from same-day awareness to real-time awareness. Every architectural decision should be evaluated against this primary metric.</div>
         </div>
       </li>
     </ul>
@@ -429,48 +448,42 @@
     <div class="impact-card">
       <h3>The broader implication</h3>
       <p>This research demonstrates that the problem AlerTT is solving is not just a product gap — it's a behavioral one. Crime fear is actively constraining how Trinidadians live: where they go, when they travel, what they do. A well-designed awareness tool doesn't just inform people — it restores agency.</p>
-      <p>That framing should guide every product decision: the measure of success is not engagement metrics or daily active users. It's whether people feel more free to move through their country.</p>
+      <p>That framing guided every product decision: the measure of success is not engagement metrics or daily active users. It's whether people feel more free to move through their country.</p>
     </div>
   </div>
 
-  <!-- 06 REFLECTION -->
+  <!-- 06 FROM RESEARCH TO SHIPPED APP -->
   <div class="cs-section">
     <div class="section-marker">
       <span class="section-num">06</span>
       <div class="section-line"></div>
     </div>
-    <h2 class="section-heading">Reflection</h2>
+    <h2 class="section-heading">From research to a shipped app</h2>
+    <p class="body-text">The findings didn't stop at recommendations. They became the specification for a working product — and AlerTT is now a live app you can open and use in the browser. It's built with Expo / React Native (deployed to web) on a Supabase backend, with authentication, a real-time alert feed, a map view, dual-track anonymous and verified reporting, a moderation flow, and privacy-first location defaults. Every one of those features maps back to a specific finding from the n=83 study.</p>
 
-    <div class="reflection-item">
-      <div class="reflection-dot"></div>
-      <p class="reflection-text"><strong>The sample skewed male.</strong> 49 of 76 respondents were men. Given that women often experience crime anxiety differently — and that gender differences in fear of crime are well-documented in the literature — a follow-up study with a more balanced gender sample would likely surface different trust and safety concerns worth designing for.</p>
+    <div class="stack-row">
+      <span class="stack-tag">React Native (Expo)</span>
+      <span class="stack-tag">Supabase</span>
+      <span class="stack-tag">Real-time feed</span>
+      <span class="stack-tag">Map view</span>
+      <span class="stack-tag">Dual-track reporting</span>
+      <span class="stack-tag">Moderation</span>
+      <span class="stack-tag">Push notifications</span>
     </div>
-    <div class="reflection-item">
-      <div class="reflection-dot"></div>
-      <p class="reflection-text"><strong>Qualitative interviews would deepen the trust findings.</strong> The open-ended responses on trust and distrust were the richest data in the study — but a survey format limits how deep you can go. Follow-up interviews with 6–8 respondents representing different trust profiles would generate more actionable design insight, particularly around the anonymity question.</p>
-    </div>
-    <div class="reflection-item">
-      <div class="reflection-dot"></div>
-      <p class="reflection-text"><strong>The police distrust finding deserves its own study.</strong> Multiple respondents raised concerns about law enforcement access to their data — some quite strongly. This is a meaningful design constraint that likely varies by region, age, and personal history. Understanding it more precisely would directly shape governance and privacy architecture decisions.</p>
-    </div>
-    <div class="reflection-item">
-      <div class="reflection-dot"></div>
-      <p class="reflection-text"><strong>Concept testing would be the logical next step.</strong> This study established the problem space and user needs. The next research phase would be concept testing — showing users low-fidelity prototypes of different alert and verification designs to see which trust mechanisms actually land in practice.</p>
-    </div>
-  </div>
 
-  <div class="cs-section">
-    <div class="section-marker">
-      <span class="section-num">07</span>
-      <div class="section-line"></div>
+    <div class="live-banner" style="margin-top: 1.5rem;">
+      <span class="live-dot"></span>
+      <span class="live-text"><strong>Try it yourself.</strong> AlerTT is deployed and running — open it and walk through the feed, reporting flow, and privacy settings.</span>
+      <a class="btn-live" href="https://alertt-tt.netlify.app/" target="_blank" rel="noopener">
+        Open the live app
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
     </div>
-    <h2 class="section-heading">From research to prototype</h2>
-    <p class="body-text">To demonstrate what the research recommendations would look like in practice, a functional prototype was built in React Native using Expo. Every design decision maps directly to a finding from the n=76 study — the alert type priority order, the dual-track verification system, the location-sharing defaults, and the anonymous vs. verified reporting flow.</p>
 
     <div style="margin: 2rem 0; border-radius: 14px; overflow: hidden; border: 1px solid var(--border); background: #000; position: relative; padding-top: 56.25%;">
       <iframe
         src="https://www.youtube.com/embed/HvOBORb8pgs"
-        title="AlerTT prototype demo"
+        title="AlerTT demo"
         frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen
@@ -494,6 +507,32 @@
         <div class="demo-item"><span>Privacy concerns</span><span class="demo-count">→</span></div>
         <div class="demo-item" style="color: var(--text-primary); font-size: 12px; padding-top: 4px;">Location sharing off by default, opt-in</div>
       </div>
+    </div>
+  </div>
+
+  <!-- 07 REFLECTION -->
+  <div class="cs-section">
+    <div class="section-marker">
+      <span class="section-num">07</span>
+      <div class="section-line"></div>
+    </div>
+    <h2 class="section-heading">Reflection</h2>
+
+    <div class="reflection-item">
+      <div class="reflection-dot"></div>
+      <p class="reflection-text"><strong>The sample skewed male.</strong> 54 of 83 respondents were men. Given that women often experience crime anxiety differently — and that gender differences in fear of crime are well-documented in the literature — a follow-up study with a more balanced gender sample would likely surface different trust and safety concerns worth designing for.</p>
+    </div>
+    <div class="reflection-item">
+      <div class="reflection-dot"></div>
+      <p class="reflection-text"><strong>Qualitative interviews would deepen the trust findings.</strong> The open-ended responses on trust and distrust were the richest data in the study — but a survey format limits how deep you can go. Follow-up interviews with 6–8 respondents representing different trust profiles would generate more actionable design insight, particularly around the anonymity question.</p>
+    </div>
+    <div class="reflection-item">
+      <div class="reflection-dot"></div>
+      <p class="reflection-text"><strong>The police distrust finding deserves its own study.</strong> Multiple respondents raised concerns about law enforcement access to their data — some quite strongly. This is a meaningful design constraint that likely varies by region, age, and personal history. Understanding it more precisely would directly shape governance and privacy architecture decisions.</p>
+    </div>
+    <div class="reflection-item">
+      <div class="reflection-dot"></div>
+      <p class="reflection-text"><strong>The live app makes usability testing the natural next step.</strong> Now that the recommendations are a working product, the next research phase writes itself: moderated usability sessions on the real app to see which trust and verification mechanisms actually land in practice — closing the loop from discovery back into evaluation.</p>
     </div>
   </div>
 
