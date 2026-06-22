@@ -181,8 +181,8 @@
 
     <div class="cs-actions">
       <a class="btn-primary" href="https://osf.io/7ugtn/" target="_blank" rel="noopener">View OSF pre-registration →</a>
-      <a class="btn-secondary" href="#" target="_blank" rel="noopener">View interactive prototype</a>
-      <a class="btn-secondary" href="https://github.com/nickchass" target="_blank" rel="noopener">Analysis pipeline (R)</a>
+      <a class="btn-secondary" href="https://osf.io/7ugtn/" target="_blank" rel="noopener">Analysis pipeline &amp; sim data (R, on OSF) →</a>
+      <span class="btn-secondary" style="opacity:0.5;cursor:default;" aria-disabled="true" title="Interactive prototype is being rebuilt">Interactive prototype — rebuild in progress</span>
     </div>
   </div>
 </header>
@@ -197,15 +197,16 @@
   <!-- 01 -->
   <section class="cs-section">
     <div class="section-marker"><span class="section-num">01</span><span class="section-line"></span></div>
-    <h2 class="section-heading">The wrong number</h2>
-    <p class="body-text">Digital-wellbeing tools almost all put one number in front of you: hours and minutes of use. I started from a measurement problem with that number.</p>
+    <h2 class="section-heading">The variable nobody measures</h2>
+    <p class="body-text">Every digital-wellbeing tool puts the same number in front of you: hours and minutes. But the thing that actually shapes how an interaction lands isn't its length — it's two appraisals the minutes can't see. Was the session <em>chosen</em>, or did you drift into it? And did it leave you <em>depleted</em> or <em>restored</em>?</p>
+    <p class="body-text">Those two questions have a deep literature behind them. <strong>Self-determination theory</strong> draws a sharp line between behavior that is autonomously chosen and behavior that is controlled or drifted into, and ties that difference directly to wellbeing (Ryan &amp; Deci, 2000). The felt cost or return of an activity — its drain or its aliveness — is itself a validated index of wellbeing, what Ryan and Frederick (1997) called <strong>subjective vitality</strong>. And the meaning-and-flow tradition, from Csikszentmihalyi (1990) onward, shows that the same absorbed, time-vanishing state can be growth or avoidance depending on the motive underneath it (Stenseng, Rise, &amp; Kraft, 2012). Minutes are blind to all of it.</p>
     <p class="body-text">It is <strong>poorly measured</strong> — a 2021 meta-analysis (Parry et al., <em>Nature Human Behaviour</em>) found self-reported phone use correlates only modestly with logged use, and the gap is worst exactly for the "problematic" use these apps care about. And even measured well, it <strong>barely predicts anything</strong>: Orben &amp; Przybylski (2019), across 350,000+ people, found technology use explains on the order of 0.4% of variance in wellbeing.</p>
     <div class="stats-row">
       <div class="stat-box"><span class="stat-num">0.4%</span><div class="stat-label">of wellbeing variance explained by screen time (Orben &amp; Przybylski, 2019)</div></div>
       <div class="stat-box"><span class="stat-num">350k+</span><div class="stat-label">people across the datasets behind that estimate</div></div>
       <div class="stat-box"><span class="stat-num">≠</span><div class="stat-label">self-reported use vs. device logs rarely match (Parry et al., 2021)</div></div>
     </div>
-    <div class="callout"><p>The field is built on a metric that is both noisy and nearly non-predictive — while the variable that should matter, how a person <em>appraises</em> their own use, sits almost entirely unmeasured.</p></div>
+    <div class="callout"><p>The field is built on a metric that is both noisy and nearly non-predictive — while the variable that should matter, how a person <em>appraises</em> their own use, sits almost entirely unmeasured. Driftline measures that variable. The screen-time critique isn't the project; it's the reason the project is necessary.</p></div>
     <p class="body-text">This continues a thread that runs through my research: subjective appraisal tends to predict psychological outcomes more strongly than objective behavioral measures — the same structure as fear-of-crime research, where perceived risk predicts fear far better than actual victimization risk. Driftline applies that lens to digital life.</p>
   </section>
 
@@ -213,7 +214,7 @@
   <section class="cs-section">
     <div class="section-marker"><span class="section-num">02</span><span class="section-line"></span></div>
     <h2 class="section-heading">Why the existing apps fall short</h2>
-    <p class="body-text">I ran a competitive analysis of the intentionality-app category (One Sec, ClearSpace, Opal, ScreenZen, Intently, and others). Two patterns repeat: they <strong>measure quantity</strong> (the noisy, non-predictive number), and they <strong>hand the work back to the user</strong> through timers, blocks, and willpower — treating the problem as a discipline failure rather than a product engineered to capture attention.</p>
+    <p class="body-text">I ran a competitive analysis of the intentionality-app category (One Sec, ClearSpace, Opal, ScreenZen, Intently, and others). Two patterns repeat: they <strong>measure quantity</strong> (the noisy, non-predictive number), and they <strong>hand the work back to the user</strong> through timers, blocks, and willpower — treating the problem as a discipline failure rather than a product engineered to capture attention. What none of them do is ask the two questions that carry the signal: was this use <em>chosen</em>, and what did it <em>do to you</em>? Appraisal — the motivational quality of a session and its felt effect — is never captured, never tracked over time, never turned into data.</p>
     <p class="body-text">Importantly, the "pause before you open the app" mechanic is already well-established and even has a published study behind it, so I deliberately did <strong>not</strong> claim that as a contribution. The real gap is narrower: no app in the category treats appraisal as <em>longitudinal data</em>, pairs an intentionality read with an <em>affect</em> read, or closes the loop into a measurable research instrument.</p>
   </section>
 
@@ -226,27 +227,28 @@
       <div class="axis-card">
         <div class="axis-name">Intentionality</div>
         <div class="axis-poles">drifted in ↔ chose it</div>
-        <div class="axis-desc">Did you mean to be there, or did the session just happen to you?</div>
+        <div class="axis-desc">Did you mean to be there, or did the session just happen to you? This axis operationalizes self-determination theory's distinction between autonomous and controlled engagement (Ryan &amp; Deci, 2000).</div>
       </div>
       <div class="axis-card">
         <div class="axis-name">Affect</div>
         <div class="axis-poles">depleted ↔ restored</div>
-        <div class="axis-desc">A continuous slider, not a moral verdict — so the instrument doesn't manufacture the dichotomy it measures.</div>
+        <div class="axis-desc">A continuous slider, not a moral verdict — so the instrument doesn't manufacture the dichotomy it measures. It reads the session's felt cost or return, the everyday face of what Ryan and Frederick (1997) called subjective vitality.</div>
       </div>
     </div>
+    <p class="body-text">Read together, the two axes form a map, and its diagonal is the distinction that matters most. A session you chose and came away restored is absorption that grows you; one you drifted into and came away drained is absorption that helps you avoid something — what Stenseng and colleagues (2012) call <strong>self-expansion versus self-suppression</strong>. The instrument doesn't measure "meaning" as a separate item; meaning is what this diagonal reveals.</p>
     <p class="body-text">Second, the <strong>mirror</strong> — instead of reporting volume, it reflects the <em>shape</em> of your sessions back to you. Each session is a point in a 2×2 field, and two perceptual encodings carry the meaning without a legend: <strong>warmth = affect</strong> (restored sessions glow warm, depleting ones go cold) and <strong>blur = drift</strong> (sessions you drifted into render literally out of focus; chosen ones are sharp).</p>
-    <div class="callout"><p>In the working prototype, the headline insight runs counter to the usual story: the most depleting sessions aren't mindless scrolling but <em>intentional</em> late-night work — and some "drift" is genuinely restorative. A minutes-based tool can never surface that, because minutes don't know how a session felt or whether it was chosen.</p></div>
-    <p class="body-text">The design intent is that the measurement itself is the intervention — a brief, non-judgmental moment of noticing — while the reflection surfaces something non-obvious. A functional interactive prototype of this loop is built (React); the production target is React Native / Expo.</p>
+    <div class="callout"><p>What the mirror is built to surface is a pattern a minutes dashboard structurally cannot: that a late-night work session someone <em>chose</em> can still be the most depleting moment of their day, while a stretch of "drift" can leave them restored. Whether that pattern actually holds is an empirical question the pre-registered study is designed to answer — minutes can't speak to it either way, because they don't know whether a session was chosen or how it felt.</p></div>
+    <p class="body-text">The design intent is that the measurement itself is the intervention — a brief, non-judgmental moment of noticing, in the spirit of need-supportive "positive computing" design (Calvo &amp; Peters, 2014) — while the reflection surfaces something non-obvious. A functional interactive prototype of this loop is built (React); the production target is React Native / Expo.</p>
   </section>
 
   <!-- 04 -->
   <section class="cs-section">
     <div class="section-marker"><span class="section-num">04</span><span class="section-line"></span></div>
     <h2 class="section-heading">The research design</h2>
-    <p class="body-text">The concept is only worth building if the underlying hypothesis holds, so I designed a study to test it rather than asserting it: a <strong>within-person experience-sampling study</strong> — signal-contingent prompts ~4×/day for 14 days, with baseline and exit measures. Because each participant is their own control across pings, every stable confounder (personality, baseline wellbeing, chronic use level) is automatically held constant.</p>
+    <p class="body-text">The concept is only worth building if the underlying hypothesis holds, so I designed a study to test it rather than asserting it: a <strong>within-person experience-sampling study</strong> that measures these appraisals in the flow of daily life, where they actually occur — signal-contingent prompts ~4×/day for 14 days, with baseline and exit measures. Because each participant is their own control across pings, every stable confounder (personality, baseline wellbeing, chronic use level) is automatically held constant.</p>
     <p class="body-text">I then wrote a full <strong>pre-registration</strong> using the field-standard ESM template (Kirtley et al., 2021), which locks the decisions most vulnerable to after-the-fact flexibility:</p>
     <ul class="rec-list">
-      <li class="rec-item"><span class="rec-num">01</span><div class="rec-content"><div class="rec-title">A single primary hypothesis</div><div class="rec-body">Within-person appraisal → wellbeing; secondary hypotheses Holm-corrected, exploratory ones labeled — so no result can be retrofitted into a headline.</div></div></li>
+      <li class="rec-item"><span class="rec-num">01</span><div class="rec-content"><div class="rec-title">A single primary hypothesis</div><div class="rec-body">Within-person appraisal <em>quality</em> → wellbeing; secondary hypotheses Holm-corrected, exploratory ones labeled — so no result can be retrofitted into a headline.</div></div></li>
       <li class="rec-item"><span class="rec-num">02</span><div class="rec-content"><div class="rec-title">Person-mean-centering, fixed in advance</div><div class="rec-body">Separates within-person effects (causal-relevant) from between-person effects (confound-prone) — the move that makes the analysis credible.</div></div></li>
       <li class="rec-item"><span class="rec-num">03</span><div class="rec-content"><div class="rec-title">Locked exclusion rules &amp; a stopping rule</div><div class="rec-body">Inclusion thresholds and a fixed sample/stopping rule set before any data exist; no optional stopping.</div></div></li>
       <li class="rec-item"><span class="rec-num">04</span><div class="rec-content"><div class="rec-title">Multilevel mediation</div><div class="rec-body">A 1-1-1 model of use → appraisal → wellbeing — the repeated-measures evolution of the mediation analysis from my master's thesis.</div></div></li>
@@ -305,7 +307,7 @@
   <section class="cs-section">
     <div class="section-marker"><span class="section-num">06</span><span class="section-line"></span></div>
     <h2 class="section-heading">What this demonstrates</h2>
-    <div class="reflection-item"><div class="reflection-dot"></div><div class="reflection-text"><strong>Research-to-product reasoning</strong> — originating a design from a measurement insight in the literature, not redesigning an existing screen.</div></div>
+    <div class="reflection-item"><div class="reflection-dot"></div><div class="reflection-text"><strong>Research-to-product reasoning</strong> — originating a design from a motivation-and-meaning insight in the literature, not redesigning an existing screen.</div></div>
     <div class="reflection-item"><div class="reflection-dot"></div><div class="reflection-text"><strong>Methodological rigor</strong> — intensive-longitudinal design, pre-registration, multilevel modeling, mediation, simulation-based power, and causal reasoning about within- vs. between-person effects.</div></div>
     <div class="reflection-item"><div class="reflection-dot"></div><div class="reflection-text"><strong>Honest scoping</strong> — a pressure-tested concept that names its own competitors and limitations rather than overclaiming.</div></div>
     <div class="reflection-item"><div class="reflection-dot"></div><div class="reflection-text"><strong>End-to-end range</strong> — literature synthesis → interaction design → working prototype → reproducible statistical pipeline.</div></div>
@@ -338,6 +340,22 @@
     <div class="section-marker"><span class="section-num">—</span><span class="section-line"></span></div>
     <h2 class="section-heading">Reflection</h2>
     <p class="body-text">Designing the study taught me more than running a quick survey would have. Forcing myself to separate appraisal from outcome, to pre-register a single primary hypothesis, and to validate the analysis on simulated data before touching real participants is a discipline I'll carry into applied research work — it's the difference between a finding you can defend and one you merely hope for.</p>
+  </section>
+
+  <!-- REFERENCES -->
+  <section class="cs-section">
+    <div class="section-marker"><span class="section-num">—</span><span class="section-line"></span></div>
+    <h2 class="section-heading">References</h2>
+    <div class="refs" style="display:flex;flex-direction:column;gap:0.65rem;font-size:0.82rem;line-height:1.55;">
+      <p style="margin:0;padding-left:1.6em;text-indent:-1.6em;">Calvo, R. A., &amp; Peters, D. (2014). <em>Positive computing: Technology for wellbeing and human potential.</em> MIT Press.</p>
+      <p style="margin:0;padding-left:1.6em;text-indent:-1.6em;">Csikszentmihalyi, M. (1990). <em>Flow: The psychology of optimal experience.</em> Harper &amp; Row.</p>
+      <p style="margin:0;padding-left:1.6em;text-indent:-1.6em;">Kirtley, O. J., Lafit, G., Achterhof, R., Hiekkaranta, A. P., &amp; Myin-Germeys, I. (2021). Making the black box transparent: A template and tutorial for registration of studies using experience-sampling methods. <em>Advances in Methods and Practices in Psychological Science, 4</em>(1). https://doi.org/10.1177/2515245920924686</p>
+      <p style="margin:0;padding-left:1.6em;text-indent:-1.6em;">Orben, A., &amp; Przybylski, A. K. (2019). The association between adolescent well-being and digital technology use. <em>Nature Human Behaviour, 3</em>(2), 173–182. https://doi.org/10.1038/s41562-018-0506-1</p>
+      <p style="margin:0;padding-left:1.6em;text-indent:-1.6em;">Parry, D. A., Davidson, B. I., Sewall, C. J. R., Fisher, J. T., Mieczkowski, H., &amp; Quintana, D. S. (2021). A systematic review and meta-analysis of discrepancies between logged and self-reported digital media use. <em>Nature Human Behaviour, 5</em>(11), 1535–1547. https://doi.org/10.1038/s41562-021-01117-5</p>
+      <p style="margin:0;padding-left:1.6em;text-indent:-1.6em;">Ryan, R. M., &amp; Deci, E. L. (2000). Self-determination theory and the facilitation of intrinsic motivation, social development, and well-being. <em>American Psychologist, 55</em>(1), 68–78. https://doi.org/10.1037/0003-066X.55.1.68</p>
+      <p style="margin:0;padding-left:1.6em;text-indent:-1.6em;">Ryan, R. M., &amp; Frederick, C. (1997). On energy, personality, and health: Subjective vitality as a dynamic reflection of well-being. <em>Journal of Personality, 65</em>(3), 529–565. https://doi.org/10.1111/j.1467-6494.1997.tb00326.x</p>
+      <p style="margin:0;padding-left:1.6em;text-indent:-1.6em;">Stenseng, F., Rise, J., &amp; Kraft, P. (2012). Activity engagement as escape from self: The role of self-suppression and self-expansion. <em>Leisure Sciences, 34</em>(1), 19–38. https://doi.org/10.1080/01490400.2012.633849</p>
+    </div>
   </section>
 
 </main>
