@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-A static personal portfolio site for Nicholai Chasseau (UX Researcher). No build system, no dependencies, no JavaScript frameworks — just HTML files with inline CSS. Deployed via GitHub Pages at https://nickchass.github.io.
+A static personal portfolio site for Nicholai Chasseau (behavioral and social-science researcher). No build system, no dependencies, no JavaScript frameworks — just HTML files with inline CSS. Deployed via GitHub Pages at https://nickchass.github.io.
 
 ## Development
 
@@ -26,10 +26,8 @@ All styling is **inlined per-file** inside `<style>` blocks — there is no shar
 ## File map
 
 - `index.html` — homepage: hero, skills strip, case study cards grid, about section, contact band
-- `case-studies/fear-of-crime.html` — Case study 01 (thesis, n=538, SPSS mediation)
-- `case-studies/alertt.html` — Case study 02 (discovery research, n=76, Trinidad)
-- `case-studies/gaming-wellbeing.html` — Case study 03 (secondary data, R/ggplot2, n=6,844)
-- `case-studies/driftline.html` — Case study 04 (ESM, pre-registered OSF, R/lme4)
+- `case-studies/fear-of-crime.html` — Case study 01 (thesis; secondary analysis of an archival dataset, n=538, SPSS mediation)
+- `case-studies/alertt.html` — Case study 02 (discovery research, n=83, Trinidad)
 
 ## Case study page structure
 
