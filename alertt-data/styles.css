@@ -1,0 +1,206 @@
+/* Design tokens copied from nickchass.github.io so the dashboard reads as part
+   of the site rather than as a Quarto default page. The site inlines its CSS
+   per file and has no shared stylesheet, so these values are duplicated here
+   on purpose. If the site tokens change, change them here too. */
+
+:root {
+  --bg: #F7F7F5;
+  --surface: #FFFFFF;
+  --border: #E4E4E0;
+  --text-primary: #141412;
+  --text-secondary: #6B6B65;
+  --text-tertiary: #A0A09A;
+  --accent: #0D6B5E;
+  --accent-light: #E0F2EE;
+  --mono: 'DM Mono', ui-monospace, monospace;
+  --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  font-size: 15px;
+}
+
+/* nav */
+.site-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(247,247,245,0.92); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.site-nav-inner {
+  max-width: 1080px; margin: 0 auto; padding: 0 2rem; height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.site-nav a.nav-logo {
+  font-family: var(--mono); font-size: 13px; font-weight: 500;
+  color: var(--accent); letter-spacing: 0.02em; text-decoration: none;
+}
+.site-nav a.nav-back {
+  font-size: 13px; color: var(--text-secondary); text-decoration: none;
+}
+.site-nav a.nav-back:hover { color: var(--accent); }
+
+/* header */
+.page-header {
+  background: var(--surface); border-bottom: 1px solid var(--border);
+  padding: 100px 2rem 56px; margin-bottom: 0;
+}
+.page-header-inner { max-width: 880px; margin: 0 auto; }
+.eyebrow {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 1.1rem;
+  display: flex; align-items: center; gap: 12px;
+}
+.eyebrow::before {
+  content: ""; width: 32px; height: 1px; background: var(--accent); display: inline-block;
+}
+.page-title {
+  font-size: clamp(24px, 4vw, 38px); font-weight: 500; letter-spacing: -0.02em;
+  line-height: 1.2; margin-bottom: 0.75rem;
+}
+.page-subtitle {
+  font-size: 16px; color: var(--text-secondary); font-style: italic; margin-bottom: 1.75rem;
+}
+.meta-row { display: flex; flex-wrap: wrap; gap: 2rem; margin-bottom: 1.5rem; }
+.meta-label {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 4px;
+}
+.meta-val { font-size: 14px; color: var(--text-secondary); }
+.tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.tag {
+  font-size: 12px; padding: 4px 12px; background: var(--bg);
+  border: 1px solid var(--border); border-radius: 99px; color: var(--text-secondary);
+}
+
+/* body
+   With `theme: none` Quarto emits content as direct children of <body>: there
+   is no <main> or #quarto-content wrapper to centre. So the content column is
+   established on the children themselves. Nav, header and footer are excluded
+   because they span the full page width. */
+/* Text elements: padded so the text column lands at 880px. */
+body > h2, body > h3, body > p, body > ul, body > ol {
+  max-width: 944px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+/* Elements that paint their own background or border cannot take that padding,
+   or the background bleeds into the gutter. They are width-constrained instead,
+   so they still align with the 880px text column. */
+body > table, body > pre, body > blockquote,
+body > div.cell, body > div.stat-row, body > div.limitation,
+body > div.callout-note {
+  max-width: 880px;
+  width: calc(100% - 4rem);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+h2 {
+  font-size: 20px; font-weight: 500; letter-spacing: -0.01em;
+  margin: 56px auto 1rem; padding-top: 1.25rem; border-top: 1px solid var(--border);
+}
+body > h2:first-of-type { margin-top: 56px; border-top: none; padding-top: 0; }
+h3 { font-size: 16px; font-weight: 500; margin: 2rem 0 0.75rem; }
+p { font-size: 15px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 1rem; }
+strong { color: var(--text-primary); font-weight: 600; }
+a { color: var(--accent); }
+
+ul, ol { margin: 0 0 1rem 1.25rem; }
+li { font-size: 15px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 0.35rem; }
+
+/* callout, used for the honest-limitations blocks */
+.callout-note, blockquote {
+  background: var(--accent-light); border-left: 3px solid var(--accent);
+  padding: 1.15rem 1.4rem; border-radius: 0 8px 8px 0; margin: 1.5rem 0;
+}
+.callout-note p, blockquote p { color: #0a5549; margin-bottom: 0.5rem; }
+.callout-note p:last-child, blockquote p:last-child { margin-bottom: 0; }
+
+/* warning callout for the "do not read this as a trend" blocks */
+.limitation {
+  background: #FBF3EF; border-left: 3px solid #C1553B;
+  padding: 1.15rem 1.4rem; border-radius: 0 8px 8px 0; margin: 1.5rem 0;
+}
+.limitation p { color: #8A3B26; margin-bottom: 0.5rem; }
+.limitation p:last-child { margin-bottom: 0; }
+.limitation strong { color: #6E2E1E; }
+
+/* figures */
+figure, .figure, .cell-output-display { margin: 1.75rem 0; }
+img { max-width: 100%; height: auto; display: block; border-radius: 8px; }
+
+/* stat row */
+.stat-row {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1px; background: var(--border); border: 1px solid var(--border);
+  border-radius: 10px; overflow: hidden; margin: 1.75rem 0;
+}
+.stat { background: var(--surface); padding: 1.25rem 1.1rem; }
+.stat-num {
+  font-family: var(--mono); font-size: 24px; font-weight: 500;
+  color: var(--accent); letter-spacing: -0.02em; line-height: 1.1;
+}
+.stat-label {
+  font-size: 12px; color: var(--text-secondary); margin-top: 6px; line-height: 1.45;
+}
+
+/* tables */
+table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 14px; }
+th {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--text-tertiary); text-align: left;
+  padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border);
+}
+td {
+  padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+tbody tr:last-child td { border-bottom: none; }
+
+/* code */
+pre {
+  background: #12211E; color: #D6E6E1; border-radius: 8px;
+  padding: 1rem 1.15rem; overflow-x: auto; font-size: 13px; margin: 1.25rem 0;
+}
+code { font-family: var(--mono); font-size: 13px; }
+p code, li code, td code {
+  background: var(--accent-light); color: #0a5549;
+  padding: 1px 5px; border-radius: 4px;
+}
+
+/* footer */
+.site-footer {
+  border-top: 1px solid var(--border); background: var(--surface);
+  padding: 2.5rem 2rem; margin-top: 3.5rem;
+}
+.site-footer-inner {
+  max-width: 880px; margin: 0 auto; font-size: 13px; color: var(--text-tertiary);
+}
+.site-footer-inner a { color: var(--accent); text-decoration: none; }
+
+/* hide Quarto chrome we do not want */
+#title-block-header { display: none; }
+
+@media (max-width: 700px) {
+  .page-header { padding: 84px 1.25rem 40px; }
+  body > h2, body > h3, body > p, body > ul, body > ol {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+  body > table, body > pre, body > blockquote,
+  body > div.cell, body > div.stat-row, body > div.limitation,
+  body > div.callout-note {
+    width: calc(100% - 2.5rem);
+  }
+  .meta-row { gap: 1.25rem; }
+}
