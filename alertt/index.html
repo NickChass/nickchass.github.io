@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AlerTT — Live alerts and official crime data for Trinidad and Tobago</title>
+<meta name="description" content="A crime-awareness app for Trinidad and Tobago that shows community alerts against fifty years of official crime statistics.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- Leaflet: the one external dependency on this site. If it fails to load, the
+     map falls back to the self-contained SVG renderer in app.js. -->
+<link rel="preconnect" href="https://basemaps.cartocdn.com" crossorigin>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H"
+      crossorigin="anonymous">
+<style>
+  :root {
+    /* Portfolio design tokens */
+    --bg: #F7F7F5;
+    --surface: #FFFFFF;
+    --surface-sunk: #FAFAF8;
+    --border: #E4E4E0;
+    --text-primary: #141412;
+    --text-secondary: #6B6B65;
+    --text-tertiary: #A0A09A;
+    --accent: #0D6B5E;
+    --accent-light: #E0F2EE;
+    --mono: 'DM Mono', monospace;
+    --sans: 'Inter', sans-serif;
+
+    /* The two layers. This split is the whole product. */
+    --live: #CC1F1F;          /* community layer — unverified, real time */
+    --live-light: #FCEDED;
+    --official: #0D9488;      /* official layer — CSO published statistics */
+    --official-light: #E6F5F3;
+
+    /* Chart series (validated: CVD dE 13.6 deutan, normal-vision 23.6) */
+    --series-reported: #0D9488;
+    --series-detected: #B45309;
+    --grid: #ECECE8;
+
+    /* Category colours, carried over from the app's theme.js */
+    --cat-red: #CC1F1F;
+    --cat-amber: #EF9F27;
+    --cat-blue: #185FA5;
+    --cat-green: #3B6D11;
+    --cat-gray: #5F5E5A;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--sans); background: var(--bg); color: var(--text-primary); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; }
+  button { font-family: inherit; cursor: pointer; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+
+  /* ─── NAV ─── */
+  nav { position: sticky; top: 0; z-index: 100; background: rgba(247,247,245,0.94); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav-inner { max-width: 1080px; margin: 0 auto; padding: 0 2rem; height: 56px; display: flex; align-items: center; gap: 1.5rem; }
+  .nav-back { font-size: 12px; color: var(--text-tertiary); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+  .nav-back:hover { color: var(--text-primary); }
+  .nav-logo { font-family: var(--mono); font-size: 14px; font-weight: 500; letter-spacing: 0.02em; display: inline-flex; align-items: center; gap: 7px; }
+  .nav-logo::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--live); box-shadow: 0 0 0 3px rgba(204,31,31,0.16); }
+  .nav-spacer { flex: 1; }
+  .tabs { display: flex; gap: 2px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 3px; }
+  .tab { border: none; background: none; font-size: 12.5px; font-weight: 500; color: var(--text-secondary); padding: 6px 14px; border-radius: 6px; transition: background 0.15s, color 0.15s; }
+  .tab:hover { color: var(--text-primary); }
+  .tab[aria-selected="true"] { background: var(--accent); color: #fff; }
+
+  /* ─── LAYER LEGEND ─── */
+  .layers { background: var(--surface); border-bottom: 1px solid var(--border); }
+  .layers-inner { max-width: 1080px; margin: 0 auto; padding: 0.85rem 2rem; display: flex; flex-wrap: wrap; align-items: center; gap: 1.5rem; }
+  .layer-key { display: flex; align-items: center; gap: 9px; font-size: 12px; color: var(--text-secondary); }
+  .layer-swatch { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+  .layer-key strong { color: var(--text-primary); font-weight: 500; }
+
+  /* ─── DEMO NOTICE ───
+     Loud on purpose. The alerts are invented and a reader skimming must not be
+     able to miss that, while the real statistics stay clearly real. */
+  .demo-banner { background: #FBE9E9; border-bottom: 1px solid #F2D2D2; }
+  .demo-banner[hidden] { display: none; }
+  .demo-inner { max-width: 1080px; margin: 0 auto; padding: 0.95rem 2rem; display: flex; align-items: center; gap: 1rem; }
+  .demo-icon { width: 26px; height: 26px; border-radius: 50%; background: var(--live); display: grid; place-items: center; flex-shrink: 0; }
+  .demo-icon svg { width: 15px; height: 15px; }
+  .demo-text { font-size: 13.5px; line-height: 1.6; color: #7A2020; }
+  .demo-text strong { font-weight: 600; color: #5E1717; }
+  .demo-text .real { color: #0B5F55; font-weight: 600; }
+  .demo-tag { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.08em; text-transform: uppercase;
+              color: var(--text-tertiary); border: 1px solid var(--border); background: var(--bg);
+              border-radius: 99px; padding: 2px 8px; font-weight: 400; }
+
+  main { max-width: 1080px; margin: 0 auto; padding: 2.5rem 2rem 5rem; }
+  .panel[hidden] { display: none; }
+
+  /* ─── SHARED ─── */
+  .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.7rem; }
+  .panel-title { font-size: 26px; font-weight: 500; letter-spacing: -0.01em; margin-bottom: 0.5rem; }
+  .panel-sub { font-size: 14.5px; color: var(--text-secondary); max-width: 620px; line-height: 1.7; }
+  .panel-head { margin-bottom: 2rem; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; }
+  .demo-flag { display: inline-flex; align-items: center; gap: 7px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--live); background: var(--live-light); border-radius: 99px; padding: 4px 11px; }
+
+  /* ─── FEED ─── */
+  .feed-layout { display: grid; grid-template-columns: 280px 1fr; gap: 2rem; align-items: start; }
+  .div-picker { position: sticky; top: 80px; }
+  .picker-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 0.75rem; }
+  .div-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  .div-btn { border: none; background: var(--surface); text-align: left; padding: 10px 13px; display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 13px; color: var(--text-secondary); transition: background 0.15s; }
+  .div-btn:hover { background: var(--surface-sunk); color: var(--text-primary); }
+  .div-btn[aria-pressed="true"] { background: var(--accent-light); color: var(--accent); font-weight: 500; }
+  .div-count { font-family: var(--mono); font-size: 11px; color: var(--live); background: var(--live-light); border-radius: 99px; padding: 1px 7px; min-width: 20px; text-align: center; }
+  .div-btn[aria-pressed="true"] .div-count { background: #fff; }
+  .div-count.zero { color: var(--text-tertiary); background: var(--bg); }
+
+  /* Baseline strip — the official layer, above the live feed */
+  .baseline { border-left: 3px solid var(--official); background: var(--official-light); border-radius: 8px; padding: 1.1rem 1.3rem; margin-bottom: 1.5rem; }
+  .baseline-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.85rem; }
+  .baseline-title { font-size: 13px; font-weight: 500; color: #0B5F55; }
+  .baseline-src { font-family: var(--mono); font-size: 10px; color: #4E8A83; letter-spacing: 0.04em; }
+  .baseline-row { display: flex; gap: 2rem; flex-wrap: wrap; align-items: flex-end; }
+  .bstat-num { font-family: var(--sans); font-size: 24px; font-weight: 600; color: #0B5F55; line-height: 1.1; }
+  .bstat-label { font-size: 11.5px; color: #4E8A83; margin-top: 2px; }
+  .baseline-spark { margin-left: auto; }
+
+  .feed-toolbar { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap; }
+  .feed-count { font-size: 13px; color: var(--text-secondary); }
+  .feed-count strong { color: var(--text-primary); font-weight: 500; }
+  .chip-row { display: flex; gap: 6px; margin-left: auto; flex-wrap: wrap; }
+  .chip { border: 1px solid var(--border); background: var(--surface); font-size: 11.5px; color: var(--text-secondary); padding: 4px 11px; border-radius: 99px; transition: all 0.15s; }
+  .chip:hover { border-color: var(--text-tertiary); }
+  .chip[aria-pressed="true"] { background: var(--text-primary); border-color: var(--text-primary); color: #fff; }
+
+  .alert-list { display: flex; flex-direction: column; gap: 10px; }
+  .alert { background: var(--surface); border: 1px solid var(--border); border-radius: 11px; padding: 1rem 1.15rem; display: grid; grid-template-columns: 34px 1fr; gap: 0.9rem; cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s; text-align: left; width: 100%; }
+  .alert:hover { border-color: var(--text-tertiary); box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
+  .alert-icon { width: 34px; height: 34px; border-radius: 9px; display: grid; place-items: center; flex-shrink: 0; }
+  .alert-icon svg { width: 17px; height: 17px; }
+  .alert-top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 3px; }
+  .alert-type { font-size: 14px; font-weight: 500; }
+  .alert-time { font-family: var(--mono); font-size: 11px; color: var(--text-tertiary); margin-left: auto; white-space: nowrap; }
+  .alert-loc { display: block; font-size: 12.5px; color: var(--text-secondary); }
+  .alert-loc .div-name { color: var(--text-tertiary); }
+  .alert-desc { display: block; font-size: 13px; color: var(--text-secondary); margin-top: 0.5rem; line-height: 1.6; }
+  .status { font-size: 10px; font-family: var(--mono); letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: 99px; font-weight: 500; }
+  .status.verified { background: var(--official-light); color: #0B5F55; }
+  .status.pending { background: var(--live-light); color: var(--live); }
+  .status.all_clear { background: #EDF4E4; color: var(--cat-green); }
+  .alert-detail { display: block; margin-top: 0.9rem; padding-top: 0.9rem; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+  .alert-detail[hidden] { display: none; }
+  .alert-ctx { display: block; margin-top: 0.85rem; padding: 0.8rem 0.95rem; background: var(--official-light); border-radius: 8px; border-left: 3px solid var(--official); font-size: 12.5px; color: #0B5F55; line-height: 1.65; }
+  .alert-ctx b { font-weight: 600; }
+  .alert-meta { display: flex; gap: 1.25rem; margin-top: 0.8rem; font-family: var(--mono); font-size: 11px; color: var(--text-tertiary); }
+  .empty { text-align: center; padding: 3.5rem 1rem; color: var(--text-tertiary); font-size: 14px; background: var(--surface); border: 1px dashed var(--border); border-radius: 12px; }
+
+  /* ─── MAP ─── */
+  .map-layout { display: grid; grid-template-columns: 1fr 300px; gap: 2rem; align-items: start; }
+  .map-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; }
+  .map-toggle { display: flex; gap: 2px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 3px; margin-bottom: 1rem; width: fit-content; }
+  .map-toggle button { border: none; background: none; font-size: 12px; font-weight: 500; color: var(--text-secondary); padding: 5px 13px; border-radius: 6px; }
+  .map-toggle button[aria-pressed="true"] { background: var(--surface); color: var(--text-primary); box-shadow: 0 1px 3px rgba(0,0,0,0.07); }
+  #map-svg { width: 100%; height: auto; display: block; }
+  #map-svg[hidden] { display: none; }
+
+  /* ─── LEAFLET ─── */
+  #leaflet-map { height: 620px; border-radius: 10px; background: #E8EDF2; z-index: 1; }
+  #leaflet-map[hidden] { display: none; }
+  .leaflet-container { font-family: var(--sans); }
+  .leaflet-control-attribution { font-size: 10px; background: rgba(255,255,255,0.82); }
+  .leaflet-control-attribution a { color: var(--text-secondary); }
+  .leaflet-bar a { color: var(--text-primary); }
+  .leaflet-bar a:hover { background: var(--accent-light); color: var(--accent); }
+
+  /* Alert pin: a coloured teardrop with the category glyph inside. */
+  .pin { position: relative; width: 30px; height: 38px; }
+  .pin-body { width: 30px; height: 30px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg);
+              display: grid; place-items: center; box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+              border: 2px solid #fff; }
+  .pin-body svg { width: 15px; height: 15px; transform: rotate(45deg); }
+  .pin.unverified .pin-body { border-style: dashed; opacity: 0.9; }
+  .pin-pulse { position: absolute; left: 3px; top: 3px; width: 24px; height: 24px; border-radius: 50%;
+               background: currentColor; opacity: 0.28; animation: pulse 2.4s ease-out infinite; }
+  @keyframes pulse { 0% { transform: scale(0.7); opacity: 0.42; } 70% { transform: scale(2.1); opacity: 0; } 100% { opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { .pin-pulse { animation: none; opacity: 0.22; } }
+
+  /* Division badge in the official layer. */
+  .divpin { display: grid; place-items: center; border-radius: 50%; color: #fff;
+            font-family: var(--mono); font-size: 11px; font-weight: 500;
+            border: 2px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.25); }
+  .divpin.sel { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+  /* Popups */
+  .leaflet-popup-content-wrapper { border-radius: 11px; box-shadow: 0 6px 28px rgba(0,0,0,0.16); padding: 0; }
+  .leaflet-popup-content { margin: 0; width: 268px !important; line-height: 1.55; }
+  .pop { padding: 0.9rem 1rem 1rem; }
+  .pop-top { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; margin-bottom: 5px; }
+  .pop-type { font-size: 13.5px; font-weight: 600; color: var(--text-primary); }
+  .pop-loc { font-size: 12px; color: var(--text-secondary); margin-bottom: 7px; }
+  .pop-desc { font-size: 12.5px; color: var(--text-primary); margin-bottom: 9px; }
+  .pop-ctx { font-size: 11.5px; line-height: 1.55; color: #0B5F55; background: var(--official-light);
+             border-left: 3px solid var(--official); border-radius: 6px; padding: 7px 9px; }
+  .pop-meta { font-family: var(--mono); font-size: 10px; color: var(--text-tertiary); margin-top: 8px;
+              display: flex; gap: 10px; flex-wrap: wrap; }
+  .pop-btn { display: inline-block; margin-top: 9px; font-size: 11.5px; font-weight: 500; color: var(--accent);
+             background: var(--accent-light); border: none; border-radius: 6px; padding: 6px 11px; }
+  .pop-btn:hover { background: #CFEAE4; }
+  .pop table { margin-top: 8px; font-size: 11px; }
+  .pop th, .pop td { padding: 3px 4px; }
+
+  /* Legend control */
+  .map-legend { background: rgba(255,255,255,0.94); border-radius: 9px; padding: 0.65rem 0.8rem;
+                box-shadow: 0 1px 6px rgba(0,0,0,0.18); font-size: 11px; color: var(--text-secondary); }
+  .map-legend h4 { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.08em; text-transform: uppercase;
+                   color: var(--text-tertiary); font-weight: 400; margin-bottom: 6px; }
+  .map-legend .row { display: flex; align-items: center; gap: 7px; margin-bottom: 4px; }
+  .map-legend .row:last-child { margin-bottom: 0; }
+  .map-legend .sw { width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid #fff;
+                    box-shadow: 0 0 0 1px rgba(0,0,0,0.12); flex-shrink: 0; }
+  .coast { fill: #F1F1ED; stroke: #DCDCD6; stroke-width: 1; }
+  .div-marker { cursor: pointer; }
+  circle.hit { fill: none; pointer-events: all; }
+  /* A surface-coloured halo keeps labels readable where they cross a mark. */
+  .div-label { font-family: var(--mono); font-size: 9.5px; fill: var(--text-secondary); pointer-events: none;
+               paint-order: stroke; stroke: var(--surface); stroke-width: 3px; stroke-linejoin: round; }
+  .alert-pin { cursor: pointer; }
+  .map-side { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 1rem; }
+  .side-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.1rem 1.25rem; }
+  .side-title { font-size: 15px; font-weight: 500; margin-bottom: 0.15rem; }
+  .side-region { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 0.9rem; }
+  .side-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; margin-bottom: 1rem; }
+  .side-stat-num { font-size: 21px; font-weight: 600; line-height: 1.1; }
+  .side-stat-label { font-size: 11px; color: var(--text-secondary); margin-top: 1px; line-height: 1.35; }
+  .map-scale { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--text-tertiary); margin-top: 0.9rem; }
+  .scale-dots { display: flex; align-items: center; gap: 5px; }
+
+  /* ─── REPORT ─── */
+  .report-layout { display: grid; grid-template-columns: 1fr 320px; gap: 2rem; align-items: start; }
+  .form-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.75rem; }
+  .field { margin-bottom: 1.5rem; }
+  .field:last-of-type { margin-bottom: 0; }
+  .field-label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 0.6rem; }
+  .field-hint { font-size: 12px; color: var(--text-tertiary); font-weight: 400; margin-left: 6px; }
+  .type-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 8px; }
+  .type-btn { border: 1px solid var(--border); background: var(--surface); border-radius: 9px; padding: 10px 12px; display: flex; align-items: center; gap: 9px; font-size: 12.5px; color: var(--text-secondary); text-align: left; transition: all 0.15s; }
+  .type-btn:hover { border-color: var(--text-tertiary); }
+  .type-btn[aria-pressed="true"] { border-color: var(--live); background: var(--live-light); color: var(--text-primary); font-weight: 500; }
+  .type-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+  select, textarea, input[type="text"] { width: 100%; font-family: inherit; font-size: 13.5px; color: var(--text-primary); background: var(--surface); border: 1px solid var(--border); border-radius: 9px; padding: 10px 12px; }
+  select:focus, textarea:focus, input:focus { outline: none; border-color: var(--accent); }
+  textarea { resize: vertical; min-height: 84px; line-height: 1.6; }
+  .counter { font-family: var(--mono); font-size: 11px; color: var(--text-tertiary); text-align: right; margin-top: 5px; }
+  .counter.over { color: var(--live); }
+  .toggle-row { display: flex; align-items: flex-start; gap: 11px; padding: 0.85rem 0; }
+  .toggle-row input { margin-top: 3px; width: 15px; height: 15px; accent-color: var(--accent); flex-shrink: 0; }
+  .toggle-text { font-size: 13px; color: var(--text-primary); }
+  .toggle-sub { font-size: 12px; color: var(--text-tertiary); line-height: 1.5; }
+  .btn-submit { background: var(--live); color: #fff; border: none; font-size: 13.5px; font-weight: 500; padding: 11px 24px; border-radius: 8px; transition: background 0.15s; }
+  .btn-submit:hover:not(:disabled) { background: #A81919; }
+  .btn-submit:disabled { background: var(--border); color: var(--text-tertiary); cursor: not-allowed; }
+  .form-foot { display: flex; align-items: center; gap: 1rem; margin-top: 1.75rem; padding-top: 1.5rem; border-top: 1px solid var(--border); flex-wrap: wrap; }
+  .form-msg { font-size: 12.5px; color: var(--accent); }
+  .btn-ghost { background: none; border: 1px solid var(--border); color: var(--text-secondary); font-size: 12px; padding: 7px 14px; border-radius: 7px; }
+  .btn-ghost:hover { border-color: var(--text-tertiary); color: var(--text-primary); }
+
+  .note-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; }
+  .note-card h3 { font-size: 13px; font-weight: 500; margin-bottom: 0.6rem; }
+  .note-card p { font-size: 12.5px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 0.7rem; }
+  .note-card p:last-child { margin-bottom: 0; }
+  .note-card .from-research { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 0.5rem; }
+
+  /* ─── CONTEXT ─── */
+  .hero-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 2.5rem; }
+  .hstat { background: var(--surface); padding: 1.4rem 1.5rem; }
+  .hstat-num { font-size: 34px; font-weight: 600; letter-spacing: -0.02em; line-height: 1; color: var(--text-primary); }
+  .hstat-num.alarm { color: var(--live); }
+  .hstat-label { font-size: 12.5px; color: var(--text-secondary); margin-top: 0.5rem; line-height: 1.5; }
+  .hstat-sub { font-family: var(--mono); font-size: 10.5px; color: var(--text-tertiary); margin-top: 0.4rem; }
+
+  .chart-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem 1.6rem; margin-bottom: 1.5rem; }
+  .chart-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 0.35rem; flex-wrap: wrap; }
+  .chart-title { font-size: 15px; font-weight: 500; }
+  .chart-sub { font-size: 12.5px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.25rem; max-width: 640px; }
+  .chart-legend { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .legend-key { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; color: var(--text-secondary); }
+  .legend-line { width: 14px; height: 2px; border-radius: 2px; }
+  .chart-svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .axis-text { font-family: var(--mono); font-size: 10px; fill: var(--text-tertiary); }
+  .gridline { stroke: var(--grid); stroke-width: 1; }
+  .axis-line { stroke: #DCDCD6; stroke-width: 1; }
+  .end-label { font-family: var(--sans); font-size: 12px; font-weight: 600; }
+  .chart-foot { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 1rem; padding-top: 0.9rem; border-top: 1px solid var(--border); flex-wrap: wrap; }
+  .chart-src { font-family: var(--mono); font-size: 10px; color: var(--text-tertiary); letter-spacing: 0.03em; }
+  .table-wrap { margin-top: 1rem; overflow-x: auto; }
+  .table-wrap[hidden] { display: none; }
+  table { border-collapse: collapse; font-size: 12px; width: 100%; }
+  .table-wrap table { min-width: 420px; }
+  th, td { text-align: right; padding: 6px 12px; border-bottom: 1px solid var(--border); font-variant-numeric: tabular-nums; }
+  th:first-child, td:first-child { text-align: left; font-variant-numeric: normal; }
+  /* The division panel table is narrow; let it breathe instead of overflowing. */
+  .side-card table { font-size: 11.5px; }
+  .side-card th, .side-card td { padding: 5px 4px; }
+  .side-card tbody tr:last-child td { border-bottom: none; }
+  th { font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-tertiary); font-weight: 400; }
+
+  .caveat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 0.5rem; }
+  .caveat { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--cat-amber); border-radius: 10px; padding: 1.3rem 1.4rem; }
+  .caveat-tag { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: #8A5A0B; margin-bottom: 0.6rem; }
+  .caveat h3 { font-size: 14.5px; font-weight: 500; margin-bottom: 0.6rem; line-height: 1.45; }
+  .caveat p { font-size: 13px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 0.7rem; }
+  .caveat p:last-child { margin-bottom: 0; }
+
+  .method { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.6rem; margin-top: 1.5rem; }
+  .method h3 { font-size: 15px; font-weight: 500; margin-bottom: 0.8rem; }
+  .method p { font-size: 13px; color: var(--text-secondary); line-height: 1.75; margin-bottom: 0.8rem; }
+  .method p:last-of-type { margin-bottom: 1.2rem; }
+  .method code { font-family: var(--mono); font-size: 12px; background: var(--bg); padding: 1px 6px; border-radius: 4px; }
+  .link-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .btn-link { display: inline-flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 500; color: var(--accent); background: var(--accent-light); border: 1px solid transparent; padding: 8px 15px; border-radius: 7px; text-decoration: none; transition: all 0.15s; }
+  .btn-link:hover { border-color: var(--accent); }
+  .section-gap { margin-top: 2.5rem; }
+  .sub-head { font-size: 18px; font-weight: 500; margin-bottom: 0.4rem; }
+  .sub-sub { font-size: 13.5px; color: var(--text-secondary); margin-bottom: 1.25rem; max-width: 620px; line-height: 1.7; }
+
+  /* ─── TOOLTIP ─── */
+  #tip { position: fixed; z-index: 200; pointer-events: none; background: var(--text-primary); color: #fff; font-size: 12px; line-height: 1.55; padding: 7px 11px; border-radius: 7px; opacity: 0; transition: opacity 0.12s; max-width: 230px; }
+  #tip.on { opacity: 1; }
+  #tip .tip-t { font-weight: 600; display: block; margin-bottom: 2px; }
+  #tip .tip-r { display: flex; justify-content: space-between; gap: 14px; font-variant-numeric: tabular-nums; }
+  #tip .tip-r span:first-child { color: rgba(255,255,255,0.72); }
+
+  /* ─── FOOTER ─── */
+  footer { border-top: 1px solid var(--border); background: var(--surface); }
+  .footer-inner { max-width: 1080px; margin: 0 auto; padding: 2rem; display: flex; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; font-size: 12px; color: var(--text-tertiary); }
+  .footer-inner a { color: var(--text-secondary); text-decoration: none; }
+  .footer-inner a:hover { color: var(--accent); }
+  .footer-links { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+
+  @media (max-width: 900px) {
+    .feed-layout, .map-layout, .report-layout { grid-template-columns: 1fr; }
+    .div-picker, .map-side { position: static; }
+    .caveat-grid { grid-template-columns: 1fr; }
+    .nav-inner { padding: 0 1rem; gap: 0.6rem; }
+    .nav-back { display: none; }
+    .nav-logo { font-size: 13px; }
+    .tabs { overflow-x: auto; scrollbar-width: none; }
+    .tabs::-webkit-scrollbar { display: none; }
+    .tab { padding: 6px 10px; font-size: 12px; }
+    main, .layers-inner { padding-left: 1rem; padding-right: 1rem; }
+    .layers-note { margin-left: 0; width: 100%; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <span class="nav-logo">AlerTT</span>
+    <div class="tabs" role="tablist" aria-label="Sections">
+      <button class="tab" role="tab" id="tab-feed"    aria-selected="true"  aria-controls="panel-feed">Feed</button>
+      <button class="tab" role="tab" id="tab-map"     aria-selected="false" aria-controls="panel-map">Map</button>
+      <button class="tab" role="tab" id="tab-report"  aria-selected="false" aria-controls="panel-report">Report</button>
+      <button class="tab" role="tab" id="tab-context" aria-selected="false" aria-controls="panel-context">Context</button>
+    </div>
+    <span class="nav-spacer"></span>
+    <a class="nav-back" href="../index.html">&larr; Portfolio</a>
+  </div>
+</nav>
+
+<div class="layers">
+  <div class="layers-inner">
+    <span class="layer-key"><span class="layer-swatch" style="background:var(--live)"></span><strong>Community layer</strong> &nbsp;live, unverified reports</span>
+    <span class="layer-key"><span class="layer-swatch" style="background:var(--official)"></span><strong>Official layer</strong> &nbsp;CSO published statistics, 1975&ndash;2024</span>
+  </div>
+</div>
+
+<div class="demo-banner" id="demo-banner">
+  <div class="demo-inner">
+    <span class="demo-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 3 2 20h20L12 3Z"/><path d="M12 10v4"/><path d="M12 17.2v.1"/>
+      </svg>
+    </span>
+    <p class="demo-text">
+      <strong>Every alert in this app is invented.</strong> They are a written sample used to demonstrate the
+      interface &mdash; there is no live incident feed behind this page and nothing here reports a real event.
+      <span class="real">The crime statistics are real</span>, taken unaltered from published CSO and police
+      figures for 1975&ndash;2024.
+    </p>
+  </div>
+</div>
+
+<main>
+
+  <!-- ══════════ FEED ══════════ -->
+  <section class="panel" id="panel-feed" role="tabpanel" aria-labelledby="tab-feed">
+    <div class="panel-head">
+      <div class="eyebrow">Live feed</div>
+      <h1 class="panel-title">What is happening near you, and what usually happens</h1>
+      <p class="panel-sub">Discovery interviews found that people could not tell an unverified rumour from a confirmed incident, and had no sense of whether what they were seeing was normal for their area. Every alert here is labelled by status and sits above the official baseline for its police division.</p>
+    </div>
+
+    <div class="feed-layout">
+      <aside class="div-picker">
+        <div class="picker-label">Police division</div>
+        <div class="div-list" id="div-list"></div>
+      </aside>
+
+      <div>
+        <div id="baseline"></div>
+        <div class="feed-toolbar">
+          <span class="feed-count" id="feed-count"></span>
+          <div class="chip-row" id="status-chips">
+            <button class="chip" data-status="all"       aria-pressed="true">All</button>
+            <button class="chip" data-status="verified"  aria-pressed="false">Verified</button>
+            <button class="chip" data-status="pending"   aria-pressed="false">Community</button>
+            <button class="chip" data-status="all_clear" aria-pressed="false">All clear</button>
+          </div>
+        </div>
+        <div class="alert-list" id="alert-list"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ MAP ══════════ -->
+  <section class="panel" id="panel-map" role="tabpanel" aria-labelledby="tab-map" hidden>
+    <div class="panel-head">
+      <div class="eyebrow">Map</div>
+      <h1 class="panel-title">Nine police divisions, two layers</h1>
+      <p class="panel-sub">Switch between what is being reported right now and what the official record says about the last ten years. Select any division to read its numbers.</p>
+    </div>
+
+    <div class="map-layout">
+      <div class="map-card">
+        <div class="map-toggle" role="group" aria-label="Map layer">
+          <button id="ml-live"     aria-pressed="true">Live alerts</button>
+          <button id="ml-official" aria-pressed="false">Murders, 2015&ndash;2024</button>
+        </div>
+        <div id="leaflet-map" role="application"
+             aria-label="Interactive map of Trinidad and Tobago showing alerts and the nine police divisions"></div>
+        <svg id="map-svg" role="img" hidden
+             aria-label="Schematic map of Trinidad and Tobago showing the nine police divisions"></svg>
+        <div class="map-scale" id="map-scale"></div>
+      </div>
+      <div class="map-side" id="map-side"></div>
+    </div>
+  </section>
+
+  <!-- ══════════ REPORT ══════════ -->
+  <section class="panel" id="panel-report" role="tabpanel" aria-labelledby="tab-report" hidden>
+    <div class="panel-head">
+      <div class="eyebrow">Report</div>
+      <h1 class="panel-title">File a report</h1>
+      <p class="panel-sub">The reporting flow as the discovery research shaped it: fixed incident types rather than free text, a hard length limit on descriptions, and anonymity available without an account.</p>
+    </div>
+
+    <div class="report-layout">
+      <form class="form-card" id="report-form" novalidate>
+        <div class="field">
+          <label class="field-label">Incident type</label>
+          <div class="type-grid" id="type-grid"></div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="f-location">Location</label>
+          <select id="f-location"></select>
+        </div>
+
+        <div class="field" id="custom-loc-field" hidden>
+          <label class="field-label" for="f-custom-loc">Where, specifically</label>
+          <input type="text" id="f-custom-loc" placeholder="e.g. Eastern Main Road, Barataria" maxlength="60">
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="f-desc">What happened <span class="field-hint">15 words maximum</span></label>
+          <textarea id="f-desc" placeholder="Keep it short and factual. What you saw, not what you heard."></textarea>
+          <div class="counter" id="word-counter">0 / 15 words</div>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Privacy</label>
+          <div class="toggle-row">
+            <input type="checkbox" id="f-anon" checked>
+            <label for="f-anon">
+              <span class="toggle-text">File this anonymously</span>
+              <div class="toggle-sub">No name attached. Interviews found this was the single biggest thing standing between people and reporting at all.</div>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-foot">
+          <button type="submit" class="btn-submit" id="btn-submit" disabled>Submit report</button>
+          <span class="form-msg" id="form-msg"></span>
+          <button type="button" class="btn-ghost" id="btn-clear" style="margin-left:auto">Clear my reports</button>
+        </div>
+      </form>
+
+      <aside style="display:flex; flex-direction:column; gap:1rem;">
+        <div class="note-card">
+          <span class="from-research">From the research</span>
+          <h3>Why the form looks like this</h3>
+          <p><b>Fixed types, not free text.</b> Participants wrote wildly different descriptions of the same kind of event, which made anything downstream uncomparable.</p>
+          <p><b>Fifteen words.</b> Long reports drifted into speculation and hearsay. The limit keeps a report to what was actually seen.</p>
+          <p><b>Anonymous by default.</b> Fear of being identified was the most cited reason for not reporting anything to anyone.</p>
+        </div>
+        <div class="note-card">
+          <span class="from-research">What happens next</span>
+          <h3>Your report enters as unverified</h3>
+          <p>It appears in the feed immediately, marked <b>community</b>, and stays that way until moderation confirms it. Nothing a member of the public files is ever shown as verified.</p>
+          <p style="color:var(--text-tertiary)">In this demonstration your report is stored in your own browser only. Nothing is transmitted anywhere.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ══════════ CONTEXT ══════════ -->
+  <section class="panel" id="panel-context" role="tabpanel" aria-labelledby="tab-context" hidden>
+    <div class="panel-head">
+      <div class="eyebrow">Official layer</div>
+      <h1 class="panel-title">Fifty years of the official record</h1>
+      <p class="panel-sub">Built from four published Central Statistical Office and police spreadsheets by a reproducible R and SQL pipeline. Raw government files in, normalised SQLite out. No scraping, no estimates, no modelling.</p>
+    </div>
+
+    <div class="hero-stats" id="hero-stats"></div>
+
+    <div class="chart-card" id="cc-long"></div>
+    <div class="chart-card" id="cc-gap"></div>
+    <div class="chart-card" id="cc-div"></div>
+
+    <div class="section-gap">
+      <h2 class="sub-head">Two patterns that look like findings and are not</h2>
+      <p class="sub-sub">This is the more useful half of the analysis. Both are documented rather than plotted as trends, because plotting them would assert something the sources do not support.</p>
+      <div class="caveat-grid">
+        <div class="caveat">
+          <div class="caveat-tag">Recording change, not a decline</div>
+          <h3>The post-2010 &ldquo;crime decline&rdquo; is almost certainly an artefact</h3>
+          <p>Serious crime fell from 22,161 in 2009 to 11,135 in 2015. The fall is almost entirely property offences: breaking and burglary down 60%, larceny down 51%, robbery down 52%. Murder fell only 11% and felonious wounding only 3%.</p>
+          <p>Murder and wounding are the hardest offences to under-report. The year-to-year path is also implausible for real crime: &minus;21.1%, then +12.4%, then &minus;26.3%.</p>
+        </div>
+        <div class="caveat">
+          <div class="caveat-tag">Accounting change, not a rise</div>
+          <h3>Most of the 2017 rise is a reclassification</h3>
+          <p>Serious crime rose by 1,620 offences between 2016 and 2017. Firearms possession offences moved from Minor Crime into Serious Crime in that year.</p>
+          <p>Those offences account for 1,162 of the rise, roughly 72%. The remaining 458 is the part of the increase the data can actually speak to.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="method">
+      <h3>How this was built</h3>
+      <p>Four source spreadsheets are parsed and tidied in R (<code>01_clean.R</code>), loaded into a SQLite fact constellation with four fact tables at four honest grains and four conformed dimensions (<code>02_build_db.R</code>), checked by seven validation tests that exit non-zero on failure (<code>03_validate.R</code>), and served through SQL views that compute year-over-year change with window functions (<code>04_views.R</code>).</p>
+      <p>Detection rate is never stored. It is derived in a view as detected over reported, so the stored data stays at published source values. A dash in the source is parsed as null, not zero: it means the category was not separately defined that year, and treating it as zero would assert a claim the source does not make.</p>
+      <p>The murder series shown above splices two publications, 1975&ndash;2014 from the offence-by-year file and 2015&ndash;2024 from the murders-by-division file. The three publications that overlap agree exactly on every year from 2015 to 2022, so the join asserts nothing new.</p>
+      <div class="link-row">
+        <a class="btn-link" href="https://nickchass.github.io/alertt-data/">Full dashboard</a>
+        <a class="btn-link" href="https://github.com/nickchass/alertt-data">Source code and data</a>
+        <a class="btn-link" href="../case-studies/alertt-data.html">Data case study</a>
+        <a class="btn-link" href="../case-studies/alertt.html">Discovery research case study</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div id="tip" role="status" aria-live="polite"></div>
+
+<footer>
+  <div class="footer-inner">
+    <span>AlerTT &middot; a research project by <a href="../index.html">Nicholai Chasseau</a></span>
+    <div class="footer-links">
+      <a href="../case-studies/alertt.html">Discovery research</a>
+      <a href="../case-studies/alertt-data.html">Data case study</a>
+      <a href="https://nickchass.github.io/alertt-data/">Dashboard</a>
+      <a href="https://alertt-tt.netlify.app/">Mobile app</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH"
+        crossorigin="anonymous"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
