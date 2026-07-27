@@ -98,6 +98,18 @@
   .cs-badge.live::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #18A085; box-shadow: 0 0 0 3px rgba(24,160,133,0.2); }
   .cs-badge.soon { background: var(--bg); color: var(--text-tertiary); border: 1px solid var(--border); }
 
+  /* FEATURED PRODUCT — the two case studies combined into one working app */
+  .feature { display: grid; grid-template-columns: 1fr 1.55fr; gap: 0; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; text-decoration: none; margin-bottom: 24px; transition: box-shadow 0.2s, border-color 0.2s; }
+  .feature:hover { border-color: var(--accent); box-shadow: 0 4px 24px rgba(13,107,94,0.08); }
+  .feature-visual { background: linear-gradient(150deg, #FCEDED 0%, #F4F2EE 48%, #E6F5F3 100%); padding: 2rem; display: flex; flex-direction: column; justify-content: space-between; min-height: 210px; }
+  .feature-eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; color: #8A4A45; }
+  .feature-layers { display: flex; flex-direction: column; gap: 10px; margin-top: auto; }
+  .feature-layer { display: flex; align-items: center; gap: 9px; font-size: 11.5px; color: var(--text-secondary); }
+  .feature-layer .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .feature-layer .rule { flex: 1; height: 3px; border-radius: 99px; }
+  .feature-body { padding: 2rem; display: flex; flex-direction: column; justify-content: space-between; }
+  .feature-body .cs-card-title { font-size: 19px; }
+
   /* ABOUT */
   .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
   .about-text p { font-size: 15px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 1rem; }
@@ -127,6 +139,9 @@
     .about-grid { grid-template-columns: 1fr; gap: 2rem; }
     .cs-card { grid-template-columns: 1fr; }
     .cs-card-visual { min-height: 100px; padding: 1.25rem; }
+    .feature { grid-template-columns: 1fr; }
+    .feature-visual { min-height: 120px; padding: 1.25rem; }
+    .feature-body { padding: 1.5rem; }
     .contact-inner { flex-direction: column; }
     .nav-links { display: none; }
     section { padding: 60px 1.5rem; }
@@ -218,6 +233,35 @@
     <h2 class="section-title">Research case studies</h2>
     <p class="section-sub">Each study is documented from research question through recommendation. That includes the messy middle.</p>
   </div>
+
+  <!-- Featured: case studies 02 and 03 combined into one working product -->
+  <a href="alertt/" class="feature">
+    <div class="feature-visual">
+      <span class="feature-eyebrow">02 + 03 &middot; COMBINED</span>
+      <div class="feature-layers">
+        <span class="feature-layer"><span class="dot" style="background:#CC1F1F"></span>Community layer
+          <span class="rule" style="background:#CC1F1F; opacity:0.3"></span></span>
+        <span class="feature-layer"><span class="dot" style="background:#0D9488"></span>Official layer
+          <span class="rule" style="background:#0D9488; opacity:0.45"></span></span>
+      </div>
+    </div>
+    <div class="feature-body">
+      <div>
+        <div class="cs-card-meta">
+          <span class="cs-tag">Working app</span>
+          <span class="cs-tag">Interactive map</span>
+          <span class="cs-tag">50 years of CSO data</span>
+          <span class="cs-tag">Leaflet + OpenStreetMap</span>
+        </div>
+        <h3 class="cs-card-title">AlerTT — live alerts against the official record</h3>
+        <p class="cs-card-desc">The discovery research and the data pipeline merged into one product you can actually use. Alerts land on a real map of the nine police divisions, each one sitting above the official baseline for its area, so a report is readable against what the record says is normal there. Every statistic comes straight out of the SQLite pipeline.</p>
+      </div>
+      <div class="cs-card-footer">
+        <span class="cs-card-link">Open the app <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        <span class="cs-badge live">Live</span>
+      </div>
+    </div>
+  </a>
 
   <div class="cs-grid">
 
