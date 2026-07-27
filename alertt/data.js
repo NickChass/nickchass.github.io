@@ -1,4 +1,4 @@
-// AlerTT — official crime data bundle
+// AlerTT · official crime data bundle
 // GENERATED from the alertt-data pipeline (db/alertt.sqlite). Do not hand-edit.
 // Source:    Trinidad and Tobago Central Statistical Office / TTPS, four published spreadsheets
 // Pipeline:  https://github.com/nickchass/alertt-data

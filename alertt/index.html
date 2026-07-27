@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AlerTT — Live alerts and official crime data for Trinidad and Tobago</title>
+<title>AlerTT · Live alerts and official crime data for Trinidad and Tobago</title>
 <meta name="description" content="A crime-awareness app for Trinidad and Tobago that shows community alerts against fifty years of official crime statistics.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -29,9 +29,9 @@
     --sans: 'Inter', sans-serif;
 
     /* The two layers. This split is the whole product. */
-    --live: #CC1F1F;          /* community layer — unverified, real time */
+    --live: #CC1F1F;          /* community layer: unverified, real time */
     --live-light: #FCEDED;
-    --official: #0D9488;      /* official layer — CSO published statistics */
+    --official: #0D9488;      /* official layer: CSO published statistics */
     --official-light: #E6F5F3;
 
     /* Chart series (validated: CVD dE 13.6 deutan, normal-vision 23.6) */
@@ -110,7 +110,7 @@
   .div-btn[aria-pressed="true"] .div-count { background: #fff; }
   .div-count.zero { color: var(--text-tertiary); background: var(--bg); }
 
-  /* Baseline strip — the official layer, above the live feed */
+  /* Baseline strip: the official layer, above the live feed */
   .baseline { border-left: 3px solid var(--official); background: var(--official-light); border-radius: 8px; padding: 1.1rem 1.3rem; margin-bottom: 1.5rem; }
   .baseline-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.85rem; }
   .baseline-title { font-size: 13px; font-weight: 500; color: #0B5F55; }
@@ -367,7 +367,7 @@
 <div class="layers">
   <div class="layers-inner">
     <span class="layer-key"><span class="layer-swatch" style="background:var(--live)"></span><strong>Community layer</strong> &nbsp;live, unverified reports</span>
-    <span class="layer-key"><span class="layer-swatch" style="background:var(--official)"></span><strong>Official layer</strong> &nbsp;CSO published statistics, 1975&ndash;2024</span>
+    <span class="layer-key"><span class="layer-swatch" style="background:var(--official)"></span><strong>Official layer</strong> &nbsp;CSO published statistics, 1975-2024</span>
   </div>
 </div>
 
@@ -380,9 +380,9 @@
     </span>
     <p class="demo-text">
       <strong>Every alert in this app is invented.</strong> They are a written sample used to demonstrate the
-      interface &mdash; there is no live incident feed behind this page and nothing here reports a real event.
+      interface. There is no live incident feed behind this page and nothing here reports a real event.
       <span class="real">The crime statistics are real</span>, taken unaltered from published CSO and police
-      figures for 1975&ndash;2024.
+      figures for 1975-2024.
     </p>
   </div>
 </div>
@@ -431,7 +431,7 @@
       <div class="map-card">
         <div class="map-toggle" role="group" aria-label="Map layer">
           <button id="ml-live"     aria-pressed="true">Live alerts</button>
-          <button id="ml-official" aria-pressed="false">Murders, 2015&ndash;2024</button>
+          <button id="ml-official" aria-pressed="false">Murders, 2015-2024</button>
         </div>
         <div id="leaflet-map" role="application"
              aria-label="Interactive map of Trinidad and Tobago showing alerts and the nine police divisions"></div>
@@ -547,7 +547,7 @@
       <h3>How this was built</h3>
       <p>Four source spreadsheets are parsed and tidied in R (<code>01_clean.R</code>), loaded into a SQLite fact constellation with four fact tables at four honest grains and four conformed dimensions (<code>02_build_db.R</code>), checked by seven validation tests that exit non-zero on failure (<code>03_validate.R</code>), and served through SQL views that compute year-over-year change with window functions (<code>04_views.R</code>).</p>
       <p>Detection rate is never stored. It is derived in a view as detected over reported, so the stored data stays at published source values. A dash in the source is parsed as null, not zero: it means the category was not separately defined that year, and treating it as zero would assert a claim the source does not make.</p>
-      <p>The murder series shown above splices two publications, 1975&ndash;2014 from the offence-by-year file and 2015&ndash;2024 from the murders-by-division file. The three publications that overlap agree exactly on every year from 2015 to 2022, so the join asserts nothing new.</p>
+      <p>The murder series shown above splices two publications, 1975-2014 from the offence-by-year file and 2015-2024 from the murders-by-division file. The three publications that overlap agree exactly on every year from 2015 to 2022, so the join asserts nothing new.</p>
       <div class="link-row">
         <a class="btn-link" href="https://nickchass.github.io/alertt-data/">Full dashboard</a>
         <a class="btn-link" href="https://github.com/nickchass/alertt-data">Source code and data</a>

@@ -1,4 +1,4 @@
-/* AlerTT — live community alerts against the official crime record.
+/* AlerTT · live community alerts against the official crime record.
    Two data layers, deliberately kept apart:
      · the community layer  (this file's SEED array + whatever the user files)
      · the official layer   (CRIME, generated from the alertt-data SQLite pipeline)
@@ -143,7 +143,7 @@ const allAlerts = () => [
 
 const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-const fmt = n => n == null ? '—' : n.toLocaleString('en-US');
+const fmt = n => n == null ? 'n/a' : n.toLocaleString('en-US');
 
 function ago(ts) {
   const m = Math.max(0, Math.round((Date.now() - ts) / MIN));
@@ -224,14 +224,14 @@ function renderBaseline() {
     el.innerHTML = `<div class="baseline">
       <div class="baseline-head">
         <span class="baseline-title">National baseline &middot; the official record</span>
-        <span class="baseline-src">CSO / TTPS &middot; ${ml.years[0]}&ndash;${n.year}</span>
+        <span class="baseline-src">CSO / TTPS &middot; ${ml.years[0]}-${n.year}</span>
       </div>
       <div class="baseline-row">
         <div><div class="bstat-num">${fmt(n.reported)}</div><div class="bstat-label">murders recorded in ${n.year}</div></div>
         <div><div class="bstat-num">${n.pct}%</div><div class="bstat-label">detected &middot; about one in seven</div></div>
         <div><div class="bstat-num">${Math.round(n.reported / ml.reported[0])}&times;</div><div class="bstat-label">the ${ml.years[0]} figure of ${ml.reported[0]}</div></div>
         <div class="baseline-spark">${sparkline(CRIME.national.reported, 120, 34)}
-          <div class="bstat-label" style="text-align:right">2015&ndash;${n.year}</div></div>
+          <div class="bstat-label" style="text-align:right">2015-${n.year}</div></div>
       </div></div>`;
     return;
   }
@@ -239,14 +239,14 @@ function renderBaseline() {
   el.innerHTML = `<div class="baseline">
     <div class="baseline-head">
       <span class="baseline-title">${esc(state.division)} Division &middot; the official record</span>
-      <span class="baseline-src">CSO / TTPS &middot; ${y[0]}&ndash;${y[y.length - 1]}</span>
+      <span class="baseline-src">CSO / TTPS &middot; ${y[0]}-${y[y.length - 1]}</span>
     </div>
     <div class="baseline-row">
       <div><div class="bstat-num">${fmt(s.latest)}</div><div class="bstat-label">murders in ${y[y.length - 1]}</div></div>
       <div><div class="bstat-num">${fmt(s.total)}</div><div class="bstat-label">over the ten years</div></div>
       <div><div class="bstat-num">${s.pct}%</div><div class="bstat-label">of those detected</div></div>
       <div class="baseline-spark">${sparkline(s.reported, 120, 34)}
-        <div class="bstat-label" style="text-align:right">${y[0]}&ndash;${y[y.length - 1]}</div></div>
+        <div class="bstat-label" style="text-align:right">${y[0]}-${y[y.length - 1]}</div></div>
     </div></div>`;
 }
 
@@ -266,7 +266,7 @@ function renderFeed() {
   const scope = state.division === 'all' ? 'across all nine divisions' : 'in ' + state.division;
   const mine = list.filter(a => a.mine).length;
   const noun = list.length === 1 ? 'alert' : 'alerts';
-  // Only call them sample alerts when they all are — the user's own are not.
+  // Only call them sample alerts when they all are. The user's own are not.
   $('#feed-count').innerHTML = mine
     ? `<strong>${list.length}</strong> ${noun} ${esc(scope)} &middot; ${list.length - mine} sample, ${mine} filed by you`
     : `<strong>${list.length}</strong> sample ${noun} ${esc(scope)}`;
@@ -327,7 +327,7 @@ let lmap = null, liveLayer = null, officialLayer = null, legendCtl = null;
 
 function catOf(a) { return CAT[a.cat] || CAT.other; }
 
-// Resolve a CSS custom property to a real colour — Leaflet writes these into
+// Resolve a CSS custom property to a real colour. Leaflet writes these into
 // inline styles and SVG attributes, where var() would not resolve.
 const CSSVAR = {};
 function colour(v) {
@@ -375,9 +375,9 @@ function divisionPopup(d) {
   const s = divStats(d), y = s.years;
   return `<div class="pop">
     <div class="pop-top"><span class="pop-type">${esc(d)} Division</span></div>
-    <div class="pop-loc">${esc(s.region)} &middot; official record, ${y[0]}&ndash;${y[y.length - 1]}</div>
+    <div class="pop-loc">${esc(s.region)} &middot; official record, ${y[0]}-${y[y.length - 1]}</div>
     <div class="pop-desc">${fmt(s.total)} murders recorded over the ten years, ${fmt(s.totalDet)} of them
-      detected &mdash; a rate of ${s.pct}%. In ${y[y.length - 1]} there were ${fmt(s.latest)}.</div>
+      detected, a rate of ${s.pct}%. In ${y[y.length - 1]} there were ${fmt(s.latest)}.</div>
     ${sparkline(s.reported, 236, 40)}
     <button class="pop-btn" data-goto="${esc(d)}">See ${esc(d)} in the feed</button>
   </div>`;
@@ -386,7 +386,7 @@ function divisionPopup(d) {
 function buildLegend() {
   const div = L.DomUtil.create('div', 'map-legend');
   const rows = state.mapLayer === 'official'
-    ? [['var(--official)', 'Murders 2015&ndash;2024, circle sized by total']]
+    ? [['var(--official)', 'Murders 2015-2024, circle sized by total']]
     : [['var(--cat-red)', 'Violent incident'], ['var(--cat-amber)', 'Property or suspicious'],
        ['var(--cat-blue)', 'Police or traffic'], ['var(--cat-green)', 'All clear']];
   div.innerHTML = `<h4>${state.mapLayer === 'official' ? 'Official layer' : 'Community layer'}</h4>` +
@@ -439,7 +439,7 @@ function initLeaflet() {
 const TT_BOUNDS = () => L.latLngBounds([10.02, -61.95], [11.36, -60.50]);
 let mapFitted = false;
 
-// `hidden` is an HTMLElement property — assigning it on an SVG element sets a
+// `hidden` is an HTMLElement property. Assigning it on an SVG element sets a
 // stray JS property and leaves the attribute in place, so toggle the attribute.
 const showEl = (sel, show) =>
   show ? $(sel).removeAttribute('hidden') : $(sel).setAttribute('hidden', '');
@@ -473,10 +473,10 @@ function renderLeafletMap() {
       });
       return L.marker([dd.lat, dd.lng], {
         icon, zIndexOffset: 400 - size,   // smaller badges stay clickable on top
-        title: `${d} Division — ${totals[d]} murders 2015–2024`,
+        title: `${d} Division · ${totals[d]} murders 2015-2024`,
       })
         .bindPopup(divisionPopup(d))
-        .bindTooltip(`<b>${d}</b> — ${fmt(totals[d])} murders, ${divStats(d).pct}% detected`,
+        .bindTooltip(`<b>${d}</b> · ${fmt(totals[d])} murders, ${divStats(d).pct}% detected`,
                      { direction: 'top', offset: [0, -size / 2] })
         .on('click', () => { state.mapSel = d; renderMapSide(); renderLeafletMap(); });
     })).addTo(lmap);
@@ -497,7 +497,7 @@ function renderLeafletMap() {
       }),
       ...alerts.map(a => L.marker([a.lat, a.lng], {
         icon: pinIcon(a), riseOnHover: true,
-        title: `${catOf(a).label} — ${a.loc}`,
+        title: `${catOf(a).label} · ${a.loc}`,
       }).bindPopup(alertPopup(a))),
     ]).addTo(lmap);
   }
@@ -505,11 +505,11 @@ function renderLeafletMap() {
   if (legendCtl) { legendCtl.remove(); legendCtl.addTo(lmap); }
 
   $('#map-scale').innerHTML = state.mapLayer === 'official'
-    ? `<span>Circle size and label show murders recorded 2015&ndash;2024, from ${fmt(Math.min(...Object.values(totals)))} in Tobago to ${fmt(maxTotal)} in Northern. Click a division for its record.</span>`
+    ? `<span>Circle size and label show murders recorded 2015-2024, from ${fmt(Math.min(...Object.values(totals)))} in Tobago to ${fmt(maxTotal)} in Northern. Click a division for its record.</span>`
     : `<span>Sample pins, not real incidents. Filled = verified &middot; hollow = unverified community report &middot; pulsing = last 90 minutes. Click any pin for detail.</span>`;
 
   // The container has no size until its tab is visible, so measure first and
-  // only then frame the islands — otherwise Tobago lands outside the viewport.
+  // only then frame the islands. Otherwise Tobago lands outside the viewport.
   setTimeout(() => {
     lmap.invalidateSize();
     if (!mapFitted) { lmap.fitBounds(TT_BOUNDS(), { padding: [24, 24] }); mapFitted = true; }
@@ -574,7 +574,7 @@ function renderSvgMap() {
 
   // Scale legend
   $('#map-scale').innerHTML = state.mapLayer === 'official'
-    ? `<span>Circle area is murders recorded 2015&ndash;2024</span>
+    ? `<span>Circle area is murders recorded 2015-2024</span>
        <span class="scale-dots">
          <svg width="70" height="30" aria-hidden="true">
            <circle cx="10" cy="15" r="7" fill="var(--official)" fill-opacity="0.2" stroke="var(--official)"/>
@@ -592,7 +592,7 @@ function renderSvgMap() {
     g.addEventListener('mousemove', e => {
       const s = divStats(d);
       showTip(`<span class="tip-t">${esc(d)} Division</span>
-        <span class="tip-r"><span>Murders 2015&ndash;24</span><span>${fmt(s.total)}</span></span>
+        <span class="tip-r"><span>Murders 2015-24</span><span>${fmt(s.total)}</span></span>
         <span class="tip-r"><span>Detected</span><span>${fmt(s.totalDet)} (${s.pct}%)</span></span>`, e.clientX, e.clientY);
     });
     g.addEventListener('mouseleave', hideTip);
@@ -752,7 +752,7 @@ function updateClearBtn() {
 }
 
 // ════════════════════════════════════════════════════════════
-// CONTEXT — charts
+// CONTEXT: charts
 // ════════════════════════════════════════════════════════════
 const PAD = { l: 46, r: 56, t: 14, b: 30 };
 const CW = 720, CH = 260;
@@ -843,7 +843,7 @@ function chartLong() {
 
   chartCard($('#cc-long'), {
     title: 'Murders recorded, 1975 to 2024',
-    sub: 'Sixty in 1975, six hundred and twenty-five in 2024 — the highest figure in the fifty-year series. The dip in 2020 coincides with pandemic movement restrictions.',
+    sub: 'Sixty in 1975, six hundred and twenty-five in 2024, the highest figure in the fifty-year series. The dip in 2020 coincides with pandemic movement restrictions.',
     svg: `<svg class="chart-svg" viewBox="0 0 ${CW} ${CH}" role="img"
         aria-label="Line chart of murders recorded in Trinidad and Tobago from 1975 to 2024, rising from 60 to 625">
       ${axes(maxY, ticks, xl, y => px(years.indexOf(y)))}
@@ -861,7 +861,7 @@ function chartLong() {
       <text class="end-label" x="${(px(0) + 6).toFixed(1)}" y="${(py(reported[0]) - 9).toFixed(1)}"
         fill="var(--text-secondary)" style="font-weight:500">60</text>
     </svg>`,
-    src: 'CSO crime by type of offence 1975&ndash;2022; TTPS murders by division 2015&ndash;2024',
+    src: 'CSO crime by type of offence 1975-2022; TTPS murders by division 2015-2024',
     table: `<table><thead><tr><th>Year</th><th>Murders</th></tr></thead><tbody>${
       years.map((y, i) => `<tr><td>${y}</td><td>${fmt(reported[i])}</td></tr>`).join('')}</tbody></table>`,
   });
@@ -903,7 +903,7 @@ function chartGap() {
       <text class="end-label" x="${(px(last) + 9).toFixed(1)}" y="${(py(detected[last]) + 4).toFixed(1)}"
         fill="var(--text-primary)">86</text>
     </svg>`,
-    src: 'TTPS murders by police division 2015&ndash;2024, summed to national',
+    src: 'TTPS murders by police division 2015-2024, summed to national',
     table: `<table><thead><tr><th>Year</th><th>Reported</th><th>Detected</th><th>Rate</th></tr></thead><tbody>${
       years.map((y, i) => `<tr><td>${y}</td><td>${fmt(reported[i])}</td><td>${fmt(detected[i])}</td><td>${CRIME.national.detectionPct[i]}%</td></tr>`).join('')}</tbody></table>`,
   });
@@ -950,7 +950,7 @@ function chartDiv() {
     svg: `<svg class="chart-svg" viewBox="0 -10 ${W} ${H}" role="img"
         aria-label="Bar chart of murders by police division 2015 to 2024, led by Northern and Port of Spain">
       ${grid}${bars}</svg>`,
-    src: 'TTPS murders by police division 2015&ndash;2024',
+    src: 'TTPS murders by police division 2015-2024',
     table: `<table><thead><tr><th>Division</th><th>Murders</th><th>Detected</th><th>Rate</th><th>2024</th></tr></thead><tbody>${
       rows.map(r => `<tr><td>${r.d}</td><td>${fmt(r.total)}</td><td>${fmt(r.totalDet)}</td><td>${r.pct}%</td><td>${fmt(r.latest)}</td></tr>`).join('')}</tbody></table>`,
   });
@@ -959,7 +959,7 @@ function chartDiv() {
     const r = rows.find(x => x.d === g.dataset.div);
     g.addEventListener('mousemove', e => showTip(
       `<span class="tip-t">${esc(r.d)} Division</span>
-       <span class="tip-r"><span>Murders 2015&ndash;24</span><span>${fmt(r.total)}</span></span>
+       <span class="tip-r"><span>Murders 2015-24</span><span>${fmt(r.total)}</span></span>
        <span class="tip-r"><span>Detected</span><span>${fmt(r.totalDet)}</span></span>
        <span class="tip-r"><span>Detection rate</span><span>${r.pct}%</span></span>
        <span class="tip-r"><span>In 2024</span><span>${fmt(r.latest)}</span></span>`, e.clientX, e.clientY));
