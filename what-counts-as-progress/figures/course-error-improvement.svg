@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="700" viewBox="0 0 1000 700" role="img">
+<title>Activity volume across course contexts</title>
+<rect width="100%" height="100%" fill="white"/>
+<g font-family="Arial, Helvetica, sans-serif">
+<text x="35.00" y="44.00" font-size="27" fill="#172B44" text-anchor="start" font-weight="700">Activity volume across course contexts</text>
+<text x="35.00" y="75.00" font-size="15" fill="#4B596B" text-anchor="start" >Secondary evaluation comparisons; anonymized module codes</text>
+<line x1="375.52" y1="120.00" x2="375.52" y2="565.00" stroke="#E3E8EE" stroke-width="1" />
+<text x="375.52" y="591.00" font-size="14" fill="#4B596B" text-anchor="middle" >0</text>
+<line x1="470.75" y1="120.00" x2="470.75" y2="565.00" stroke="#E3E8EE" stroke-width="1" />
+<text x="470.75" y="591.00" font-size="14" fill="#4B596B" text-anchor="middle" >0.2</text>
+<line x1="565.97" y1="120.00" x2="565.97" y2="565.00" stroke="#E3E8EE" stroke-width="1" />
+<text x="565.97" y="591.00" font-size="14" fill="#4B596B" text-anchor="middle" >0.4</text>
+<line x1="661.20" y1="120.00" x2="661.20" y2="565.00" stroke="#E3E8EE" stroke-width="1" />
+<text x="661.20" y="591.00" font-size="14" fill="#4B596B" text-anchor="middle" >0.6</text>
+<line x1="756.42" y1="120.00" x2="756.42" y2="565.00" stroke="#E3E8EE" stroke-width="1" />
+<text x="756.42" y="591.00" font-size="14" fill="#4B596B" text-anchor="middle" >0.8</text>
+<line x1="851.64" y1="120.00" x2="851.64" y2="565.00" stroke="#E3E8EE" stroke-width="1" />
+<text x="851.64" y="591.00" font-size="14" fill="#4B596B" text-anchor="middle" >1</text>
+<line x1="375.52" y1="120.00" x2="375.52" y2="565.00" stroke="#8290A3" stroke-width="1.5" stroke-dasharray="6 5"/>
+<text x="285.00" y="162.08" font-size="16" fill="#4B596B" text-anchor="end" >AAA  (125 enrollments)</text>
+<line x1="412.69" y1="157.08" x2="905.71" y2="157.08" stroke="#007F89" stroke-width="2" />
+<line x1="412.69" y1="150.08" x2="412.69" y2="164.08" stroke="#007F89" stroke-width="2" />
+<line x1="905.71" y1="150.08" x2="905.71" y2="164.08" stroke="#007F89" stroke-width="2" />
+<circle cx="656.52" cy="157.08" r="5.5" fill="#007F89"/>
+<text x="285.00" y="236.25" font-size="16" fill="#4B596B" text-anchor="end" >CCC  (333 enrollments)</text>
+<line x1="401.07" y1="231.25" x2="868.05" y2="231.25" stroke="#007F89" stroke-width="2" />
+<line x1="401.07" y1="224.25" x2="401.07" y2="238.25" stroke="#007F89" stroke-width="2" />
+<line x1="868.05" y1="224.25" x2="868.05" y2="238.25" stroke="#007F89" stroke-width="2" />
+<circle cx="634.24" cy="231.25" r="5.5" fill="#007F89"/>
+<text x="285.00" y="310.42" font-size="16" fill="#4B596B" text-anchor="end" >FFF  (884 enrollments)</text>
+<line x1="504.17" y1="305.42" x2="667.06" y2="305.42" stroke="#007F89" stroke-width="2" />
+<line x1="504.17" y1="298.42" x2="504.17" y2="312.42" stroke="#007F89" stroke-width="2" />
+<line x1="667.06" y1="298.42" x2="667.06" y2="312.42" stroke="#007F89" stroke-width="2" />
+<circle cx="581.67" cy="305.42" r="5.5" fill="#007F89"/>
+<text x="285.00" y="384.58" font-size="16" fill="#4B596B" text-anchor="end" >DDD  (707 enrollments)</text>
+<line x1="417.93" y1="379.58" x2="598.45" y2="379.58" stroke="#007F89" stroke-width="2" />
+<line x1="417.93" y1="372.58" x2="417.93" y2="386.58" stroke="#007F89" stroke-width="2" />
+<line x1="598.45" y1="372.58" x2="598.45" y2="386.58" stroke="#007F89" stroke-width="2" />
+<circle cx="506.10" cy="379.58" r="5.5" fill="#007F89"/>
+<text x="285.00" y="458.75" font-size="16" fill="#4B596B" text-anchor="end" >EEE  (405 enrollments)</text>
+<line x1="334.29" y1="453.75" x2="638.97" y2="453.75" stroke="#007F89" stroke-width="2" />
+<line x1="334.29" y1="446.75" x2="334.29" y2="460.75" stroke="#007F89" stroke-width="2" />
+<line x1="638.97" y1="446.75" x2="638.97" y2="460.75" stroke="#007F89" stroke-width="2" />
+<circle cx="484.15" cy="453.75" r="5.5" fill="#007F89"/>
+<text x="285.00" y="532.92" font-size="16" fill="#4B596B" text-anchor="end" >BBB  (945 enrollments)</text>
+<line x1="353.69" y1="527.92" x2="566.97" y2="527.92" stroke="#007F89" stroke-width="2" />
+<line x1="353.69" y1="520.92" x2="353.69" y2="534.92" stroke="#007F89" stroke-width="2" />
+<line x1="566.97" y1="520.92" x2="566.97" y2="534.92" stroke="#007F89" stroke-width="2" />
+<circle cx="457.01" cy="527.92" r="5.5" fill="#007F89"/>
+<text x="620.00" y="626.00" font-size="16" fill="#4B596B" text-anchor="middle" >Mean absolute error reduction (assessment-mark points)</text>
+<text x="35.00" y="657.00" font-size="13" fill="#4B596B" text-anchor="start" >Smaller groups have less precise estimates. Intervals are descriptive; no causal or subgroup-effect claim.</text>
+</g>
+</svg>

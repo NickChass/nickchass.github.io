@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A fictional learning-dashboard and practice-scoring demonstration for the What Counts as Progress? research portfolio.">
+  <title>What Counts as Progress? — Interactive research demonstration</title>
+  <style>
+    :root { color-scheme: light; --ink: #172c39; --muted: #526571; --paper: #faf9f5; --white: #fff; --line: #d4dedb; --green: #174f43; --wash: #eaf2ed; --orange: #ac492a; --gold: #f2e4c7; }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; color: var(--ink); background: var(--paper); font: 16px/1.6 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    a { color: var(--green); text-underline-offset: .2em; }
+    a:hover { text-decoration-thickness: 2px; }
+    button, select, input { font: inherit; }
+    button, select { min-height: 44px; }
+    button { border: 1px solid var(--green); background: var(--green); color: white; border-radius: 5px; padding: .5rem .95rem; cursor: pointer; }
+    button:hover { background: #103f35; }
+    button.secondary { background: white; color: var(--green); }
+    button.secondary:hover { background: var(--wash); }
+    button:disabled { cursor: default; opacity: .6; }
+    :focus-visible { outline: 3px solid var(--orange); outline-offset: 4px; }
+    h1, h2, h3, p { margin: 0 0 1rem; }
+    h1, h2 { font-family: Georgia, "Times New Roman", serif; font-weight: 500; line-height: 1.1; letter-spacing: -.025em; }
+    h1 { font-size: clamp(2.7rem, 6vw, 4.5rem); max-width: 850px; }
+    h2 { font-size: clamp(2rem, 4vw, 2.8rem); }
+    h3 { font-size: 1.2rem; line-height: 1.3; }
+    p { max-width: 75ch; }
+    .wrap { width: min(1080px, calc(100% - 40px)); margin: auto; }
+    .skip { position: fixed; left: 1rem; top: -100px; background: white; padding: 1rem; z-index: 5; }
+    .skip:focus { top: 1rem; }
+    header { border-bottom: 1px solid var(--line); }
+    .mast { display: flex; justify-content: space-between; gap: 20px; padding: 24px 0; align-items: center; }
+    .mast strong { font-size: .9rem; letter-spacing: .04em; }
+    .status { color: var(--green); font-size: .8rem; border: 1px solid #8aa798; border-radius: 30px; padding: .2rem .65rem; white-space: nowrap; }
+    .hero { padding: 60px 0 35px; }
+    .eyebrow { font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; color: var(--green); margin-bottom: 1rem; }
+    .intro { font-size: 1.2rem; max-width: 720px; color: var(--muted); }
+    nav { display: flex; gap: 24px; flex-wrap: wrap; padding: 22px 0; border-top: 1px solid var(--line); }
+    nav a { font-size: .9rem; text-decoration: none; }
+    nav span { color: var(--orange); margin-right: 6px; }
+    section { padding: 48px 0; border-bottom: 1px solid var(--line); scroll-margin-top: 24px; }
+    .section-top { display: flex; align-items: start; gap: 22px; }
+    .section-number { color: var(--orange); font: 1.1rem/1.3 Georgia, serif; padding-top: 8px; }
+    .lead { color: var(--muted); margin-bottom: 24px; }
+    .controls { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin: 24px 0; }
+    select { max-width: 100%; color: var(--ink); background: white; padding: .4rem 2rem .4rem .7rem; border: 1px solid #889c97; border-radius: 4px; }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+    .card { background: white; padding: 26px; border: 1px solid var(--line); border-radius: 7px; }
+    .card.evidence { border-top: 4px solid var(--green); padding-top: 23px; }
+    .label { font-size: .76rem; text-transform: uppercase; letter-spacing: .09em; color: var(--muted); margin-bottom: .4rem; }
+    .quiet { color: var(--muted); font-size: .9rem; }
+    .small { font-size: .85rem; }
+    dl { margin: 20px 0; }
+    dl > div { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 12px 0; border-bottom: 1px solid #e9eeeb; }
+    dt { color: var(--muted); }
+    dd { margin: 0; font-weight: 650; text-align: right; }
+    .annotation { margin-top: 20px; padding: 16px 18px; background: var(--wash); border-left: 3px solid var(--green); font-size: .93rem; }
+    .annotation p:last-child { margin: 0; }
+    .boundary { background: #f5eee0; border-left-color: #957434; }
+    .practice-layout { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 20px; align-items: start; }
+    .lesson { margin: 28px 0; padding: 20px 24px; border: 1px solid var(--line); background: var(--wash); border-radius: 7px; }
+    .lesson summary { cursor: pointer; font-weight: 650; }
+    .lesson p { margin: 12px 0 0; }
+    .formula { display: block; margin: 8px 0; font-family: Georgia, serif; font-size: 1.2rem; }
+    .practice-menu { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0 22px; }
+    .practice-menu button { color: var(--green); background: white; padding: .4rem .7rem; }
+    .practice-menu button[aria-pressed="true"] { background: var(--green); color: white; }
+    fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+    legend { font-weight: 650; margin-bottom: 16px; line-height: 1.5; }
+    .choice { display: flex; gap: 10px; align-items: start; margin: 9px 0; padding: 12px; border: 1px solid var(--line); border-radius: 4px; cursor: pointer; font-size: .95rem; }
+    .choice:hover { background: var(--wash); }
+    .choice input { margin: 5px 0 0; accent-color: var(--green); }
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+    .feedback { min-height: 24px; margin-top: 18px; font-size: .93rem; }
+    .feedback:empty { margin-top: 0; min-height: 0; }
+    .score-box { padding: 18px 0; border-top: 1px solid var(--line); }
+    .score-box:first-of-type { margin-top: 18px; }
+    .score-line { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
+    .score-line strong { font-size: 1.8rem; font-weight: 600; line-height: 1.2; color: var(--green); }
+    .score-box p { margin: 7px 0 0; font-size: .9rem; color: var(--muted); }
+    .event-summary { margin: 20px 0 10px; color: var(--muted); font-size: .9rem; }
+    .event-list { padding-left: 26px; margin: 16px 0 0; font-size: .88rem; }
+    .event-list li { margin: 8px 0; }
+    .event-list .delta { color: var(--green); font-size: .82rem; }
+    details.history { margin-top: 18px; border-top: 1px solid var(--line); padding-top: 16px; }
+    details.history summary { cursor: pointer; font-size: .9rem; }
+    .transfer { max-width: 730px; margin-top: 24px; }
+    footer { padding: 28px 0 40px; color: var(--muted); font-size: .85rem; }
+    footer p { margin-bottom: .5rem; }
+    [hidden] { display: none !important; }
+    @media (max-width: 740px) { .wrap { width: calc(100% - 32px); } .hero { padding-top: 36px; } .grid, .practice-layout { grid-template-columns: 1fr; } .card { padding: 22px; } .card.evidence { padding-top: 19px; } .mast { align-items: start; gap: 12px; } .mast strong { max-width: 210px; } nav { gap: 14px 20px; } section { padding: 36px 0; } .section-top { gap: 12px; } }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    @media print { button, .practice-menu, nav, .controls, .skip { display: none; } body { background: white; font-size: 11pt; } .wrap { width: 100%; } .hero, section { padding: 20px 0; } .grid, .practice-layout { grid-template-columns: 1fr 1fr; } .card { break-inside: avoid; } }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to demonstration</a>
+  <header>
+    <div class="wrap mast"><a href="../case-studies/what-counts-as-progress.html"><strong>WHAT COUNTS AS PROGRESS?</strong></a><span class="status">Research demonstration</span></div>
+  </header>
+  <main id="main" class="wrap">
+    <div class="hero">
+      <p class="eyebrow">Learning dashboards · A measurement question</p>
+      <h1>A count is a clue.<br>What else do we need?</h1>
+      <p class="intro">Compare two views of the same fictional learner. Then try two point rules on the same practice history and see exactly what each score counts.</p>
+      <p class="quiet">All learner records and lesson scenarios below are invented. This demonstration contains no study results and has not been tested with participants.</p>
+    </div>
+    <nav aria-label="Demonstration sections">
+      <a href="#dashboard"><span>01</span> Read a dashboard</a>
+      <a href="#practice"><span>02</span> Try the point rules</a>
+      <a href="#transfer"><span>03</span> Apply the lesson</a>
+    </nav>
+    <noscript><p class="annotation boundary">JavaScript is needed for the comparison and practice interactions. The explanations and point-rule definitions remain readable without it.</p></noscript>
+
+    <section id="dashboard" aria-labelledby="dashboard-title">
+      <div class="section-top"><span class="section-number" aria-hidden="true">01</span><div><h2 id="dashboard-title">Same activity. More context.</h2><p class="lead">Activity tells us what the platform recorded. Assessment adds evidence about performance on particular work. Neither directly measures understanding.</p></div></div>
+      <div class="controls"><label for="scenario">Fictional record</label><select id="scenario"><option value="frequent">Frequent activity, lower prior mark</option><option value="occasional">Less activity, higher prior mark</option><option value="unassessed">Activity, no assessment evidence</option></select></div>
+      <p class="quiet" id="scenario-description">Learner A · Days 42–55 of a fictional course · 14-day activity window.</p>
+      <div class="grid" aria-label="Two synchronized views of the selected fictional record">
+        <article class="card">
+          <p class="label">Activity view</p><h3>What was recorded?</h3>
+          <dl><div><dt>Platform interactions</dt><dd data-clicks>420</dd></div><div><dt>Days with recorded activity</dt><dd data-days>13 of 14</dd></div><div><dt>Activity window</dt><dd>Days 42–55</dd></div></dl>
+          <p class="quiet">An interaction count does not reveal time spent, offline study, difficulty, or answer correctness.</p>
+          <div class="annotation"><p><strong>Supported reading:</strong> <span id="activity-reading">The learner used the platform on most days in this window.</span></p></div>
+        </article>
+        <article class="card evidence">
+          <p class="label">Activity + assessment view</p><h3>What evidence is available?</h3>
+          <dl><div><dt>Platform interactions</dt><dd data-clicks>420</dd></div><div><dt>Days with recorded activity</dt><dd data-days>13 of 14</dd></div><div><dt>Earlier assessment mark</dt><dd id="prior-mark">64 / 100</dd></div><div><dt>Later assessment at cutoff</dt><dd>Unknown</dd></div></dl>
+          <p class="quiet" id="mark-context">Earlier work was submitted before day 42. The mark is shown as retrospective evidence; its release date is unknown.</p>
+          <div class="annotation"><p><strong>Supported reading:</strong> <span id="evidence-reading">Recorded activity was frequent; the earlier mark was 64. The record does not establish current understanding or later performance.</span></p></div>
+        </article>
+      </div>
+      <div class="annotation boundary"><p><strong>Availability matters.</strong> The research dataset records assessment submissions and marks, but not grade-release dates. A retrospective analysis can use an earlier mark without proving that a live dashboard could already display it. An unknown later mark stays unknown; it is not zero.</p></div>
+    </section>
+
+    <section id="practice" aria-labelledby="practice-title">
+      <div class="section-top"><span class="section-number" aria-hidden="true">02</span><div><h2 id="practice-title">One history. Two point rules.</h2><p class="lead">Answer a question, repeat it, try a new one, or read an explanation. Both counters use exactly the same actions. Only the point rule changes.</p></div></div>
+      <details class="lesson" open><summary>Mini lesson: compare rates when the group sizes differ</summary><p>A count tells you how many events happened. A rate relates that count to the relevant number of opportunities or people.</p><span class="formula">Rate = event count ÷ relevant denominator</span><p>For example, 12 events among 200 opportunities is 6%; 9 among 100 is 9%. The first group has more events but a lower rate. Check that the event definitions and periods are comparable. Without a suitable denominator, counts alone cannot establish which group has the higher rate.</p><p class="small">These are fictional teaching numbers, not real risk estimates.</p></details>
+      <div class="practice-layout">
+        <div class="card">
+          <p class="label">Choose your practice</p>
+          <div class="practice-menu" role="group" aria-label="Practice questions"><button type="button" data-item="0" aria-pressed="true">1 · Counts & rates</button><button type="button" data-item="1" aria-pressed="false">2 · Compute a rate</button><button type="button" data-item="2" aria-pressed="false">3 · New context</button><button type="button" data-item="3" aria-pressed="false">4 · Missing denominator</button></div>
+          <form id="practice-form"><fieldset><legend id="practice-question">A fictional help desk records 12 unresolved requests out of 200 on Monday and 9 out of 100 on Tuesday. Which day has the higher unresolved-request rate?</legend><div id="practice-choices"></div></fieldset><div class="actions"><button type="submit">Check answer</button><button type="button" class="secondary" id="explain">Read explanation</button></div></form>
+          <p class="feedback" id="practice-feedback" role="status" aria-live="polite" aria-atomic="true"></p>
+          <p class="quiet small" id="item-status">No answer to this item yet. Correct repeats remain available.</p>
+        </div>
+        <aside class="card" aria-labelledby="scores-title">
+          <p class="label">Practice points</p><h3 id="scores-title">Different rules, different totals</h3>
+          <div id="score-status" role="status" aria-live="polite" aria-atomic="true">
+            <div class="score-box"><div class="score-line"><h3>All-correct credit</h3><strong id="all-score">0</strong></div><p>+1 for each correct answer.<br>Correct repeats also earn +1.</p></div>
+            <div class="score-box"><div class="score-line"><h3>Distinct-item credit</h3><strong id="distinct-score">0</strong></div><p>+1 when an item is first answered correctly.<br>Further correct answers to that item earn +0.</p></div>
+          </div>
+          <p class="quiet small">Incorrect answers and explanation views earn +0 under both rules. Switching questions earns no points.</p>
+          <p class="event-summary" id="event-summary">No practice actions yet.</p>
+          <div class="actions"><button type="button" class="secondary" id="sample">Load example history</button><button type="button" class="secondary" id="reset-practice">Reset practice</button></div>
+          <p class="quiet small" style="margin-top:12px">Loading the example replaces this practice history.</p>
+          <details class="history"><summary>Inspect the shared history</summary><ol class="event-list" id="history"><li>No actions recorded in this page session.</li></ol></details>
+        </aside>
+      </div>
+      <div class="annotation boundary"><p><strong>What the difference means:</strong> one counter counts correct answer events; the other counts distinct items answered correctly. Neither is a validated measure of mastery. This demonstration does not establish which rule improves learning, or how people would choose practice under either rule.</p></div>
+    </section>
+
+    <section id="transfer" aria-labelledby="transfer-title">
+      <div class="section-top"><span class="section-number" aria-hidden="true">03</span><div><h2 id="transfer-title">Apply the idea outside the points.</h2><p class="lead">Try an unfamiliar example. This is an unscored teaching check: it changes neither practice counter and is not a validated transfer test.</p></div></div>
+      <div class="card transfer"><form id="transfer-form"><fieldset><legend>A fictional reading service adds subscribers. In June, 18 of 300 subscribers cancel; in July, 24 of 600 cancel. A manager says, “The cancellation rate got worse because cancellations rose.” Which response is best supported?</legend><label class="choice"><input type="radio" name="transfer" value="0"><span>The manager is right: 24 is larger than 18.</span></label><label class="choice"><input type="radio" name="transfer" value="1"><span>The observed monthly cancellation rate fell from 6% to 4%, assuming the subscriber counts are the relevant denominators.</span></label><label class="choice"><input type="radio" name="transfer" value="2"><span>Subscriber growth proves that service quality improved.</span></label></fieldset><div class="actions"><button type="submit">Check reasoning</button><button type="button" class="secondary" id="reset-transfer">Reset this check</button></div></form><p class="feedback" id="transfer-feedback" role="status" aria-live="polite" aria-atomic="true"></p></div>
+      <p class="quiet small" style="margin-top:18px">In a future study, learning would need a separate, prespecified assessment with unfamiliar items. The two rules would need to be compared with participants under a reviewed study protocol. This page is a demonstration of the design contrast.</p>
+    </section>
+  </main>
+  <footer class="wrap"><p><strong>What Counts as Progress?</strong> · Portfolio companion · Version 0.1 · 3 October 2026</p><p>No sign-in, analytics, network requests, or persistent storage. Answers and the practice history exist only in this page’s memory; refreshing the page clears them.</p><p>The public-data research and this fictional demonstration are separate sources of evidence.</p></footer>
+  <script>
+    'use strict';
+    const scenarios = {
+      frequent: { name: 'Learner A', clicks: 420, days: 13, mark: '64 / 100', activity: 'The learner used the platform on most days in this window.', evidence: 'Recorded activity was frequent; the earlier mark was 64. The record does not establish current understanding or later performance.', context: 'Earlier work was submitted before day 42. The mark is shown as retrospective evidence; its release date is unknown.' },
+      occasional: { name: 'Learner B', clicks: 88, days: 5, mark: '88 / 100', activity: 'The learner used the platform on 5 days in this window.', evidence: 'Recorded activity was less frequent; the earlier mark was 88. Offline study, prior knowledge, and later performance remain unknown.', context: 'Earlier work was submitted before day 42. The mark is shown as retrospective evidence; its release date is unknown.' },
+      unassessed: { name: 'Learner C', clicks: 240, days: 10, mark: 'Unknown', activity: 'The learner used the platform on 10 days in this window.', evidence: 'There is activity evidence but no assessment evidence in this fictional record. Understanding cannot be inferred from the count alone.', context: 'No earlier assessment mark is included in this fictional record. This case illustrates the interface; it would not meet the primary analysis’s prior-mark requirement.' }
+    };
+    const items = [
+      { short: 'Counts & rates', question: 'A fictional help desk records 12 unresolved requests out of 200 on Monday and 9 out of 100 on Tuesday. Which day has the higher unresolved-request rate?', choices: ['Monday, because 12 is greater than 9.', 'Tuesday: 9%, compared with Monday’s 6%.', 'Both days have the same rate.'], answer: 1, explanation: 'Monday: 12 ÷ 200 = 6%. Tuesday: 9 ÷ 100 = 9%. Tuesday has fewer unresolved requests but a higher rate.' },
+      { short: 'Compute a rate', question: 'A fictional quiz bank records 15 incorrect answers in 250 attempts. What proportion of attempts was incorrect?', choices: ['6%', '15%', '25%'], answer: 0, explanation: '15 ÷ 250 = 0.06, or 6%. The denominator is the 250 attempts, not the count of incorrect answers.' },
+      { short: 'New context', question: 'Two fictional transit routes are tracked for the same month. Route A has 20 late arrivals among 400 trips; Route B has 18 among 200. Which statement is supported?', choices: ['Route A has a higher late-arrival rate because it has more late arrivals.', 'Route B has a higher late-arrival rate: 9% versus Route A’s 5%.', 'Route A’s passengers definitely experienced more delay time.'], answer: 1, explanation: 'Route A: 20 ÷ 400 = 5%. Route B: 18 ÷ 200 = 9%. Counts of late arrivals do not establish total delay time.' },
+      { short: 'Missing denominator', question: 'A fictional support team receives 30 complaints about Product A and 20 about Product B in the same month. Only these counts are provided. Which conclusion is justified?', choices: ['Product A has a higher complaint rate.', 'Product B has a higher complaint rate.', 'The complaint rates cannot be compared without suitable denominators.'], answer: 2, explanation: 'Counts alone do not establish rates. Relevant denominators might be comparable numbers of users or transactions; their choice and the complaint definition need justification.' }
+    ];
+    let currentItem = 0;
+    let events = [];
+    const byId = id => document.getElementById(id);
+
+    function updateScenario() {
+      const record = scenarios[byId('scenario').value];
+      document.querySelectorAll('[data-clicks]').forEach(element => { element.textContent = record.clicks; });
+      document.querySelectorAll('[data-days]').forEach(element => { element.textContent = `${record.days} of 14`; });
+      byId('scenario-description').textContent = `${record.name} · Days 42–55 of a fictional course · 14-day activity window.`;
+      byId('prior-mark').textContent = record.mark;
+      byId('activity-reading').textContent = record.activity;
+      byId('evidence-reading').textContent = record.evidence;
+      byId('mark-context').textContent = record.context;
+    }
+
+    // One event history supplies both counters; no dashboard policy affects the answer key.
+    function summarizeEvents(history) {
+      const successfulItems = new Set();
+      let all = 0;
+      let answers = 0;
+      let explanations = 0;
+      const deltas = history.map(event => {
+        let allDelta = 0;
+        let distinctDelta = 0;
+        if (event.type === 'answer') {
+          answers += 1;
+          if (event.correct) {
+            all += 1;
+            allDelta = 1;
+            if (!successfulItems.has(event.item)) { successfulItems.add(event.item); distinctDelta = 1; }
+          }
+        } else if (event.type === 'explanation') { explanations += 1; }
+        return { allDelta, distinctDelta };
+      });
+      return { all, distinct: successfulItems.size, answers, explanations, deltas, successfulItems };
+    }
+
+    function updateItemStatus() {
+      const attempted = events.filter(event => event.type === 'answer' && event.item === currentItem);
+      const correct = attempted.filter(event => event.correct).length;
+      byId('item-status').textContent = attempted.length === 0 ? 'No answer to this item yet. Correct repeats remain available.' : `${attempted.length} answer ${attempted.length === 1 ? 'attempt' : 'attempts'} to this item; ${correct} correct. You may repeat or choose another item.`;
+    }
+
+    function renderItem(index, preserveFeedback = false) {
+      currentItem = index;
+      const item = items[index];
+      byId('practice-question').textContent = item.question;
+      byId('practice-choices').replaceChildren();
+      item.choices.forEach((choice, choiceIndex) => {
+        const label = document.createElement('label');
+        label.className = 'choice';
+        const input = document.createElement('input');
+        input.type = 'radio'; input.name = 'practice'; input.value = choiceIndex;
+        const span = document.createElement('span'); span.textContent = choice;
+        label.append(input, span); byId('practice-choices').append(label);
+      });
+      document.querySelectorAll('[data-item]').forEach(button => button.setAttribute('aria-pressed', String(Number(button.dataset.item) === index)));
+      if (!preserveFeedback) byId('practice-feedback').textContent = '';
+      updateItemStatus();
+    }
+
+    function renderHistory() {
+      const summary = summarizeEvents(events);
+      byId('all-score').textContent = summary.all;
+      byId('distinct-score').textContent = summary.distinct;
+      byId('event-summary').textContent = events.length === 0 ? 'No practice actions yet.' : `${summary.answers} answer ${summary.answers === 1 ? 'attempt' : 'attempts'} · ${summary.explanations} explanation ${summary.explanations === 1 ? 'view' : 'views'}.`;
+      const list = byId('history'); list.replaceChildren();
+      if (events.length === 0) { const li = document.createElement('li'); li.textContent = 'No actions recorded in this page session.'; list.append(li); }
+      events.forEach((event, index) => {
+        const li = document.createElement('li');
+        const text = event.type === 'explanation' ? `Item ${event.item + 1}: explanation viewed.` : `Item ${event.item + 1}: ${event.correct ? 'correct' : 'incorrect'} answer.`;
+        li.append(document.createTextNode(text + ' '));
+        const delta = document.createElement('span'); delta.className = 'delta';
+        delta.textContent = `All-correct +${summary.deltas[index].allDelta}; distinct-item +${summary.deltas[index].distinctDelta}.`;
+        li.append(delta); list.append(li);
+      });
+      updateItemStatus();
+    }
+
+    byId('scenario').addEventListener('change', updateScenario);
+    document.querySelectorAll('[data-item]').forEach(button => button.addEventListener('click', () => renderItem(Number(button.dataset.item))));
+    byId('practice-form').addEventListener('submit', event => {
+      event.preventDefault();
+      const selected = document.querySelector('input[name="practice"]:checked');
+      if (!selected) { byId('practice-feedback').textContent = 'Choose an answer before checking it. No points or attempts have been added.'; return; }
+      const item = items[currentItem];
+      const correct = Number(selected.value) === item.answer;
+      const alreadyCorrect = summarizeEvents(events).successfulItems.has(currentItem);
+      events.push({ type: 'answer', item: currentItem, correct });
+      renderHistory();
+      byId('practice-feedback').textContent = `${correct ? 'Correct.' : 'That answer is incorrect.'} ${item.explanation} ${correct ? `All-correct +1; distinct-item +${alreadyCorrect ? 0 : 1}.` : 'Both counters +0.'}`;
+    });
+    byId('explain').addEventListener('click', () => {
+      events.push({ type: 'explanation', item: currentItem }); renderHistory();
+      byId('practice-feedback').textContent = `Explanation: ${items[currentItem].explanation} Both counters +0.`;
+    });
+    byId('sample').addEventListener('click', () => {
+      events = [{ type: 'answer', item: 0, correct: true }, { type: 'answer', item: 0, correct: true }, { type: 'answer', item: 2, correct: false }, { type: 'explanation', item: 2 }];
+      renderItem(2); renderHistory();
+      byId('practice-feedback').textContent = 'Example loaded: item 1 correct, item 1 correct again, item 3 incorrect, then item 3 explanation. All-correct = 2; distinct-item = 1. These are demonstration actions, not participant observations.';
+    });
+    byId('reset-practice').addEventListener('click', () => {
+      events = []; renderItem(0); renderHistory();
+      byId('practice-feedback').textContent = 'Practice history cleared. Both counters are zero.';
+    });
+    byId('transfer-form').addEventListener('submit', event => {
+      event.preventDefault();
+      const selected = document.querySelector('input[name="transfer"]:checked');
+      if (!selected) { byId('transfer-feedback').textContent = 'Choose a response before checking your reasoning.'; return; }
+      byId('transfer-feedback').textContent = `${selected.value === '1' ? 'Correct reasoning.' : 'Recheck the denominators.'} June: 18 ÷ 300 = 6%; July: 24 ÷ 600 = 4%. More cancellations coexist with a lower observed rate. These figures alone do not identify a cause or establish service quality. Practice points are unchanged.`;
+    });
+    byId('reset-transfer').addEventListener('click', () => { byId('transfer-form').reset(); byId('transfer-feedback').textContent = 'This teaching check was reset. Practice points are unchanged.'; });
+    renderItem(0); renderHistory();
+  </script>
+</body>
+</html>

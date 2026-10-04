@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="What Counts as Progress? — What Counts as Progress? Proposed experiment package."><title>What Counts as Progress? · What Counts as Progress?</title><style>:root{--green:#0D6B5E;--ink:#141412;--muted:#60645e;--bg:#F7F7F5;--line:#dedfd9}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.75 system-ui,-apple-system,sans-serif}nav{padding:18px max(24px,calc((100vw - 900px)/2));background:white;border-bottom:1px solid var(--line)}nav a{margin-right:20px;font-size:14px}main{max-width:900px;margin:36px auto;padding:36px 44px;background:white;border:1px solid var(--line);border-radius:14px}a{color:var(--green);text-underline-offset:3px;overflow-wrap:anywhere}h1{font-size:32px;line-height:1.2;letter-spacing:-.02em}h2{font-size:23px;line-height:1.35;margin-top:36px}h3{font-size:19px;margin-top:30px}p,li{overflow-wrap:anywhere}li{margin-bottom:9px}img{max-width:100%;height:auto}blockquote{margin:24px 0;padding:8px 22px;border-left:3px solid var(--green);background:#eef6f3;color:#374c45}pre{padding:18px;background:#f1f3ef;overflow:auto;border-radius:8px;font-size:13px;line-height:1.5}code{font-family:ui-monospace,monospace;font-size:.9em}p code,li code,td code{overflow-wrap:anywhere}.table-wrap{max-width:100%;overflow-x:auto;margin:24px 0}table{border-collapse:collapse;min-width:580px;width:100%;font-size:14px;line-height:1.5}th,td{padding:12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}th{background:#eef6f3}.source-note{font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:20px;margin-top:36px}.status{font-size:13px;color:var(--muted);margin:0 0 24px}@media(max-width:620px){main{margin:18px 12px;padding:22px 20px}h1{font-size:27px}nav{padding:16px 24px}nav a{display:inline-block;margin-bottom:4px}}@media print{body,main{background:white}main{border:0;margin:0;padding:0;max-width:none}nav{display:none}h2,h3{break-after:avoid}tr,blockquote{break-inside:avoid}.table-wrap{overflow:visible}table{min-width:0}a{color:inherit}}</style></head><body><nav aria-label="Project navigation"><a href="../../case-studies/what-counts-as-progress.html">← Project case study</a><a href="../experiment/">Study walkthrough</a><a href="../proposed-experiment-package.zip">Download proposed study package</a></nav><main><p class="status">Independent portfolio · Proposed study materials and completed analysis are distinguished in each document.</p><h1 id="what-counts-as-progress">What Counts as Progress?</h1>
+<h2 id="activity-indicators-and-later-assessment-performance">Activity Indicators and Later Assessment Performance</h2>
+<p><strong>Independent research portfolio report · 3 October 2026</strong><br><strong>Status:</strong> Completed first version of the planned indicator analysis, six sensitivity comparisons, and an additional secondary offering check; independent research, not peer-reviewed.<br><strong>Analysis plan:</strong> Local dated plan, version 0.2; not externally preregistered.</p>
+<h3 id="abstract">Abstract</h3>
+<p>Learning dashboards often summarize activity in counts, active days, or streaks. How much information do those measures add about later assessed performance once earlier performance and course context are considered? This study examines that question using the Open University Learning Analytics Dataset (OULAD), a 14-day activity window before day 56, and a subsequent tutor-marked assessment. The eligible cohort contains 20,441 enrollments from 19 offerings; 17,019 have an observed target mark. In 3,399 reserved evaluation enrollments, adding click volume reduced mean absolute error from 11.621 to 11.302 mark points: an improvement of 0.319 points (95% learner-cluster bootstrap interval 0.207–0.426), or 2.75% of reference-model error. Six sensitivity comparisons retained positive volume estimates, with varying magnitudes and populations. An additional secondary check on the latest offerings, specified after inspecting the main estimates, also found a positive difference but retained substantial error: volume-model MAE was 15.873 points. Activity therefore added modest predictive information for this assessment criterion. This retrospective result does not establish dashboard efficacy, metric-seeking behavior, learning gains, or transfer.</p>
+<h3 id="1-introduction">1. Introduction</h3>
+<p>A dashboard can make progress visible, but its meaning depends on what is counted. Opening a resource, returning to the platform, and submitting strong coursework represent different kinds of evidence. A useful research question is therefore not simply whether activity predicts success. It is how much a particular activity measure adds to what is already known, under clearly defined conditions.</p>
+<p>Prior research shows why context matters. In nine undergraduate courses, Gašević and colleagues found that course-specific models and pooled models differed in predictive power and relevant learning-platform predictors. The same recorded action can have a different role in different instructional settings. <a href="https://www.pure.ed.ac.uk/ws/files/21853000/Learn_engag_student_perf_Version21_authors.pdf">Gašević et al., 2016</a></p>
+<p>The timing of evidence matters as well. An apparently early prediction can become misleading if it uses activity or assessment information from later in a course. Recent OULAD work has directly examined this problem through cutoff-first processing and leakage checks. <a href="https://arxiv.org/html/2605.25794v1">Le, Abel &amp; Laforge, 2026, preprint</a></p>
+<p>This project asks:</p>
+<blockquote>
+<p>How much information do recorded platform activity counts add about later assessed performance beyond prior assessed performance and course context?</p>
+</blockquote>
+<p>The primary comparison concerns click volume. A secondary comparison concerns active days. Their usefulness is assessed through error on reserved learners, expressed in assessment-mark points. The study contributes a reproducible comparison of simple indicators and a transparent account of their limits. It does not claim to introduce these indicators or to be the first study relating activity to academic outcomes.</p>
+<h3 id="2-related-work-and-scope">2. Related work and scope</h3>
+<p>OULAD is a well-established resource for studying learning-platform activity and academic outcomes. Its original publication describes anonymized course, registration, assessment, and daily interaction tables from 2013–2014. These tables make retrospective comparisons possible while imposing clear limits on what an interaction count represents. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5704676/">Kuzilek, Hlosta &amp; Zdrahal, 2017</a></p>
+<p>Several closely related studies already examine activity and academic performance. Borna and colleagues use OULAD resource-click features, including click quartiles and resources not accessed, to classify course outcomes. Their findings distinguish the challenge of identifying high achievement from identifying withdrawal. Marticorena-Sánchez and colleagues compare prediction across Social Sciences and STEM courses and over time, reporting differences between domains. Together, these studies establish direct precedents for activity-based prediction and course heterogeneity. <a href="https://www.frontiersin.org/journals/education/articles/10.3389/feduc.2024.1421479/full">Borna et al., 2024</a>; <a href="https://onlinelibrary.wiley.com/doi/10.1111/exsy.13837">Marticorena-Sánchez et al., 2025</a></p>
+<p>Villegas-Ch and colleagues describe OULAD interaction patterns using total clicks, active days, unique resources, activity types, and variability. Their analysis deliberately avoids modeling academic performance or inferring cognitive states. This is especially close overlap in indicator choice. The present project adds a specified later-assessment criterion rather than proposing new activity measures. <a href="https://www.frontiersin.org/journals/education/articles/10.3389/feduc.2026.1876973/full">Villegas-Ch et al., 2026</a></p>
+<p>The methodological overlap also needs to be explicit. Le, Abel and Laforge&#39;s recent preprint enforces time truncation before joins and aggregation, keeps learned preprocessing within training data, and examines how later information can inflate apparent early prediction. This project adopts the principle that timing must be audited; it does not present leakage control as a new contribution. The preprint&#39;s peer-review status has not been established here. <a href="https://arxiv.org/html/2605.25794v1">Le, Abel &amp; Laforge, 2026</a></p>
+<p>The narrower contribution is an indicator-specific audit: compare the additional usefulness of two easily displayed activity measures after adjustment for earlier marks and course offering, using a fixed time window, reserved learners, visible missingness, and planned sensitivity analyses. This focused reading does not support a claim of comprehensive novelty.</p>
+<h3 id="3-methods">3. Methods</h3>
+<h4 id="31-data-and-provenance">3.1 Data and provenance</h4>
+<p>The analysis uses the <a href="https://archive.ics.uci.edu/dataset/349/open+university+learning+analytics+dataset">official UCI OULAD release</a>, acquired on 3 October 2026 under CC BY 4.0. The downloaded archive&#39;s SHA-256 checksum is recorded in the provenance file:</p>
+<pre><code class="language-text">f2ed1902616c1fe8d2824d872c0b7d2d72be435bf0124d077044fe4be2c6d3e4
+</code></pre>
+<p>The verified source contains 32,593 registration records and 10,655,280 activity rows. One analysis record is a learner&#39;s enrollment in a particular module offering. A learner may contribute more than one enrollment; those records stay together in the evaluation partition and uncertainty calculation.</p>
+<p>The interaction table contains daily resource counts. It does not contain dwell time, within-day action order, question correctness, or dashboard exposure. Assessment deadlines and submission dates are distinct fields. The documented data provide no grading or feedback-release timestamp. Thus, earlier-score adjustment is retrospective; it cannot establish that a live dashboard knew that score at the chosen cutoff. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5704676/">Dataset paper and codebook</a></p>
+<h4 id="32-plan-and-timing">3.2 Plan and timing</h4>
+<p>The locally dated version-0.2 plan was fixed after inspecting schedules, schema, missingness, and cohort availability, before inspecting activity–mark associations or fitting models. The initial day-28 proposal supported only one offering under the required prior-assessment rule; day 42 supported 14, and day 56 supported 19 across six modules. Day 56 was selected because it provided the same offering coverage as day 70 while retaining an earlier observation point. This decision used availability rather than estimated predictive performance.</p>
+<p>Days are relative to the start of each offering. Activity is observed on days 42–55 inclusive. Day 56 is the cutoff separating that window from eligible target submissions.</p>
+<h4 id="33-cohort-and-assessments">3.3 Cohort and assessments</h4>
+<p>An enrollment is eligible when registration is recorded before day 56 and withdrawal is either absent or not earlier than day 56. Withdrawal on day 56 is retained in the primary analysis and excluded in a planned sensitivity check.</p>
+<p>The prior assessment is the latest scheduled tutor-marked assessment (TMA) with a deadline strictly before day 42. Eligibility requires a recorded nonbanked score between 0 and 100 and submission strictly before day 42. Assessment selection follows the schedule, not a learner&#39;s most recent submission. Any deadline tie is resolved by the smallest assessment identifier.</p>
+<p>The target is the earliest positive-weight TMA with a deadline strictly after day 56, using the same tie rule. Known banked target credit and targets already submitted before day 56 are excluded. Enrollments without a target submission or mark remain in the eligible cohort for missingness reporting. Mark models use observed nonbanked target submissions on or after day 56. Missing marks are not converted to zero.</p>
+<h4 id="34-activity-measures-and-record-repetitions">3.4 Activity measures and record repetitions</h4>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Measure</th>
+<th>Operational definition on days 42–55</th>
+<th>Meaning retained</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Total clicks</td>
+<td>Sum of the source-reported interaction counts across all eligible activity rows</td>
+<td>Recorded platform activity volume</td>
+</tr>
+<tr>
+<td>Active days</td>
+<td>Number of days with positive recorded activity, from 0 to 14</td>
+<td>Frequency of recorded platform activity</td>
+</tr>
+</tbody></table></div>
+<p>An enrollment with no recorded interaction in the window receives zero recorded activity. This does not establish that no study took place.</p>
+<p>The source integrity audit found repeated activity rows. Among 684,147 source rows in the selected eligible window, 51,964 are exact complete-row repetitions beyond their first occurrence. Their origin is unknown. All official rows remain in the primary volume measure. Version 0.2 added an alternative count after collapsing exact complete-row repetitions, as a robustness encoding rather than a correction of presumed errors. This amendment preceded inspection of activity–mark relationships and changed no primary cohort, outcome, or comparison. Exact repetitions do not change active-day counts.</p>
+<h4 id="35-models-and-primary-criterion">3.5 Models and primary criterion</h4>
+<p>The reference linear model contains the prior assessment score and course-offering fixed effects. Three comparisons add activity:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Predictors</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Reference</td>
+<td>Prior score + course offering</td>
+</tr>
+<tr>
+<td>Volume, primary</td>
+<td>Reference predictors + natural log of (1 + total clicks)</td>
+</tr>
+<tr>
+<td>Consistency, secondary</td>
+<td>Reference predictors + active days</td>
+</tr>
+<tr>
+<td>Combined, secondary</td>
+<td>Reference predictors + both activity measures</td>
+</tr>
+</tbody></table></div>
+<p>The primary result is the reference model&#39;s held-out mean absolute error minus the volume model&#39;s held-out mean absolute error. Positive values mean fewer mark points of prediction error after adding click volume; negative values mean more error. This criterion evaluates predictive information for the specified assessment. It does not assign a causal effect to clicks or convert them into mastery. Models were fitted by ordinary least squares. Each observed enrollment contributes equally to the metrics, while uncertainty calculations retain the grouping of enrollments within learners. Metrics use raw predictions without clipping them to the assessment&#39;s 0–100 range.</p>
+<h4 id="36-evaluation-and-uncertainty">3.6 Evaluation and uncertainty</h4>
+<p>Approximately 20% of learners are reserved for evaluation using a deterministic SHA-256 partition with the documented salt <code>what-counts-as-progress-2026-10-03-v1</code>. The first 64 hash bits, divided by 2^64, determine membership; values below 0.20 enter evaluation. All enrollments for a learner remain in the same partition. Models and any learned preprocessing use development records only. Preparation checks confirmed no learner overlap and no violations of the specified prior, target, or activity chronology.</p>
+<p>Uncertainty is estimated from paired held-out error differences using a student-cluster bootstrap with 2,000 replicates and seed 20261003. Learners, rather than individual enrollments, are resampled. The fitted models remain fixed, so the intervals reflect evaluation-sample uncertainty conditional on the development sample, rather than all uncertainty from refitting the entire procedure.</p>
+<p>Module-specific error differences are secondary summaries of the fitted models&#39; evaluation performance within each module. The frozen plan also anticipated compatible offering holdouts with module-level effects, because a new offering&#39;s fixed-effect coefficient cannot be estimated from an offering absent during fitting. The exact latest-offering implementation was chosen <strong>after inspection of the main results</strong> and is reported as an additional secondary check, not a replacement primary analysis.</p>
+<p>That check retains the primary assessment rules, day-56 cutoff, and days 42–55 activity window. Fitting uses only development learners with observed marks in represented earlier offerings labeled 2013B, 2013J, or 2014B. Evaluation uses only reserved learners in 2014J offerings. Reference predictors are prior score and module code; the three activity additions remain unchanged. There is no learner overlap. Models were saved before this check read its evaluation outcomes, with no subsequent tuning recorded. However, these learners are a subset of the primary evaluation pool, so this is not a fresh independent confirmation. Offering-label order does not certify when earlier grades were available: the absence of grade-release timestamps still prevents a verified simulation of live prediction. Its different cohort and module-level reference also prevent an isolated comparison of temporal generalization.</p>
+<h4 id="37-planned-sensitivity-analyses">3.7 Planned sensitivity analyses</h4>
+<p>The longer-window check observes days 28–55 at the same day-56 cutoff. It retains the primary selected prior and target assessment identifiers, while additionally requiring the selected prior submission before day 28. This restriction can narrow the population. The day-70 check observes days 56–69 and recomputes assessment selection using the same relative rules: the prior deadline and submission must precede day 56, and the target is the first positive-weight TMA due after day 70. Both cohort and target can therefore change; neither check isolates a timing effect in an otherwise identical population.</p>
+<p>The remaining planned checks remove zero-weight prior assessments; exclude withdrawal on the cutoff day; add prespecified quadratic prior-score and activity terms fitted using development data; and use the exact-row-collapse volume encoding. Resulting cohort changes are reported below. These checks qualify the primary comparison rather than provide an opportunity to replace it with a preferred result.</p>
+<h3 id="4-cohort-preparation-and-results">4. Cohort preparation and results</h3>
+<h4 id="41-verified-cohort-flow">4.1 Verified cohort flow</h4>
+<p>The following counts come from preparation outputs. They describe availability and eligibility, not estimated activity–performance relationships.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Preparation stage</th>
+<th align="right">Enrollment records</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>All source registrations</td>
+<td align="right">32,593</td>
+</tr>
+<tr>
+<td>Supported prior and target assessment schedules</td>
+<td align="right">30,059</td>
+</tr>
+<tr>
+<td>Registered and not withdrawn before the cutoff</td>
+<td align="right">24,109</td>
+</tr>
+<tr>
+<td>Valid prior score submitted before the activity window</td>
+<td align="right">20,506</td>
+</tr>
+<tr>
+<td>Eligible after target-related exclusions</td>
+<td align="right">20,441</td>
+</tr>
+<tr>
+<td>Selected target submission observed</td>
+<td align="right">17,048</td>
+</tr>
+<tr>
+<td>Selected target score observed</td>
+<td align="right">17,019</td>
+</tr>
+</tbody></table></div>
+<p>The eligible cohort contains 19,028 distinct learners across 19 offerings of six modules. Target submissions were recorded for 83.40% of enrollments, and target marks for 83.26%. Of the 3,422 missing target scores (16.74%), 3,393 have no target submission record and 29 have a submission record without a mark. These cases remain distinct. Scores among submitters answer a selected-population question; their relationships need not represent learners without observed marks.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Partition</th>
+<th align="right">Eligible enrollments</th>
+<th align="right">Observed target marks</th>
+<th align="right">Missing target marks</th>
+<th align="right">Observed-mark rate</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Development</td>
+<td align="right">16,342</td>
+<td align="right">13,620</td>
+<td align="right">2,722</td>
+<td align="right">83.34%</td>
+</tr>
+<tr>
+<td>Reserved evaluation</td>
+<td align="right">4,099</td>
+<td align="right">3,399</td>
+<td align="right">700</td>
+<td align="right">82.92%</td>
+</tr>
+<tr>
+<td>Total</td>
+<td align="right">20,441</td>
+<td align="right">17,019</td>
+<td align="right">3,422</td>
+<td align="right">83.26%</td>
+</tr>
+</tbody></table></div>
+<h4 id="42-primary-and-secondary-model-comparisons">4.2 Primary and secondary model comparisons</h4>
+<p>All four models were evaluated on the same 3,399 enrollments from 3,197 learners with observed target marks. The volume model reduced mean absolute error by <strong>0.319 mark points</strong> (95% interval <strong>0.207–0.426</strong>). This is a <strong>2.75% relative reduction in prediction error</strong>. Its mean absolute error remained 11.302 points on the 0–100 assessment scale, so the additional information is modest in absolute terms.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Model</th>
+<th align="right">MAE</th>
+<th align="right">RMSE, secondary</th>
+<th align="right">R², secondary</th>
+<th align="right">MAE reduction from reference</th>
+<th>95% bootstrap interval</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Reference</td>
+<td align="right">11.621</td>
+<td align="right">15.155</td>
+<td align="right">0.186</td>
+<td align="right">—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Add click volume, primary</td>
+<td align="right">11.302</td>
+<td align="right">14.721</td>
+<td align="right">0.232</td>
+<td align="right">0.319</td>
+<td>0.207–0.426</td>
+</tr>
+<tr>
+<td>Add active days, secondary</td>
+<td align="right">11.256</td>
+<td align="right">14.683</td>
+<td align="right">0.236</td>
+<td align="right">0.365</td>
+<td>0.250–0.470</td>
+</tr>
+<tr>
+<td>Add both, secondary</td>
+<td align="right">11.231</td>
+<td align="right">14.633</td>
+<td align="right">0.241</td>
+<td align="right">0.390</td>
+<td>0.268–0.505</td>
+</tr>
+</tbody></table></div>
+<p>MAE, RMSE, and their differences are in assessment-mark points. R² uses the evaluation cohort&#39;s overall mean as its reference. Intervals are paired percentile learner-cluster bootstrap intervals, conditional on fixed fitted models. Active days and the combined model have slightly larger point estimates, but no direct test establishing superiority over click volume is reported.</p>
+<p><img src="../figures/primary-prediction-error.png" alt="Mean absolute prediction error for the four fixed models"></p>
+<p><em>Figure 1. Mean absolute error in reserved enrollments with observed marks. Lower values indicate more accurate assessment prediction. Raw predictions are used.</em></p>
+<p><img src="../figures/primary-error-improvement.png" alt="Paired error reductions after adding the activity measures"></p>
+<p><em>Figure 2. Error reductions relative to prior mark plus course offering. Lines show 95% learner-cluster bootstrap intervals. Click volume is the primary comparison; the other two are secondary.</em></p>
+<h4 id="43-module-specific-volume-comparisons">4.3 Module-specific volume comparisons</h4>
+<p>The six module-level volume point estimates are positive. For BBB and EEE, intervals include zero and negative values. Module labels are anonymized source codes. These descriptive summaries do not constitute a formal test of heterogeneity or establish that one course benefits more than another.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Module</th>
+<th align="right">Offerings</th>
+<th align="right">Evaluation enrollments with marks</th>
+<th align="right">MAE reduction</th>
+<th>95% bootstrap interval</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AAA</td>
+<td align="right">2</td>
+<td align="right">125</td>
+<td align="right">0.590</td>
+<td>0.078–1.114</td>
+</tr>
+<tr>
+<td>BBB</td>
+<td align="right">4</td>
+<td align="right">945</td>
+<td align="right">0.171</td>
+<td>−0.046–0.402</td>
+</tr>
+<tr>
+<td>CCC</td>
+<td align="right">2</td>
+<td align="right">333</td>
+<td align="right">0.543</td>
+<td>0.054–1.034</td>
+</tr>
+<tr>
+<td>DDD</td>
+<td align="right">4</td>
+<td align="right">707</td>
+<td align="right">0.274</td>
+<td>0.089–0.468</td>
+</tr>
+<tr>
+<td>EEE</td>
+<td align="right">3</td>
+<td align="right">405</td>
+<td align="right">0.228</td>
+<td>−0.087–0.553</td>
+</tr>
+<tr>
+<td>FFF</td>
+<td align="right">4</td>
+<td align="right">884</td>
+<td align="right">0.433</td>
+<td>0.270–0.612</td>
+</tr>
+</tbody></table></div>
+<p><img src="../figures/course-error-improvement.png" alt="Volume-model error reduction within six module contexts"></p>
+<p><em>Figure 3. Secondary within-module volume comparisons. Smaller evaluation groups have wider intervals; overlap or non-overlap is not used as a test of differences between modules.</em></p>
+<h4 id="44-six-planned-sensitivity-comparisons">4.4 Six planned sensitivity comparisons</h4>
+<p>The table reports the volume comparison against the corresponding reference model within each scenario. Counts refer to enrollments with observed marks. Changes in cohort, target assessment, or reference-model flexibility limit direct comparisons of improvement magnitudes across rows.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th align="right">Development / evaluation marks</th>
+<th align="right">Reference MAE</th>
+<th align="right">Volume MAE</th>
+<th align="right">MAE reduction</th>
+<th>95% bootstrap interval</th>
+<th>Population or measurement change</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Preceding 28-day window</td>
+<td align="right">9,370 / 2,270</td>
+<td align="right">11.874</td>
+<td align="right">11.397</td>
+<td align="right">0.477</td>
+<td>0.340–0.623</td>
+<td>Days 28–55; same selected assessment IDs, prior submission before day 28; narrower cohort</td>
+</tr>
+<tr>
+<td>Day-70 cutoff</td>
+<td align="right">12,868 / 3,218</td>
+<td align="right">9.499</td>
+<td align="right">9.426</td>
+<td align="right">0.073</td>
+<td>0.019–0.128</td>
+<td>Days 56–69; prior/target selection recomputed; cohort and target may change</td>
+</tr>
+<tr>
+<td>Exclude zero-weight prior work</td>
+<td align="right">12,465 / 3,109</td>
+<td align="right">9.993</td>
+<td align="right">9.816</td>
+<td align="right">0.177</td>
+<td>0.095–0.263</td>
+<td>Smaller cohort without zero-weight selected prior assessments</td>
+</tr>
+<tr>
+<td>Exclude withdrawal on cutoff day</td>
+<td align="right">13,620 / 3,399</td>
+<td align="right">11.621</td>
+<td align="right">11.302</td>
+<td align="right">0.319</td>
+<td>0.207–0.426</td>
+<td>Five eligible enrollments removed; observed-mark fitting/evaluation cohorts unchanged</td>
+</tr>
+<tr>
+<td>Add quadratic terms</td>
+<td align="right">13,620 / 3,399</td>
+<td align="right">10.438</td>
+<td align="right">10.240</td>
+<td align="right">0.198</td>
+<td>0.111–0.281</td>
+<td>Same cohort; more flexible reference and activity models</td>
+</tr>
+<tr>
+<td>Collapse exact complete-row repetitions</td>
+<td align="right">13,620 / 3,399</td>
+<td align="right">11.621</td>
+<td align="right">11.303</td>
+<td align="right">0.318</td>
+<td>0.208–0.424</td>
+<td>Same cohort; alternative volume encoding only</td>
+</tr>
+</tbody></table></div>
+<p>The longer-window scenario contains 14,016 eligible enrollments: 11,640 observed marks (83.05%) and 2,376 missing marks (16.95%). The day-70 scenario contains 18,470 eligible enrollments: 16,086 observed marks (87.09%) and 2,384 missing marks (12.91%). The zero-weight exclusion removes 1,655 eligible enrollments, including 1,445 with observed marks. Cutoff-day withdrawal removes three development and two evaluation enrollments, all without observed target marks.</p>
+<p>Every volume point estimate remains positive, but the estimated additional information ranges from 0.073 to 0.477 mark points. The larger estimate in the longer window cannot be attributed solely to observing more days, because its stricter prior-submission rule changes the population. Likewise, the smaller day-70 estimate does not isolate a cutoff effect. The exact-row encoding is nearly identical to the primary result, while the quadratic comparison demonstrates sensitivity to the flexibility of the prior-mark reference model.</p>
+<h4 id="45-missing-outcomes-and-prediction-diagnostics">4.5 Missing outcomes and prediction diagnostics</h4>
+<p>Missingness is visibly associated with observed differences in the eligible evaluation records. Learners with no target submission record have a median prior mark of 70, 25 recorded clicks, and two active days. Those with an observed target mark have corresponding medians of 80, 81 clicks, and six active days. This is a descriptive selection diagnostic, not a missing-data correction. The five evaluation submissions without marks are too few to characterize reliably. Conditioning on an observed mark remains a material limit.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Primary model</th>
+<th>Raw prediction range</th>
+<th align="right">Predictions outside 0–100</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Reference</td>
+<td>47.052–89.584</td>
+<td align="right">0 / 3,399</td>
+</tr>
+<tr>
+<td>Volume</td>
+<td>39.416–95.630</td>
+<td align="right">0 / 3,399</td>
+</tr>
+<tr>
+<td>Active days</td>
+<td>45.183–97.267</td>
+<td align="right">0 / 3,399</td>
+</tr>
+<tr>
+<td>Both indicators</td>
+<td>41.929–97.602</td>
+<td align="right">0 / 3,399</td>
+</tr>
+</tbody></table></div>
+<p>No primary prediction falls outside the assessment scale. Quadratic sensitivity models produce eight above-100 volume predictions (maximum 104.313), six active-day predictions, and six combined-model predictions. In the zero-weight-prior exclusion, the active-day and combined models each produce one above-100 prediction. No such result was clipped: all metrics use raw outputs. These diagnostics constrain model deployment even when aggregate prediction error improves. The timing-sensitivity models have no predictions outside 0–100.</p>
+<p>An independent NumPy least-squares reconstruction reproduced 32 reported MAEs, including the four additional latest-offering fits below, within 1×10⁻⁸. Its maximum absolute discrepancy is approximately 1.06×10⁻¹¹. It also checked sample counts, full-rank fits, and learner separation. This reconstruction checks point estimates; it did not independently reproduce the bootstrap intervals.</p>
+<h4 id="46-additional-secondary-latest-offering-check">4.6 Additional secondary latest-offering check</h4>
+<p>The earlier-offering fitting cohort contains 8,911 observed enrollments from 8,634 development learners. The latest-offering evaluation contains 1,189 observed enrollments from 1,155 reserved learners. Training coverage is 8,911 observed marks out of 10,911 eligible enrollments (81.67%); evaluation coverage is 1,189 of 1,369 (86.85%), leaving 180 missing evaluation marks. Missing marks receive no substitute score.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Model with module-level effects</th>
+<th align="right">Latest-offering MAE</th>
+<th align="right">MAE reduction from reference</th>
+<th>95% bootstrap interval</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Prior score + module, reference</td>
+<td align="right">16.379</td>
+<td align="right">—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Add click volume</td>
+<td align="right">15.873</td>
+<td align="right">0.506</td>
+<td>0.365–0.650</td>
+</tr>
+<tr>
+<td>Add active days</td>
+<td align="right">15.835</td>
+<td align="right">0.544</td>
+<td>0.411–0.675</td>
+</tr>
+<tr>
+<td>Add both indicators</td>
+<td align="right">15.788</td>
+<td align="right">0.591</td>
+<td>0.450–0.733</td>
+</tr>
+</tbody></table></div>
+<p>These intervals use the same fixed-model learner-cluster bootstrap procedure. The positive differences do not remove substantial absolute error. The table below makes this visible by module, particularly BBB, where the volume model still averages 34.287 mark points of absolute error.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Module</th>
+<th align="right">Latest-offering observed enrollments</th>
+<th align="right">Reference MAE</th>
+<th align="right">Volume MAE</th>
+<th align="right">MAE reduction</th>
+<th>95% bootstrap interval</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AAA</td>
+<td align="right">56</td>
+<td align="right">7.576</td>
+<td align="right">6.956</td>
+<td align="right">0.620</td>
+<td>0.097–1.147</td>
+</tr>
+<tr>
+<td>BBB</td>
+<td align="right">290</td>
+<td align="right">35.516</td>
+<td align="right">34.287</td>
+<td align="right">1.230</td>
+<td>0.921–1.553</td>
+</tr>
+<tr>
+<td>CCC</td>
+<td align="right">200</td>
+<td align="right">10.632</td>
+<td align="right">10.464</td>
+<td align="right">0.168</td>
+<td>−0.286–0.599</td>
+</tr>
+<tr>
+<td>DDD</td>
+<td align="right">213</td>
+<td align="right">10.416</td>
+<td align="right">10.050</td>
+<td align="right">0.367</td>
+<td>0.009–0.720</td>
+</tr>
+<tr>
+<td>EEE</td>
+<td align="right">158</td>
+<td align="right">8.106</td>
+<td align="right">7.957</td>
+<td align="right">0.149</td>
+<td>−0.174–0.457</td>
+</tr>
+<tr>
+<td>FFF</td>
+<td align="right">272</td>
+<td align="right">11.488</td>
+<td align="right">11.213</td>
+<td align="right">0.276</td>
+<td>0.065–0.485</td>
+</tr>
+</tbody></table></div>
+<p>The module intervals are descriptive, without multiplicity correction or a formal test of differences between modules. The combined model produces one raw prediction above 100, at 100.244; the other three models produce none outside 0–100. Predictions remain unclipped. No formal test compares the MAEs of this scenario with the primary scenario: their populations and reference-model contexts differ. The large remaining error, post-primary operationalization, and reuse of a subset of the original evaluation learners qualify this check&#39;s evidential weight. It does not establish readiness for future courses or contemporary dashboard deployment.</p>
+<h3 id="5-interpretation-and-limitations">5. Interpretation and limitations</h3>
+<p>Recorded activity adds modest information about the selected later coursework mark beyond earlier assessed performance and course context. The primary error reduction is 0.319 points, with error still averaging 11.302 points. Its positive interval supports additional predictive usefulness under the specified evaluation, while its size and the sensitivity analyses qualify the practical interpretation. An activity count therefore warrants a narrower label such as recorded activity volume. These results do not validate it as a complete representation of progress or mastery.</p>
+<p>The positive module point estimates provide context, while the uncertain BBB and EEE estimates and changes across sensitivity scenarios argue for reporting the setting and criterion alongside any headline number. The primary analysis evaluates reserved learners in represented offerings. The additional latest-offering check provides a limited secondary view of a different cohort and model context; its substantial remaining error, especially in BBB, qualifies claims about portability. It is not independent confirmation from new learners beyond the original evaluation pool. Generalization to other institutions or a contemporary dashboard remains untested.</p>
+<p>Several limits remain regardless of the numerical results:</p>
+<ul>
+<li><strong>Assessment criterion:</strong> the outcome is a later coursework mark. It is not an independent transfer test or measured learning gain.</li>
+<li><strong>Selection:</strong> the cohort requires prior assessed work, and mark models require an observed later score. Adjustment cannot make missingness automatically ignorable.</li>
+<li><strong>Unobserved study:</strong> offline reading, reflection, collaboration, and other learning activities may be absent from the platform record. Low activity can coexist with substantial study.</li>
+<li><strong>Unknown grade availability:</strong> submission before an observation window does not demonstrate that the corresponding mark had been released by then.</li>
+<li><strong>Context:</strong> course content, schedules, and resource design can affect the meaning of clicks and active days. The data are historical and come from one institution.</li>
+<li><strong>Measurement structure:</strong> daily aggregates and unexplained repeated rows constrain interpretation of activity volume.</li>
+<li><strong>Causal scope:</strong> no dashboard assignment or displayed-score exposure is recorded. The analysis cannot identify metric-seeking motives, intentional gaming, goal displacement, or a causal effect of activity on learning.</li>
+</ul>
+<h4 id="51-prototype-rationale-and-future-experiment">5.1 Prototype rationale and future experiment</h4>
+<p>The prototype addresses a concrete design choice: should repeated correct answers keep increasing a progress display, or should credit distinguish repeated correctness from correctly answering different items? It uses a single synthetic event history to make two scoring policies reviewable. <strong>All-correct credit</strong> counts every correct response event, including repeated correct answers to the same item. <strong>Distinct-item credit</strong> gives one point when an item is first answered correctly and no further credit for correct repetitions of that item. Correct events and different items answered correctly are useful descriptions of these counts; neither establishes mastery. The display should identify what is counted, the observation period, and what evidence is missing, with activity and assessed performance shown separately.</p>
+<p>This rationale follows from the modest additional predictive information and the dataset&#39;s measurement limits. OULAD records no item-level answer correctness, so the scoring-policy contrast itself is not analyzed in this dataset. It is not an empirical finding that one scoring policy is better. The illustrative events, scores, and interface states are synthetic; the prototype is not a personalized learning recommendation or a deployed prediction system. Its unscored application question is a teaching check, not a validated transfer test.</p>
+<p>A future study can randomly assign scoring policies while holding the learning content and starting information constant. A useful behavioral outcome would be selection of familiar repeat practice versus new application problems; a separate transfer assessment would measure whether those choices support the intended learning goal. Engagement and perceived pressure could be secondary outcomes. Recruitment, ethics review where applicable, a prospectively specified analysis, and a suitable sample are still required. No participant study or claim of policy efficacy is included in this artifact.</p>
+<h3 id="6-reproducibility-and-research-transparency">6. Reproducibility and research transparency</h3>
+<p>The project preserves source provenance and checksums, schema and integrity checks, versioned plans, cohort and exclusion counts, indicator definitions, evaluation membership rules, fitted outputs, figure data, and independent verification. Version 0.1 is retained alongside version 0.2 and an amendment explaining the repeated-row robustness encoding. The plan is locally dated; no external preregistration is claimed. The frozen configuration&#39;s pre-analysis status is historical; run records document execution. Figures here were checked against their aggregate plotting data and numerical tables.</p>
+<p>Prototype functional checks confirmed that two correct repetitions of one item produce counters of two and one, respectively; an incorrect answer, explanation view, and unscored application check leave the counters unchanged. Desktop and 390-pixel layout checks found no horizontal overflow, and a basic keyboard check confirmed movement between answer checking and explanation controls. A complete accessibility and screen-reader audit has not been performed. These checks concern interface behavior, not participant learning or scoring-policy efficacy.</p>
+<p>Raw learner records and identifiers are excluded from public-facing deliverables. Aggregate artifacts should retain enough detail to reproduce the reported methods without presenting identifiable learner examples. Dataset reuse follows the release&#39;s attribution license.</p>
+<p>AI assistance was used to research sources, draft this report, support implementation, and check outputs. The applicant must review the cited claims, understand and inspect the analysis, verify numerical results against outputs, and take responsibility for the final submitted artifact. This first version is an independent research report and has not been peer-reviewed.</p>
+<h3 id="references">References</h3>
+<ul>
+<li>Kuzilek, J., Hlosta, M., &amp; Zdrahal, Z. (2017). <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5704676/">Open University Learning Analytics dataset</a>. <em>Scientific Data</em>, 4, 170171. DOI: 10.1038/sdata.2017.171.</li>
+<li>Gašević, D., Dawson, S., Rogers, T., &amp; Gasevic, D. (2016). <a href="https://www.pure.ed.ac.uk/ws/files/21853000/Learn_engag_student_perf_Version21_authors.pdf">Learning analytics should not promote one size fits all: The effects of instructional conditions in predicting academic success</a>. <em>The Internet and Higher Education</em>, 28, 68–84. DOI: 10.1016/j.iheduc.2015.10.002.</li>
+<li>Borna, M.-R., Saadat, H., Hojjati, A. T., &amp; Akbari, E. (2024). <a href="https://www.frontiersin.org/journals/education/articles/10.3389/feduc.2024.1421479/full">Analyzing click data with AI: implications for student performance prediction and learning assessment</a>. <em>Frontiers in Education</em>, 9, 1421479.</li>
+<li>Marticorena-Sánchez, R., Canepa-Oneto, A., López-Nozal, C., &amp; Barbero-Aparicio, J. A. (2025). <a href="https://onlinelibrary.wiley.com/doi/10.1111/exsy.13837">Unveiling the Differences in Early Performance Prediction Between Online Social Sciences and STEM Courses Using Educational Data Mining</a>. <em>Expert Systems</em>, 42(3), e13837.</li>
+<li>Villegas-Ch, W., García-Ortiz, J., Mera-Navarrete, A., &amp; Govea, J. (2026). <a href="https://www.frontiersin.org/journals/education/articles/10.3389/feduc.2026.1876973/full">Interpretable and explainable analysis of informal learning behaviors in digital education using interaction logs</a>. <em>Frontiers in Education</em>, 11, 1876973.</li>
+<li>Le, N. L., Abel, M.-H., &amp; Laforge, B. (2026). <a href="https://arxiv.org/html/2605.25794v1">When Can We Trust Early Warnings? Leakage-Excluded Early Outcome Prediction from LMS Interaction Logs</a>. arXiv:2605.25794v1. Preprint.</li>
+<li>Kuzilek, J., Hlosta, M., &amp; Zdrahal, Z. (2015). <a href="https://archive.ics.uci.edu/dataset/349/open+university+learning+analytics+dataset">Open University Learning Analytics dataset</a>. UCI Machine Learning Repository. DOI: 10.24432/C5KK69. Dataset release used here; CC BY 4.0.</li>
+</ul>
+<p class="source-note">Readable copy of <a href="https://github.com/NickChass/what-counts-as-progress/blob/main/docs/Research-Report.md">docs/Research-Report.md</a>. Participant collection is disabled in the development walkthrough. <a href="https://github.com/NickChass/what-counts-as-progress">Full source repository</a>.</p></main></body></html>

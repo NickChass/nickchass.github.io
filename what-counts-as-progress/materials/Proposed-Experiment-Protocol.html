@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Proposed experiment protocol — What Counts as Progress? Proposed experiment package."><title>Proposed experiment protocol · What Counts as Progress?</title><style>:root{--green:#0D6B5E;--ink:#141412;--muted:#60645e;--bg:#F7F7F5;--line:#dedfd9}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.75 system-ui,-apple-system,sans-serif}nav{padding:18px max(24px,calc((100vw - 900px)/2));background:white;border-bottom:1px solid var(--line)}nav a{margin-right:20px;font-size:14px}main{max-width:900px;margin:36px auto;padding:36px 44px;background:white;border:1px solid var(--line);border-radius:14px}a{color:var(--green);text-underline-offset:3px;overflow-wrap:anywhere}h1{font-size:32px;line-height:1.2;letter-spacing:-.02em}h2{font-size:23px;line-height:1.35;margin-top:36px}h3{font-size:19px;margin-top:30px}p,li{overflow-wrap:anywhere}li{margin-bottom:9px}img{max-width:100%;height:auto}blockquote{margin:24px 0;padding:8px 22px;border-left:3px solid var(--green);background:#eef6f3;color:#374c45}pre{padding:18px;background:#f1f3ef;overflow:auto;border-radius:8px;font-size:13px;line-height:1.5}code{font-family:ui-monospace,monospace;font-size:.9em}p code,li code,td code{overflow-wrap:anywhere}.table-wrap{max-width:100%;overflow-x:auto;margin:24px 0}table{border-collapse:collapse;min-width:580px;width:100%;font-size:14px;line-height:1.5}th,td{padding:12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}th{background:#eef6f3}.source-note{font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:20px;margin-top:36px}.status{font-size:13px;color:var(--muted);margin:0 0 24px}@media(max-width:620px){main{margin:18px 12px;padding:22px 20px}h1{font-size:27px}nav{padding:16px 24px}nav a{display:inline-block;margin-bottom:4px}}@media print{body,main{background:white}main{border:0;margin:0;padding:0;max-width:none}nav{display:none}h2,h3{break-after:avoid}tr,blockquote{break-inside:avoid}.table-wrap{overflow:visible}table{min-width:0}a{color:inherit}}</style></head><body><nav aria-label="Project navigation"><a href="../../case-studies/what-counts-as-progress.html">← Project case study</a><a href="../experiment/">Study walkthrough</a><a href="../proposed-experiment-package.zip">Download proposed study package</a></nav><main><p class="status">Independent portfolio · Proposed study materials and completed analysis are distinguished in each document.</p><h1 id="proposed-experiment-protocol">Proposed experiment protocol</h1>
+<p><strong>Nicholai Chasseau · 3 October 2026 · Protocol and item bank 0.1.0-draft · Event schema 1.0.0-draft</strong></p>
+<p><strong>Status:</strong> complete design draft for review, not an approved or externally preregistered study. The item bank, assessment and motivation questions are unpiloted. No participants have been recruited and no participant findings exist. The current local instrument supports development demonstrations and synthetic technical checks only. It is separate from the completed OULAD analysis and the original dual-policy dashboard demonstration.</p>
+<p>Study identifier: <code>repeat-credit-counts-rates</code>. The machine-readable contract is <a href="https://github.com/NickChass/what-counts-as-progress/blob/main/config/proposed-experiment.json">proposed-experiment.json</a>; teaching content, items and keys are in <a href="Study-Materials.html">Study Materials</a>; participant-facing language is in <a href="Consent-and-Debrief-Drafts.html">Consent and Debrief Drafts</a>. The <a href="Psychological-Argument.html">Psychological Argument</a> distinguishes the motivational claims and alternative explanations.</p>
+<h2 id="question-contrast-and-estimands">Question, contrast and estimands</h2>
+<p>Does giving an additional point for correctly repeating an already successful item change which practice action a learner initiates? A separate question asks whether the two policies differ on a new-context assessment after practice.</p>
+<p>Randomize independently with probability 0.5 to <code>all_correct</code> or <code>distinct_item</code>, after the same baseline assessment, lesson and successful warmup. The all-correct policy gives one point for every correct practice answer. The distinct-item policy gives one point for an item&#39;s first correct answer across warmup and practice, and zero for further correct answers to that item. Incorrect answers and explanation views give zero under both policies. Both arms begin at one point for the same correctly completed warmup item P1. Baseline and transfer responses never affect practice points.</p>
+<p>Hold lesson, item bank, menu layout/order, explanations, permitted resources, eight-minute opportunity, starting information and learning-goal instruction constant. Only the assigned scoring policy and the truthful corresponding score trajectory differ. Display one policy, not both, in the proposed experiment. Points buy nothing and do not determine compensation. Do not add streaks, rankings, adaptive prompts, social benchmarks, progress percentages or differential incentives.</p>
+<p>The primary estimand is the probability difference, <strong>all-correct minus distinct-item</strong>, that the first practice action is selection of a previously correctly answered item for repetition during a fixed eight-minute window. This is a repeat-initiation outcome, not correctness of the new answer. No initiation counts as not initiating a repeat when a complete observation window is confirmed. The contrast estimates the effect of these two policy packages; it does not isolate a psychological mediator, the effect of having any metric, or a dashboard-versus-no-dashboard effect.</p>
+<p>The directional behavioral prediction is greater repeat initiation under all-correct credit. Report a two-sided 95% interval. The educational comparison is two-sided: repetition could help, have little effect, or displace useful practice. Repetition alone does not establish waste, intentional gaming, or goal displacement.</p>
+<h2 id="population-entry-and-assignment">Population, entry and assignment</h2>
+<p>The proposed initial population is adults aged 18 or older who can read the English materials and use the browser controls. A real recruitment population, accessible alternatives, permitted resource policy and compensation arrangements must be specified with the review/recruitment route before collection. There is currently no funded or available recruitment route. Do not generalize an adult convenience sample to university students without corresponding recruitment.</p>
+<p>A future approved study must prevent multiple randomized sessions from one person through its recruitment process; this local tool does not establish unique people or authenticate a session. Use an anonymous study code rather than contact details in analytic files. No demographics are needed for the current question.</p>
+<p>People may leave before assignment. These are pre-randomization nonentries, reported separately where the approved process permits. The four baseline answers are required before teaching. The common warmup repeats P1, with identical explanations and a clear hint, until the participant submits its correct option. Anyone who leaves before successful warmup is not randomized. This guarantees at least one eligible successful-item repeat option <strong>before</strong> assignment without a post-treatment eligibility exclusion. Guided warmup success is not evidence of mastery.</p>
+<p>Use a browser cryptographic random bit for independent 1:1 assignment in the current technical instrument; expected arm sizes need not be exactly equal. The browser obtains an unsigned 32-bit cryptographic draw and uses its high bit for the arm. Record the allocation method, raw draw and assigned arm once and keep that arm throughout the session. The cryptographic draw is not a PRNG seed; <code>assignment_seed</code> is null for this path. Synthetic seeded fixtures or explicit development arm overrides identify those methods separately. Future collection requires review of the allocation implementation and recruitment process; a fresh page visit must not be treated as another person.</p>
+<h2 id="procedure-and-timing">Procedure and timing</h2>
+<p>Target approximately 20–25 minutes overall, subject to permitted development piloting. Only the eight-minute practice opportunity is fixed in this draft.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Procedure</th>
+<th>Approximate time and records</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Entry</td>
+<td>Current tool acknowledges development-demo status. A real study would present approved information/consent and eligibility before beginning.</td>
+<td>1–2 minutes; no participant collection currently enabled</td>
+</tr>
+<tr>
+<td>Baseline</td>
+<td>B1–B4, one submitted answer per item, no correctness feedback or points.</td>
+<td>2–3 minutes; response events and baseline total 0–4</td>
+</tr>
+<tr>
+<td>Common teaching</td>
+<td>Identical lesson about counts, proportions, relevant denominators and pooling groups.</td>
+<td>2–3 minutes; lesson completion</td>
+</tr>
+<tr>
+<td>Common warmup</td>
+<td>P1 with feedback; hint and retries until correct before allocation.</td>
+<td>Approximately 1 minute; each attempt and eventual success</td>
+</tr>
+<tr>
+<td>Assigned rule</td>
+<td>Allocate once, show accurate rule, ask what a correct P1 repeat earns, then explain the correct rule. Rereading is available.</td>
+<td>Approximately 1 minute; response and comprehension correctness</td>
+</tr>
+<tr>
+<td>Voluntary practice</td>
+<td>Start at one point. First menu is repeat P1, new P2, or review P1&#39;s explanation, in that fixed order. Practice lasts 480,000 elapsed milliseconds.</td>
+<td>Eight minutes; menu actions, submitted answers, explanations and completion marker</td>
+</tr>
+<tr>
+<td>Independent assessment</td>
+<td>T1–T6 in fixed order, one submitted answer per item; no lesson/dashboard, feedback or practice points.</td>
+<td>Approximately 4–5 minutes; responses and completion</td>
+</tr>
+<tr>
+<td>Motivation questions</td>
+<td>Six separate custom ratings after transfer. Skipping is allowed.</td>
+<td>Approximately 1 minute; optional ratings</td>
+</tr>
+<tr>
+<td>Debrief</td>
+<td>Explain the policy comparison and what has not been established. For a future study, explain the approved export/return and withdrawal process.</td>
+<td>Approximately 1 minute</td>
+</tr>
+</tbody></table></div>
+<p>After a comprehension error, provide the truthful assigned-rule explanation and retain the randomized session. Do not exclude, change arm or silently discard someone for misunderstanding. Record comprehension to diagnose the instrument and report it descriptively, not to redefine the primary cohort after randomization.</p>
+<p>During later practice, <code>new</code> presents the next unseen item P2–P6 in fixed order; <code>repeat</code> selects an encountered item already answered correctly; <code>review</code> opens an encountered item&#39;s worked explanation. A <code>retry</code> option becomes available only for encountered, not-yet-correct items. It is absent from the first menu and is not a successful-item repeat. The initial first-choice comparison therefore has identical choices in both arms. Later availability follows each session&#39;s actual history and is part of the policy&#39;s consequences, not a matched-exposure mechanism test.</p>
+<p>Allow one submitted answer per question selection. Repeatedly pressing the same answer button must not produce additional points. A further answer requires a new menu action. The timer begins when the practice menu appears and uses monotonic elapsed time. At the deadline, practice controls stop earning points. Log a completion marker with the observed duration. Browser/background delays are a technical limitation to examine in piloting; elapsed time does not measure attention or active study.</p>
+<h2 id="outcomes-and-planned-analysis">Outcomes and planned analysis</h2>
+<h3 id="primary-repeat-initiation-outcome">Primary repeat-initiation outcome</h3>
+<p>Use the earliest valid <code>practice_menu_choice</code> within the window. Its explicit category is <code>repeat</code>, <code>new</code>, <code>review</code>, or <code>none</code>. A repeat must reference an item already correct before selection; P1 is available for everyone at the first menu. Unexpected initial retry choices or invalid item histories invalidate the export for this outcome rather than creating an alternative category.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Observed record</th>
+<th>Category</th>
+<th align="right">Binary outcome</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>First valid menu choice is repeat</td>
+<td>repeat</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td>First valid menu choice is new</td>
+<td>new</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td>First valid menu choice is review</td>
+<td>review</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td>Complete eight-minute window logged, with zero menu choices</td>
+<td>none</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td>Zero choices and window not fully observed, or invalid/corrupt export</td>
+<td>unavailable</td>
+<td align="right">Missing</td>
+</tr>
+<tr>
+<td>Explicit withdrawal</td>
+<td>withdrawn</td>
+<td align="right">Missing/removed according to consent</td>
+</tr>
+</tbody></table></div>
+<p>A later incomplete stage does not erase an already observed first choice. A confirmed full window with no choice also remains observed if transfer is subsequently incomplete. A short or unobserved window with no actions is <strong>not</strong> evidence of no-choice. Accelerating the development clock is software inspection, not eight minutes of observed practice: a zero-choice accelerated development demonstration is unavailable, not <code>none</code>. Synthetic full-window fixtures may exercise the no-choice rule but do not establish a human observation. A withdrawal overrides availability; data designated for deletion must not be analyzed.</p>
+<p>With complete primary ascertainment, compare the arm proportions over all randomized participants whose data can ethically be retained. Report the unadjusted risk difference and a Newcombe interval from separate Wilson 95% arm intervals without continuity correction. Show randomized/available/missing counts by arm and the four first-choice categories. No-choice is visible and is not described as choosing a new item or review.</p>
+<p>If primary outcomes are unavailable, the available-outcome point comparison requires a selection assumption and is not automatically the all-randomized intention-to-treat effect. Report worst-case ascertainment bounds when arm enrollment totals are known: if an arm has <code>s</code> observed repeats, <code>m</code> unavailable outcomes and <code>N</code> randomized participants, its risk is between <code>s/N</code> and <code>(s+m)/N</code>; subtract the opposing arm bounds. These are identification bounds, not sampling-confidence intervals. Approved aggregate enrollment/withdrawal accounting is needed to establish <code>N</code>; an analyzer cannot recover unexported sessions from the local files.</p>
+<p>The primary interval method is fixed for this draft; do not select a model after inspecting a real result. A future preregistration must finalize any baseline-adjusted sensitivity, missingness strategy and stopping rules before collection. Hundreds of event rows do not create hundreds of participants.</p>
+<h3 id="key-secondary-assessment-outcome">Key secondary assessment outcome</h3>
+<p>T1–T6 measure application in new fictional contexts, including one pooled-proportion problem. Score each first submitted response using the fixed bank. A complete total is 0–6. If any item is absent, report item availability and set the total missing; do not convert an unattempted assessment into six wrong answers. Baseline total B1–B4 is 0–4 and is complete before assignment.</p>
+<p>Estimate the mean transfer-total difference with OLS <code>transfer_total ~ arm + pretest_total</code>, coding distinct-item as the reference and reporting all-correct minus distinct-item with HC2 uncertainty. This is secondary; the transfer comparison is not promoted to primary after a favorable result. It concerns assessed performance after the session, not a validated latent learning construct or learning gain. Pretest and transfer are not parallel, calibrated forms and their raw difference is not a gain score.</p>
+<p>Report complete-transfer rates by arm. Complete-case adjustment cannot remove informative attrition. As a bounded-score sensitivity, report unadjusted arm mean bounds assigning unavailable totals their permitted extremes 0 and 6, using valid enrollment counts. Do not call that a missing-data correction or an adjusted-effect interval. If either arm has insufficient outcomes or the regression is unidentified, report the limitation instead of an estimate.</p>
+<h3 id="exploratory-outcomes">Exploratory outcomes</h3>
+<p>Report the six custom post-transfer items individually: score-goal endorsement, learning-goal endorsement, interest, enjoyment, perceived competence and point-related pressure. The two goal items ask whether each aim was one of the person&#39;s goals, not its priority relative to other goals or whether it displaced learning. These are new unvalidated items, not a validated motivation scale or a justified combined index. Their postpractice timing reduces advance prompting but permits recall and transfer-performance influences. They neither establish motive from behavior nor identify causal mediation.</p>
+<p>Later practice counts, explanations, retries, successful-item repetitions, assessment-item accuracy and rule comprehension are exploratory/descriptive. Keep explanation views and incorrect-item retries distinct from successful-item repeats. Do not use these records for a post hoc preferred subgroup, mediation claim or mechanism conclusion. Secondary/exploratory intervals, if shown, have no multiplicity adjustment in this draft and must retain that label.</p>
+<h2 id="sample-size-attrition-and-stopping">Sample size, attrition and stopping</h2>
+<p>No sample has been collected and no sample size is currently recruitable by assumption. A <strong>provisional precision candidate is 400 randomized participants</strong>, approximately 200 per arm, because a balanced worst-case binary risk-difference interval has a normal-approximation 95% half-width of about 0.098 before attrition. The approximation is <code>1.96 × sqrt(0.25/n_arm + 0.25/n_arm)</code> and is a planning aid, not a power calculation or guarantee of the Newcombe interval&#39;s realized width.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th align="right">Total randomized, balanced and fully observed</th>
+<th align="right">Approximate worst-case 95% half-width</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">40</td>
+<td align="right">0.310</td>
+</tr>
+<tr>
+<td align="right">60</td>
+<td align="right">0.253</td>
+</tr>
+<tr>
+<td align="right">100</td>
+<td align="right">0.196</td>
+</tr>
+<tr>
+<td align="right">200</td>
+<td align="right">0.139</td>
+</tr>
+<tr>
+<td align="right">400</td>
+<td align="right">0.098</td>
+</tr>
+</tbody></table></div>
+<p>At 400 randomized, 10% unavailable primary outcomes would leave approximately 180 observed per arm and a sampling half-width near 0.103; at 20%, approximately 160 per arm and 0.110. Attrition also creates selection uncertainty that these width calculations omit; missingness bounds are needed regardless of a narrow available-case interval. Independent people and roughly balanced ascertainment are assumptions, not properties established by synthetic sessions.</p>
+<p>A 40–60-person randomized <strong>feasibility</strong> pilot would mainly examine completion, comprehension, logging, usable choices and assessment distributions. It does not support sensitivity to small policy effects, equivalence or a reliable mediator analysis. A preceding approximately 5–8-person permitted development pilot could identify confusing items and timing failures, but would not validate the assessment. These are possible future stages, not scheduled recruitment commitments.</p>
+<p>Before a real confirmatory registration, select a substantively justified meaningful difference and decide whether precision or power is the goal; finalize the target with anticipated attrition and the actual accessible population. Fix a total-randomized stopping target and a calendar closure date before launch. Do not keep replacing participants until a desired number of favorable complete outcomes appears, inspect outcomes to stop early, or treat a tiny pilot effect as a stable power-calculation input. Any revised target requires a prospective amendment; the current draft contains no collection dates.</p>
+<h2 id="data-withdrawal-and-exclusions">Data, withdrawal and exclusions</h2>
+<p>The current tool has no server, analytics or research submission. A development demonstration keeps its event history in browser memory. Its Stop control marks the run withdrawn and excludes it from analytic outcomes while retaining a technical history for optional inspection/export. Reset or refresh clears that in-memory history. An explicit local export can create a file on the user&#39;s device; nothing is sent to the researcher by that button, and a saved file remains until its owner deletes it. No names, contact details, IP addresses or absolute timestamps are part of the event schema; session labels and relative timing still require careful handling if a future person provides a file.</p>
+<p>A future approved study needs a private return channel, secure storage, retention/deletion period, named contacts, compensation policy and a process for identifying a file for withdrawal. These must be settled before recruitment. Participants may leave without penalty. Before export, the future participant procedure must offer clearing the local history and choosing not to provide a file; this is distinct from the current technical Stop control. After provision to a future study team, the approved information sheet must explain how to request deletion using the study code and any honest limit once anonymized aggregates have been released. Retaining anonymous enrollment/arm counts after withdrawal requires the final review/consent basis; never use withdrawn responses. Synthetic test records can exercise count-based bounds without establishing that retention is permitted for people. Do not upload participant exports to the public repository.</p>
+<p>Pre-randomization eligibility and nonentry rules are separate from analytic exclusions. After assignment, retain assigned arm for outcomes that remain usable. Exclude demonstrably invalid exports, duplicates under a prespecified recruitment rule, and records requiring withdrawal/deletion; report reasons without selecting on performance. Comprehension errors, low scores, repetition, no-choice, or incomplete transfer are not reasons to discard an observed primary outcome. Conflicting or tampered event histories are technical-invalid cases, not scored failures. Log and report technical losses separately.</p>
+<h2 id="event-and-analysis-contract">Event and analysis contract</h2>
+<p>Session envelopes identify <code>study_id</code>, <code>protocol_version</code>, <code>item_bank_version</code>, <code>schema_version</code>, <code>session_kind</code>, a technical <code>session_label</code>, <code>participant_collection_enabled: false</code>, <code>arm</code>, <code>assignment_method</code>, <code>assignment_seed</code>, <code>assignment_draw_raw</code>, <code>status</code> (<code>completed</code>, <code>withdrawn</code> or <code>incomplete</code>), <code>events</code>, <code>state_snapshot</code> and a development/synthetic <code>notice</code>. Current session kinds are only <code>development_demo</code> and <code>synthetic</code>; the label is not an authenticated participant identifier. The state snapshot is for inspection; an analyzer recomputes outcomes from the ordered events. Adding a real-participant mode requires the review/pilot gates, not changing a label on an existing demo export.</p>
+<p>Each event has consecutive <code>sequence</code> numbering starting at 1, <code>type</code>, nonnegative nondecreasing relative <code>elapsed_ms</code>, and a <code>payload</code>. Essential ordered events are acknowledgment; B1–B4 responses; lesson; P1 warmup responses with eventual correct success; condition assignment; comprehension; practice start; voluntary choices/responses/explanations; observed window completion; transfer responses/completion; optional ratings; completion or withdrawal. Some later events may be absent in incomplete sessions. Do not fabricate missing milestones.</p>
+<p>Minimum event payloads:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Required content</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>session_started</code></td>
+<td><code>session_kind</code>, <code>participant_mode_enabled: false</code></td>
+</tr>
+<tr>
+<td><code>demo_acknowledged</code></td>
+<td><code>research_consent: false</code>; development-only acknowledgment</td>
+</tr>
+<tr>
+<td><code>baseline_response</code>, <code>warmup_response</code>, <code>transfer_response</code></td>
+<td><code>item_id</code>, <code>response_option</code>, <code>correct</code>; analysis independently checks the key</td>
+</tr>
+<tr>
+<td><code>baseline_completed</code></td>
+<td><code>answered</code>, <code>score</code>, <code>possible: 4</code>; verify four responses</td>
+</tr>
+<tr>
+<td><code>lesson_viewed</code>, <code>warmup_completed</code></td>
+<td>Lesson version; P1 correct success before allocation</td>
+</tr>
+<tr>
+<td><code>condition_assigned</code></td>
+<td><code>arm</code>, <code>assignment_method</code>, <code>assignment_seed</code>, <code>assignment_draw_raw</code>, normalized <code>assignment_draw</code>, <code>initial_points: 1</code>, <code>eligible_correct_repeat_item_id: P1</code></td>
+</tr>
+<tr>
+<td><code>rule_comprehension_response</code></td>
+<td><code>response_option</code>, <code>response_points</code>, <code>correct</code>, <code>expected_points</code>, <code>exclusion: false</code></td>
+</tr>
+<tr>
+<td><code>practice_started</code></td>
+<td><code>duration_ms: 480000</code>, <code>initial_points: 1</code></td>
+</tr>
+<tr>
+<td><code>practice_menu_choice</code></td>
+<td><code>choice</code>, <code>item_id</code>, <code>previously_correct</code>, <code>previously_encountered</code>; verify history and timer</td>
+</tr>
+<tr>
+<td><code>practice_response</code></td>
+<td><code>item_id</code>, <code>response_option</code>, <code>correct</code>, <code>previously_correct</code>, <code>points_awarded</code>, <code>total_points_after</code>; one response per selection</td>
+</tr>
+<tr>
+<td><code>explanation_viewed</code></td>
+<td><code>item_id</code>, <code>points_awarded: 0</code></td>
+</tr>
+<tr>
+<td><code>development_clock_advanced</code></td>
+<td><code>added_ms</code>, technical-inspection purpose; not observed practice time</td>
+</tr>
+<tr>
+<td><code>practice_window_completed</code></td>
+<td><code>duration_ms</code>, <code>observed_elapsed_ms</code>, <code>reason</code>, <code>first_choice_category</code>, <code>final_points</code>; verify a genuine full window for zero-choice development records</td>
+</tr>
+<tr>
+<td><code>transfer_completed</code></td>
+<td><code>answered</code>, <code>possible: 6</code>, <code>score</code>, <code>complete</code>, <code>missing_not_zero</code>; verify against response events</td>
+</tr>
+<tr>
+<td><code>session_completed</code></td>
+<td><code>transfer_complete</code>; later completion does not override individual outcome availability</td>
+</tr>
+<tr>
+<td><code>motivation_response</code></td>
+<td><code>item_id</code>, value 1–7 or explicit missing/skip</td>
+</tr>
+<tr>
+<td><code>session_withdrawn</code></td>
+<td><code>stage_at_stop</code>, <code>analytic_use: false</code>; no withdrawn responses analyzed</td>
+</tr>
+<tr>
+<td><code>development_export_requested</code></td>
+<td><code>opt_in: true</code>, <code>no_remote_upload: true</code>; optional local file creation</td>
+</tr>
+</tbody></table></div>
+<p>Technical checks must recompute correctness, score transitions and outcome availability from event order rather than trusting a displayed total. They should cover both arms, correct repetitions, wrong answers, review, retry, confirmed no-choice, early technical loss, incomplete transfer, withdrawal, incompatible versions and invalid histories. Synthetic results test implementation and missingness handling; they are not an effect estimate from participants.</p>
+<h2 id="gates-before-participant-work">Gates before participant work</h2>
+<ol>
+<li>Author review: reproduce the existing public-data result, understand this policy estimand and independently inspect every draft item/key and analysis rule.</li>
+<li>Establish a suitable research/institutional review route, actual adult recruitment access and approved consent/data-management process. Development interviews are also participant work and need the appropriate route.</li>
+<li>Conduct permitted development piloting for item ambiguity, baseline/transfer floor and ceiling effects, timing, comprehension, meaningful choice availability, accessibility and event accuracy. The current package does not establish these properties.</li>
+<li>Revise versions together, freeze materials/config/instrument/analysis, justify sample size and attrition, and prospectively register the real study before its separately recruited randomized sample. The local dated draft is not external preregistration.</li>
+</ol>
+<p>Application wording may describe a completed proposed experimental package and verified synthetic analysis once the actual files/checks exist. It must not describe a conducted experiment, validated assessment, approved ethics protocol, participant finding or demonstrated learning benefit.</p>
+<p class="source-note">Readable copy of <a href="https://github.com/NickChass/what-counts-as-progress/blob/main/docs/Proposed-Experiment-Protocol.md">docs/Proposed-Experiment-Protocol.md</a>. Participant collection is disabled in the development walkthrough. <a href="https://github.com/NickChass/what-counts-as-progress">Full source repository</a>.</p></main></body></html>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="635" viewBox="0 0 1000 635" role="img">
+<title>Predicting later assessment marks</title>
+<rect width="100%" height="100%" fill="white"/>
+<g font-family="Arial, Helvetica, sans-serif">
+<text x="35.00" y="44.00" font-size="27" fill="#172B44" text-anchor="start" font-weight="700">Predicting later assessment marks</text>
+<text x="35.00" y="75.00" font-size="15" fill="#4B596B" text-anchor="start" >Reserved evaluation set; observed marks only</text>
+<line x1="300.00" y1="120.00" x2="300.00" y2="500.00" stroke="#E3E8EE" stroke-width="1" />
+<text x="300.00" y="526.00" font-size="14" fill="#4B596B" text-anchor="middle" >0</text>
+<line x1="397.47" y1="120.00" x2="397.47" y2="500.00" stroke="#E3E8EE" stroke-width="1" />
+<text x="397.47" y="526.00" font-size="14" fill="#4B596B" text-anchor="middle" >2</text>
+<line x1="494.94" y1="120.00" x2="494.94" y2="500.00" stroke="#E3E8EE" stroke-width="1" />
+<text x="494.94" y="526.00" font-size="14" fill="#4B596B" text-anchor="middle" >4</text>
+<line x1="592.41" y1="120.00" x2="592.41" y2="500.00" stroke="#E3E8EE" stroke-width="1" />
+<text x="592.41" y="526.00" font-size="14" fill="#4B596B" text-anchor="middle" >6</text>
+<line x1="689.89" y1="120.00" x2="689.89" y2="500.00" stroke="#E3E8EE" stroke-width="1" />
+<text x="689.89" y="526.00" font-size="14" fill="#4B596B" text-anchor="middle" >8</text>
+<line x1="787.36" y1="120.00" x2="787.36" y2="500.00" stroke="#E3E8EE" stroke-width="1" />
+<text x="787.36" y="526.00" font-size="14" fill="#4B596B" text-anchor="middle" >10</text>
+<line x1="884.83" y1="120.00" x2="884.83" y2="500.00" stroke="#E3E8EE" stroke-width="1" />
+<text x="884.83" y="526.00" font-size="14" fill="#4B596B" text-anchor="middle" >12</text>
+<text x="285.00" y="172.50" font-size="16" fill="#4B596B" text-anchor="end" >Prior mark + course offering</text>
+<rect x="300.00" y="146.50" width="566.37" height="42" fill="#65758A"/>
+<text x="875.37" y="172.50" font-size="16" fill="#172B44" text-anchor="start" >11.62</text>
+<text x="285.00" y="267.50" font-size="16" fill="#4B596B" text-anchor="end" >+ Activity volume</text>
+<rect x="300.00" y="241.50" width="550.81" height="42" fill="#007F89"/>
+<text x="859.81" y="267.50" font-size="16" fill="#172B44" text-anchor="start" >11.30</text>
+<text x="285.00" y="362.50" font-size="16" fill="#4B596B" text-anchor="end" >+ Active days</text>
+<rect x="300.00" y="336.50" width="548.57" height="42" fill="#7563A6"/>
+<text x="857.57" y="362.50" font-size="16" fill="#172B44" text-anchor="start" >11.26</text>
+<text x="285.00" y="457.50" font-size="16" fill="#4B596B" text-anchor="end" >+ Both indicators</text>
+<rect x="300.00" y="431.50" width="547.35" height="42" fill="#2477B6"/>
+<text x="856.35" y="457.50" font-size="16" fill="#172B44" text-anchor="start" >11.23</text>
+<text x="620.00" y="561.00" font-size="16" fill="#4B596B" text-anchor="middle" >Mean absolute prediction error (assessment-mark points)</text>
+<text x="35.00" y="592.00" font-size="13" fill="#4B596B" text-anchor="start" >Raw, unclipped predictions. Lower error is better. Models were fixed using development data.</text>
+</g>
+</svg>

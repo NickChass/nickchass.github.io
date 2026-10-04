@@ -13,6 +13,7 @@ Personal portfolio site for my behavioral and social-science research case studi
 - **[AlerTT · live alerts against the official record](https://nickchass.github.io/alertt/)**. The discovery research and the crime-data pipeline combined into one working app. Community alerts sit above the published record for their police division. Live feed, a real interactive map of the nine divisions (Leaflet + OpenStreetMap, with a dependency-free SVG fallback), reporting flow, and fifty years of CSO statistics.
 
 ## Case studies
+- **[What Counts as Progress?](https://nickchass.github.io/case-studies/what-counts-as-progress.html)**. Completed OULAD activity-indicator analysis with a live fictional dashboard demonstration and a proposed randomized experiment on repeat-credit scoring rules. [Open the demonstration](https://nickchass.github.io/what-counts-as-progress/). The experimental materials are development drafts; no participant findings are claimed.
 - **Fear of Crime & Psychological Vulnerability**. Master's thesis; independent secondary analysis of an archival 538-participant survey dataset, using regression & mediation analysis (SPSS, Hayes' PROCESS), Trinidad & Tobago
 - **AlerTT · Crime Awareness App**. Original discovery research (83 participants, Trinidad & Tobago) built directly into a working safety app. Study → recommendations → shipped product. **Open it:** https://nickchass.github.io/alertt/
 

@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="What Counts as Progress? — What Counts as Progress? Proposed experiment package."><title>What Counts as Progress? · What Counts as Progress?</title><style>:root{--green:#0D6B5E;--ink:#141412;--muted:#60645e;--bg:#F7F7F5;--line:#dedfd9}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.75 system-ui,-apple-system,sans-serif}nav{padding:18px max(24px,calc((100vw - 900px)/2));background:white;border-bottom:1px solid var(--line)}nav a{margin-right:20px;font-size:14px}main{max-width:900px;margin:36px auto;padding:36px 44px;background:white;border:1px solid var(--line);border-radius:14px}a{color:var(--green);text-underline-offset:3px;overflow-wrap:anywhere}h1{font-size:32px;line-height:1.2;letter-spacing:-.02em}h2{font-size:23px;line-height:1.35;margin-top:36px}h3{font-size:19px;margin-top:30px}p,li{overflow-wrap:anywhere}li{margin-bottom:9px}img{max-width:100%;height:auto}blockquote{margin:24px 0;padding:8px 22px;border-left:3px solid var(--green);background:#eef6f3;color:#374c45}pre{padding:18px;background:#f1f3ef;overflow:auto;border-radius:8px;font-size:13px;line-height:1.5}code{font-family:ui-monospace,monospace;font-size:.9em}p code,li code,td code{overflow-wrap:anywhere}.table-wrap{max-width:100%;overflow-x:auto;margin:24px 0}table{border-collapse:collapse;min-width:580px;width:100%;font-size:14px;line-height:1.5}th,td{padding:12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}th{background:#eef6f3}.source-note{font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:20px;margin-top:36px}.status{font-size:13px;color:var(--muted);margin:0 0 24px}@media(max-width:620px){main{margin:18px 12px;padding:22px 20px}h1{font-size:27px}nav{padding:16px 24px}nav a{display:inline-block;margin-bottom:4px}}@media print{body,main{background:white}main{border:0;margin:0;padding:0;max-width:none}nav{display:none}h2,h3{break-after:avoid}tr,blockquote{break-inside:avoid}.table-wrap{overflow:visible}table{min-width:0}a{color:inherit}}</style></head><body><nav aria-label="Project navigation"><a href="../../case-studies/what-counts-as-progress.html">← Project case study</a><a href="../experiment/">Study walkthrough</a><a href="../proposed-experiment-package.zip">Download proposed study package</a></nav><main><p class="status">Independent portfolio · Proposed study materials and completed analysis are distinguished in each document.</p><h1 id="what-counts-as-progress">What Counts as Progress?</h1>
+<p><strong>Supporting future experiment: scoring rules, practice choices, and independent learning</strong><br>Prepared for Nicholai Chasseau · 3 October 2026 · Fall 2027 PhD preparation</p>
+<p><strong>Historical design brief:</strong> The current operational development draft is <a href="Proposed-Experiment-Protocol.html">Proposed-Experiment-Protocol.md</a>, aligned with the <a href="Psychological-Argument.html">psychological argument</a>, original materials and instrument. It makes first practice action the primary outcome and keeps repeat proportions secondary. This brief preserves the initial design discussion; the current protocol governs the proposed experiment. Neither document is an external preregistration.</p>
+<p><strong>Status:</strong> supporting design brief for a later participant experiment. See the <a href="Research-Report.html">current recommended portfolio project</a>, adapted to 40 hours/week, no budget, and no participant access. The public-data analysis and fictional companion demonstration are complete. The participant experiment, participant-study instrument, external preregistration and participant findings remain proposed.</p>
+<h2 id="recommendation-and-purpose">Recommendation and purpose</h2>
+<p>Build a small browser-based learning experiment that tests one concrete product decision: whether correctly repeating the same practice question earns another point. The portfolio piece should connect a dashboard rule to observable choices and an assessment of learning outside the dashboard.</p>
+<p>This directly develops your proposed research on digital measures supporting meaningful goals or becoming goals themselves. Your existing Psychology MA thesis, quantitative analyses, independent survey, and AlerTT prototype already demonstrate substantial preparation. This project would add evidence of experimental design, behavioral measurement, and evaluation of an interface. That is a useful addition to your application narrative; it does not establish an admissions probability.</p>
+<p>You selected the educational setting and can devote <strong>40 hours/week</strong>, with <strong>no participant budget or access</strong>. Keep this experiment as the next study within the portfolio project; the immediate empirical work should use existing open learning data. Participant work described below requires a future review and recruitment pathway, and is not required to complete the current portfolio piece.</p>
+<h2 id="research-question">Research question</h2>
+<p><strong>Does awarding points for correctly repeating an already successful practice item change learners’ practice choices and their ability to apply the lesson to unfamiliar problems?</strong></p>
+<p>The predicted behavioral effect is greater repetition when repeats earn points. The learning effect is an open, two-sided question: repetition could support learning, have little effect, or crowd out useful practice.</p>
+<p>Treat this as a focused extension of existing work, with a reusable experimental instrument. Do not claim that digital measurement harms learning generally or that this is the first study of metric–goal conflict.</p>
+<h2 id="experimental-contrast">Experimental contrast</h2>
+<p>Randomly assign participants to one of two scoring policies after a common pretest, lesson, and warm-up.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Component</th>
+<th>All-correct credit</th>
+<th>Distinct-item credit</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>First correct answer to an item</td>
+<td>+1 point</td>
+<td>+1 point</td>
+</tr>
+<tr>
+<td>Correct repetition of that exact item</td>
+<td>+1 point</td>
+<td>No additional point</td>
+</tr>
+<tr>
+<td>Incorrect answer or explanation view</td>
+<td>No point</td>
+<td>No point</td>
+</tr>
+<tr>
+<td>Rule displayed to the learner</td>
+<td>“Each correct answer earns one point. Repeated questions also count.”</td>
+<td>“Each question earns one point when first answered correctly. Repeated questions do not add points.”</td>
+</tr>
+</tbody></table></div>
+<p>Use the same interface layout, lesson, item bank, practice menu, answer explanations, time allowance, and learning-goal instruction. Compensation, if offered, should be the same and independent of points or performance. Avoid adding rankings, streaks, adaptive prompts, or different visual emphasis in this first experiment.</p>
+<p>The second policy measures breadth of successful item attempts. <strong>It is not a validated measure of mastery.</strong> Display it as “Practice points,” with the rule clearly visible. Record identical underlying events in both conditions. Raw point totals are not comparable evidence of performance because the rules differ.</p>
+<p>The causal comparison is between these two scoring policies. It does not estimate the effect of having a dashboard versus having no dashboard, or identify a particular psychological mechanism.</p>
+<h2 id="learning-task-and-participant-experience">Learning task and participant experience</h2>
+<p>Use a compact statistical-reasoning lesson, provisionally <strong>interpreting counts versus rates</strong>. This uses your existing quantitative strengths and provides a bridge from prior risk/data work to research on feedback. Develop original, clearly fictional examples rather than reproducing published test items or presenting fabricated real-world statistics.</p>
+<p>Start with one or two learning objectives and write the independent assessment before designing the dashboard. Example objective: distinguish a change in event counts from a change in risk when population sizes differ, then apply that distinction in a new context.</p>
+<p>An initial session can target roughly 20–25 minutes; pilot the actual timing:</p>
+<ol>
+<li><strong>Consent and baseline assessment:</strong> short original problems assessing prior knowledge.</li>
+<li><strong>Common lesson and guided warm-up:</strong> identical explanations and answer feedback. Ensure the practice menu can offer at least one previously correct item without imposing a post-randomization eligibility rule.</li>
+<li><strong>Random assignment and rule explanation:</strong> show the assigned scoring policy accurately. Check comprehension and repeat the explanation when necessary. Record comprehension; do not discard randomized participants afterward just because they misunderstand the rule.</li>
+<li><strong>Approximately eight minutes of voluntary practice:</strong> choose an exact repeat of a previously correct question, review an explanation, or attempt a new application problem. Keep the resources and menu ordering identical across groups.</li>
+<li><strong>Independent transfer assessment:</strong> unfamiliar scenarios testing the same principles, with no practice points and no access to the dashboard or lesson.</li>
+<li><strong>Brief interpretation questions and debrief:</strong> ask what influenced choices and what the participant thought the score measured. Ask these after practice to avoid prompting metric-focused behavior beforehand.</li>
+</ol>
+<p>Use adults for the initial study. If the sample is not students, describe it as adult online learning; do not generalize it to university coursework. A delayed test is a later extension, not a requirement for the first piece.</p>
+<h2 id="outcomes-and-analysis">Outcomes and analysis</h2>
+<p><strong>Primary behavioral outcome:</strong> each participant’s proportion of voluntary question selections that are exact repeats of items previously answered correctly. Define eligibility at the moment of selection using the event history. Count new questions and retries of previously incorrect questions in the denominator, but not explanation views; report explanation use separately. Specify the treatment of participants with no voluntary question selections before collection—for example, primary estimates among participants with defined proportions alongside a separate report of nonparticipation and a prespecified sensitivity analysis. Avoid silently treating no practice as zero repetition.</p>
+<p>Report the between-group difference and its uncertainty. Participants are the independent experimental units: hundreds of click records do not create hundreds of independent participants. First voluntary choice can be a prespecified secondary behavioral measure with a simpler denominator.</p>
+<p><strong>Key secondary educational outcome:</strong> score on the independent transfer assessment, comparing conditions while adjusting for baseline knowledge. Use a two-sided estimate. Pilot difficulty, item ambiguity, and floor/ceiling effects; describe this as a purpose-built assessment rather than a validated scale.</p>
+<p><strong>Exploratory outcomes:</strong> number of practice selections, explanation use, event sequences, perceived pressure, and reasons for choices. Browser timestamps are measures of recorded activity, not direct measures of attention. Custom self-report questions should be reported as individual items unless there is a justified measurement model. Mediation and subgroup analyses would be exploratory and likely too imprecise in a small pilot.</p>
+<p>Keep the first analysis within your existing R skills: documented event cleaning, participant-level summaries, an appropriate group comparison, baseline-adjusted transfer analysis, and clear plots. More elaborate modeling is useful only if the question or data require it.</p>
+<p>Before collection, specify the outcome definitions, randomization, stopping rule, sample-size rationale, exclusions, missing-data handling, and analysis. Register the frozen plan before the randomized study; distinguish any earlier development pilots from the registered sample. An OSF preregistration is a time-stamped study plan, not peer review or proof that the methods are sound. <a href="https://help.osf.io/article/330-welcome-to-registrations">OSF guidance</a></p>
+<h2 id="how-to-interpret-the-results">How to interpret the results</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Observed pattern</th>
+<th>Defensible interpretation</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Repeat credit increases repetition</td>
+<td>The scoring policy changed practice allocation. This alone does not show wasted effort or deliberate metric optimization.</td>
+</tr>
+<tr>
+<td>More repetition and poorer transfer under repeat credit</td>
+<td>Evidence consistent with score–learning misalignment in this particular task and comparison. Mechanism and broader generalization remain open.</td>
+</tr>
+<tr>
+<td>More repetition and better transfer</td>
+<td>Repetition may support the educational goal in this setting; revisit the concern that it displaces learning.</td>
+</tr>
+<tr>
+<td>More repetition and an uncertain transfer difference</td>
+<td>Behavioral responsiveness is clearer than the learning consequence. An imprecise or nonsignificant estimate is not evidence of equivalence.</td>
+</tr>
+<tr>
+<td>No clear behavioral difference</td>
+<td>Check rule comprehension, availability of meaningful choices, score salience, ceiling effects, and precision. Report the uncertainty rather than declaring that metrics do not matter.</td>
+</tr>
+</tbody></table></div>
+<p>The report should distinguish behavior, learning, and participants’ stated motives. None is an automatic substitute for the others.</p>
+<h2 id="feasible-stages-and-schedule">Feasible stages and schedule</h2>
+<p>Finish a credible research package before relying on a participant result for applications. Recruitment and review may take longer than the build schedule.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Target period</th>
+<th>Work and reviewable output</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>5–11 October</td>
+<td>Focused literature map; exact question; learning objectives; draft pretest, practice items, transfer test, and scoring rules. Identify available research review and recruitment routes.</td>
+</tr>
+<tr>
+<td>12–18 October</td>
+<td>Minimal prototype; event dictionary; randomization and scoring checks; technical walkthroughs; reproducible analysis using explicitly simulated records.</td>
+</tr>
+<tr>
+<td>19–25 October</td>
+<td>If an appropriate review pathway permits participant work, use roughly 5–8 development participants to check comprehension, difficulty, choice availability, and timing. Revise and freeze materials. Otherwise, complete the protocol and technical verification.</td>
+</tr>
+<tr>
+<td>26 October–1 November</td>
+<td>Portfolio case study, working demonstration, analysis materials, and study-plan draft. Register a real upcoming study only once the protocol and collection plan are settled.</td>
+</tr>
+<tr>
+<td>Early to mid-November, if feasible</td>
+<td>Run a separately registered randomized feasibility pilot and add an honest preliminary report. Protect time needed for application materials.</td>
+</tr>
+</tbody></table></div>
+<p>Approximately <strong>40–60 participants total</strong> can be a provisional feasibility-pilot scope if recruitment and budget permit. This is not a power calculation. Use it to examine comprehension, completion, logging, variation in choices, and preliminary estimates with uncertainty. Do not promise sensitivity to small learning effects. A larger effect-testing study needs a sample-size calculation based on a justified meaningful effect and the planned analysis; do not choose its target from the apparent effect in a tiny pilot.</p>
+<p>Before recruiting anyone, establish the appropriate ethics/review requirements with a suitable institution or research mentor. Development interviews also involve participants. Include informed consent, voluntary withdrawal, minimal personal data, and appropriate storage. If that pathway or recruitment is unavailable, finish a <strong>research-ready prototype and protocol</strong> with clearly labeled simulated analysis; describe its status accurately. Simulated data verify software and analysis, not the research hypothesis.</p>
+<h2 id="finished-portfolio-package">Finished portfolio package</h2>
+<ul>
+<li><strong>Working demonstration:</strong> a visitor can inspect both scoring policies and complete a short example. Mark demonstration records and sample scores clearly.</li>
+<li><strong>Concise case study:</strong> question, theoretical rationale, design decisions, measurement rationale, development evidence, and current findings/status. Approximately 4–6 pages is a useful target.</li>
+<li><strong>Study materials:</strong> item bank, answer key, independent transfer assessment, consent/debrief drafts, event dictionary, and dated protocol or registration link when available.</li>
+<li><strong>Reproducible R report:</strong> cleaning decisions, outcome construction, plots, estimates, uncertainty, and limitations. Keep synthetic and observed data clearly separated; share participant data only when consent and disclosure risk permit.</li>
+</ul>
+<p>Lead the portfolio page with the research question and your specific contribution. Identify assistance with coding or drafting when material, and make clear which scientific decisions you made and can defend. Include a short walkthrough so a faculty reader can grasp the experiment quickly.</p>
+<p>This is particularly coherent with your existing SFU statement. Hatala’s current description emphasizes theoretical and experimental dashboard research and explicitly lists a project report or portfolio as possible evidence of research potential. This supports relevance, not guaranteed supervision or admission. <a href="https://www.sfu.ca/~mhatala/index.html">SFU research and applicant guidance</a></p>
+<h2 id="cv-language-at-different-stages">CV language at different stages</h2>
+<p>These are templates to use <strong>only after the stated work exists</strong>.</p>
+<p><strong>After the prototype and protocol are completed:</strong></p>
+<blockquote>
+<p>Designed a browser-based learning experiment and study protocol testing how repeat-credit scoring rules affect practice choices and independent learning; implemented event logging and verified an R analysis pipeline with labeled simulated data.</p>
+</blockquote>
+<p><strong>After a real randomized pilot is completed:</strong></p>
+<blockquote>
+<p>Designed and conducted a [preregistered, if applicable] randomized pilot (N = [actual sample]) comparing repeat-credit policies; analyzed practice choices and an independent transfer assessment in R and published study materials with documented limitations.</p>
+</blockquote>
+<p>Keep the project under independent research or research projects. Use “in development” while appropriate; do not list a design brief as a completed experiment or a preregistration as a publication.</p>
+<h2 id="focused-evidence-map">Focused evidence map</h2>
+<p>The targeted literature check supports the project’s rationale while showing substantial adjacent work. It is not an exhaustive novelty review.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Source</th>
+<th>What it establishes and how the proposed piece differs</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://academic.oup.com/jcr/article-abstract/42/6/967/2358309">Etkin (2016), The Hidden Cost of Personal Quantification</a></td>
+<td>Personal measurement can increase activity while changing enjoyment. It does not establish that quantification necessarily impairs learning. The proposed piece explicitly measures transfer.</td>
+</tr>
+<tr>
+<td><a href="https://doi.org/10.1093/jcr/ucac029">Silverman &amp; Barasch (2023), On or Off Track</a></td>
+<td>Logged streaks can become goals and affect subsequent engagement. Streak preservation is established adjacent work; the first portfolio study uses scoring rules rather than another streak comparison.</td>
+</tr>
+<tr>
+<td><a href="https://learning-analytics.info/index.php/JLA/article/view/8547">Hatala &amp; Nazeri (2024), dashboard standing and following behavior</a></td>
+<td>Dashboard standing is associated with subsequent discussion behavior. The proposed piece randomizes a specific rule and assesses learning separately.</td>
+</tr>
+<tr>
+<td><a href="https://doi.org/10.1111/jcal.12912">Gallagher et al. (2024), Reference Frames for Learning Analytics Dashboards</a></td>
+<td>Personal-progress versus social-comparison reference frames already have an experimental precedent. That comparison alone is not the proposed contribution.</td>
+</tr>
+<tr>
+<td><a href="https://www.muni.cz/en/research/publications/2495997">Kratochvíl et al. (2025), Gamified Goal-Setting</a></td>
+<td>Leaderboard effects on quantitative output and qualitative performance can differ. Quantity–quality divergence is not an untouched question; this piece examines a particular repeat-credit policy and learning transfer.</td>
+</tr>
+<tr>
+<td><a href="https://www.sfu.ca/~mhatala/lak2026-77.pdf">Zheng, Hatala &amp; Ahrar (2026), immediate and retrospective emotion–motivation profiles</a></td>
+<td>Closely related work examines dashboard responses over time. Its individual-comparison condition uses selected peers, not a learner’s own prior progress. The portfolio question concerns practice allocation and independently assessed learning.</td>
+</tr>
+</tbody></table></div>
+<h2 id="first-concrete-step">First concrete step</h2>
+<p>Write the learning objective and <strong>8–10 candidate transfer questions</strong>, with an answer key and explanations of what each item tests. Then design practice activities that prepare learners for those questions. This makes the educational goal explicit before choosing what the dashboard counts.</p>
+<p class="source-note">Readable copy of <a href="https://github.com/NickChass/what-counts-as-progress/blob/main/docs/Future-Study-Brief.md">docs/Future-Study-Brief.md</a>. Participant collection is disabled in the development walkthrough. <a href="https://github.com/NickChass/what-counts-as-progress">Full source repository</a>.</p></main></body></html>

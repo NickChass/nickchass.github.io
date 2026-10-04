@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Data guide — What Counts as Progress? Proposed experiment package."><title>Data guide · What Counts as Progress?</title><style>:root{--green:#0D6B5E;--ink:#141412;--muted:#60645e;--bg:#F7F7F5;--line:#dedfd9}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.75 system-ui,-apple-system,sans-serif}nav{padding:18px max(24px,calc((100vw - 900px)/2));background:white;border-bottom:1px solid var(--line)}nav a{margin-right:20px;font-size:14px}main{max-width:900px;margin:36px auto;padding:36px 44px;background:white;border:1px solid var(--line);border-radius:14px}a{color:var(--green);text-underline-offset:3px;overflow-wrap:anywhere}h1{font-size:32px;line-height:1.2;letter-spacing:-.02em}h2{font-size:23px;line-height:1.35;margin-top:36px}h3{font-size:19px;margin-top:30px}p,li{overflow-wrap:anywhere}li{margin-bottom:9px}img{max-width:100%;height:auto}blockquote{margin:24px 0;padding:8px 22px;border-left:3px solid var(--green);background:#eef6f3;color:#374c45}pre{padding:18px;background:#f1f3ef;overflow:auto;border-radius:8px;font-size:13px;line-height:1.5}code{font-family:ui-monospace,monospace;font-size:.9em}p code,li code,td code{overflow-wrap:anywhere}.table-wrap{max-width:100%;overflow-x:auto;margin:24px 0}table{border-collapse:collapse;min-width:580px;width:100%;font-size:14px;line-height:1.5}th,td{padding:12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}th{background:#eef6f3}.source-note{font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:20px;margin-top:36px}.status{font-size:13px;color:var(--muted);margin:0 0 24px}@media(max-width:620px){main{margin:18px 12px;padding:22px 20px}h1{font-size:27px}nav{padding:16px 24px}nav a{display:inline-block;margin-bottom:4px}}@media print{body,main{background:white}main{border:0;margin:0;padding:0;max-width:none}nav{display:none}h2,h3{break-after:avoid}tr,blockquote{break-inside:avoid}.table-wrap{overflow:visible}table{min-width:0}a{color:inherit}}</style></head><body><nav aria-label="Project navigation"><a href="../../case-studies/what-counts-as-progress.html">← Project case study</a><a href="../experiment/">Study walkthrough</a><a href="../proposed-experiment-package.zip">Download proposed study package</a></nav><main><p class="status">Independent portfolio · Proposed study materials and completed analysis are distinguished in each document.</p><h1 id="data-guide">Data guide</h1>
+<p><strong>What Counts as Progress? · 3 October 2026</strong></p>
+<p>The official archive contains seven CSV tables. The table roles and fields were checked against the original codebook and the acquired files. All dates are relative to the start of the corresponding module offering; day 0 is its start. The exports use <code>?</code>, empty strings and <code>NA</code> as recognized missing-value tokens.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Table</th>
+<th align="right">Actual rows</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>courses</td>
+<td align="right">22</td>
+<td>Module-offering calendar</td>
+</tr>
+<tr>
+<td>assessments</td>
+<td align="right">206</td>
+<td>Assessment type, deadline and weight</td>
+</tr>
+<tr>
+<td>studentRegistration</td>
+<td align="right">32,593</td>
+<td>Registration and withdrawal</td>
+</tr>
+<tr>
+<td>studentInfo</td>
+<td align="right">32,593</td>
+<td>Enrollment context and final outcome</td>
+</tr>
+<tr>
+<td>studentAssessment</td>
+<td align="right">173,912</td>
+<td>Submitted work and recorded marks</td>
+</tr>
+<tr>
+<td>vle</td>
+<td align="right">6,364</td>
+<td>Learning-platform resource definitions</td>
+</tr>
+<tr>
+<td>studentVle</td>
+<td align="right">10,655,280</td>
+<td>Resource interaction records</td>
+</tr>
+</tbody></table></div>
+<p><strong>Units and joining.</strong> A course offering is <code>code_module + code_presentation</code>; a learner enrollment adds <code>id_student</code>. An assessment joins by <code>id_assessment</code>, and a resource joins by module, presentation and <code>id_site</code>. All small-table keys and tested foreign keys pass. Learner identifiers repeat across enrollments, so rows are not independent people.</p>
+<h2 id="fields-used-in-the-initial-study">Fields used in the initial study</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>code_module, code_presentation</td>
+<td>Identify course context</td>
+</tr>
+<tr>
+<td>id_student</td>
+<td>Group a learner’s enrollments and evaluation partition</td>
+</tr>
+<tr>
+<td>assessment_type</td>
+<td>Select tutor-marked coursework (<code>TMA</code>)</td>
+</tr>
+<tr>
+<td>assessments.date</td>
+<td>Scheduled deadline; not actual submission</td>
+</tr>
+<tr>
+<td>weight</td>
+<td>Require a positive-weight target assessment</td>
+</tr>
+<tr>
+<td>date_submitted</td>
+<td>Separate earlier work and later outcomes</td>
+</tr>
+<tr>
+<td>is_banked</td>
+<td>Exclude credit carried from an earlier offering</td>
+</tr>
+<tr>
+<td>score</td>
+<td>Recorded0–100 assessment mark</td>
+</tr>
+<tr>
+<td>date_registration</td>
+<td>Determine registration before the cutoff</td>
+</tr>
+<tr>
+<td>date_unregistration</td>
+<td>Determine withdrawal before the cutoff</td>
+</tr>
+<tr>
+<td>studentVle.date</td>
+<td>Allocate activity to the observation window</td>
+</tr>
+<tr>
+<td>sum_click</td>
+<td>Count source-reported interactions</td>
+</tr>
+<tr>
+<td>id_site</td>
+<td>Identify resource/day repetitions</td>
+</tr>
+</tbody></table></div>
+<p>The exported course-length field is <code>module_presentation_length</code>; the accompanying older codebook calls it <code>length</code>. The imported header is authoritative for the pipeline. The codebook also contains inconsistent enrollment totals; the actual verified table counts above are used in this project.</p>
+<h2 id="missingness-and-repeated-activity">Missingness and repeated activity</h2>
+<p>Missing assessment rows and rows with missing marks are different. In the eligible cohort, 3,393 enrollment records have no selected target submission record and 29 have a future target record without a mark. Neither is assigned a zero score.</p>
+<p>The activity table is not unique at the learner/resource/day level. Within the eligible 14-day window, 684,147 source rows include 51,964 exact full-row repetitions beyond their first occurrence. Daily keys also occur with differing counts. Their origin is not established by the codebook. The primary count sums all official records; exact-row collapse is a planned robustness encoding. Global full-file uniqueness has not been certified; global duplicate counts within the defined eligible window have been computed.</p>
+<h2 id="interpretation-limits">Interpretation limits</h2>
+<p>Activity records provide no dwell time, within-day action sequence, question correctness, or displayed-dashboard exposure. Marks have no recorded grade-release timestamp. Earlier marks support retrospective adjustment, but their availability to a live dashboard at the cutoff is unknown. Marks indicate assessed performance; they do not directly measure learning gain or transfer. Offline study is unobserved.</p>
+<p>Full machine-readable column types and missing counts are in <code>audit/schema_missingness.csv</code>. Sources: <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5704676/">original dataset paper/codebook</a> and <a href="https://archive.ics.uci.edu/dataset/349/open+university+learning+analytics+dataset">official UCI release/license</a>.</p>
+<p class="source-note">Readable copy of <a href="https://github.com/NickChass/what-counts-as-progress/blob/main/docs/Data-Guide.md">docs/Data-Guide.md</a>. Participant collection is disabled in the development walkthrough. <a href="https://github.com/NickChass/what-counts-as-progress">Full source repository</a>.</p></main></body></html>

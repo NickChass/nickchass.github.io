@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="635" viewBox="0 0 1000 635" role="img">
+<title>Activity and later marks in development data</title>
+<rect width="100%" height="100%" fill="white"/>
+<g font-family="Arial, Helvetica, sans-serif">
+<text x="35.00" y="44.00" font-size="27" fill="#172B44" text-anchor="start" font-weight="700">Activity and later marks in development data</text>
+<text x="35.00" y="75.00" font-size="15" fill="#4B596B" text-anchor="start" >Both axes adjusted for prior mark and course offering; ten activity groups</text>
+<line x1="252.61" y1="120.00" x2="252.61" y2="500.00" stroke="#E3E8EE" stroke-width="1" />
+<text x="252.61" y="525.00" font-size="14" fill="#4B596B" text-anchor="middle" >-2</text>
+<line x1="419.07" y1="120.00" x2="419.07" y2="500.00" stroke="#E3E8EE" stroke-width="1" />
+<text x="419.07" y="525.00" font-size="14" fill="#4B596B" text-anchor="middle" >-1</text>
+<line x1="585.52" y1="120.00" x2="585.52" y2="500.00" stroke="#E3E8EE" stroke-width="1" />
+<text x="585.52" y="525.00" font-size="14" fill="#4B596B" text-anchor="middle" >0</text>
+<line x1="751.97" y1="120.00" x2="751.97" y2="500.00" stroke="#E3E8EE" stroke-width="1" />
+<text x="751.97" y="525.00" font-size="14" fill="#4B596B" text-anchor="middle" >1</text>
+<line x1="918.43" y1="120.00" x2="918.43" y2="500.00" stroke="#E3E8EE" stroke-width="1" />
+<text x="918.43" y="525.00" font-size="14" fill="#4B596B" text-anchor="middle" >2</text>
+<line x1="100.00" y1="474.70" x2="940.00" y2="474.70" stroke="#E3E8EE" stroke-width="1" />
+<text x="88.00" y="479.70" font-size="14" fill="#4B596B" text-anchor="end" >-6</text>
+<line x1="100.00" y1="419.41" x2="940.00" y2="419.41" stroke="#E3E8EE" stroke-width="1" />
+<text x="88.00" y="424.41" font-size="14" fill="#4B596B" text-anchor="end" >-4</text>
+<line x1="100.00" y1="364.11" x2="940.00" y2="364.11" stroke="#E3E8EE" stroke-width="1" />
+<text x="88.00" y="369.11" font-size="14" fill="#4B596B" text-anchor="end" >-2</text>
+<line x1="100.00" y1="308.81" x2="940.00" y2="308.81" stroke="#E3E8EE" stroke-width="1" />
+<text x="88.00" y="313.81" font-size="14" fill="#4B596B" text-anchor="end" >0</text>
+<line x1="100.00" y1="253.51" x2="940.00" y2="253.51" stroke="#E3E8EE" stroke-width="1" />
+<text x="88.00" y="258.51" font-size="14" fill="#4B596B" text-anchor="end" >2</text>
+<line x1="100.00" y1="198.22" x2="940.00" y2="198.22" stroke="#E3E8EE" stroke-width="1" />
+<text x="88.00" y="203.22" font-size="14" fill="#4B596B" text-anchor="end" >4</text>
+<line x1="100.00" y1="142.92" x2="940.00" y2="142.92" stroke="#E3E8EE" stroke-width="1" />
+<text x="88.00" y="147.92" font-size="14" fill="#4B596B" text-anchor="end" >6</text>
+<line x1="100.00" y1="308.81" x2="940.00" y2="308.81" stroke="#8290A3" stroke-width="1.5" stroke-dasharray="6 5"/>
+<polyline points="145.00,473.79 403.88,412.02 490.55,396.26 546.82,352.28 591.11,293.05 632.02,273.64 671.14,256.45 712.93,255.38 767.06,228.97 895.00,146.21" fill="none" stroke="#007F89" stroke-width="2"/>
+<circle cx="145.00" cy="473.79" r="5" fill="#007F89"/>
+<circle cx="403.88" cy="412.02" r="5" fill="#007F89"/>
+<circle cx="490.55" cy="396.26" r="5" fill="#007F89"/>
+<circle cx="546.82" cy="352.28" r="5" fill="#007F89"/>
+<circle cx="591.11" cy="293.05" r="5" fill="#007F89"/>
+<circle cx="632.02" cy="273.64" r="5" fill="#007F89"/>
+<circle cx="671.14" cy="256.45" r="5" fill="#007F89"/>
+<circle cx="712.93" cy="255.38" r="5" fill="#007F89"/>
+<circle cx="767.06" cy="228.97" r="5" fill="#007F89"/>
+<circle cx="895.00" cy="146.21" r="5" fill="#007F89"/>
+<text x="520.00" y="560.00" font-size="16" fill="#4B596B" text-anchor="middle" >Activity relative to prior mark and offering (log-scale residual)</text>
+<text x="27.00" y="310.00" font-size="16" fill="#4B596B" text-anchor="middle" transform="rotate(-90 27 310.00)">Later mark residual (points)</text>
+<text x="35.00" y="592.00" font-size="13" fill="#4B596B" text-anchor="start" >Exploratory descriptive association. Activity is not randomized; no effect of activity or dashboard design is</text>
+<text x="35.00" y="610.00" font-size="13" fill="#4B596B" text-anchor="start" >identified.</text>
+</g>
+</svg>
