@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Digital Learning Metrics and Study Choices: Predictive Evidence and a Proposed Repeat-Credit Experiment — Digital Learning Metrics and Study Choices."><title>Digital Learning Metrics and Study Choices: Predictive Evidence and a Proposed Repeat-Credit Experiment · Digital Learning Metrics and Study Choices</title><style>:root{--green:#0D6B5E;--ink:#141412;--muted:#60645e;--bg:#F7F7F5;--line:#dedfd9}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.75 system-ui,-apple-system,sans-serif}nav{padding:18px max(24px,calc((100vw - 900px)/2));background:white;border-bottom:1px solid var(--line)}nav a{margin-right:20px;font-size:14px}main{max-width:900px;margin:36px auto;padding:36px 44px;background:white;border:1px solid var(--line);border-radius:14px}a{color:var(--green);text-underline-offset:3px;overflow-wrap:anywhere}h1{font-size:32px;line-height:1.2;letter-spacing:-.02em}h2{font-size:23px;line-height:1.35;margin-top:36px}h3{font-size:19px;margin-top:30px}p,li{overflow-wrap:anywhere}li{margin-bottom:9px}img{max-width:100%;height:auto}blockquote{margin:24px 0;padding:8px 22px;border-left:3px solid var(--green);background:#eef6f3;color:#374c45}pre{padding:18px;background:#f1f3ef;overflow:auto;border-radius:8px;font-size:13px;line-height:1.5}code{font-family:ui-monospace,monospace;font-size:.9em}p code,li code,td code{overflow-wrap:anywhere}.table-wrap{max-width:100%;overflow-x:auto;margin:24px 0}table{border-collapse:collapse;min-width:580px;width:100%;font-size:14px;line-height:1.5}th,td{padding:12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}th{background:#eef6f3}.source-note{font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:20px;margin-top:36px}.status{font-size:13px;color:var(--muted);margin:0 0 24px}@media(max-width:620px){main{margin:18px 12px;padding:22px 20px}h1{font-size:27px}nav{padding:16px 24px}nav a{display:inline-block;margin-bottom:4px}}@media print{body,main{background:white}main{border:0;margin:0;padding:0;max-width:none}nav{display:none}h2,h3{break-after:avoid}tr,blockquote{break-inside:avoid}.table-wrap{overflow:visible}table{min-width:0}a{color:inherit}}</style></head><body><nav aria-label="Project navigation"><a href="../../case-studies/what-counts-as-progress.html">← Project case study</a><a href="../manuscript.pdf">Working-paper PDF</a><a href="../experiment/">Study walkthrough</a><a href="../proposed-experiment-package.zip">Download proposed study package</a></nav><main><p class="status">Independent portfolio · Completed retrospective analysis and proposed experiment · Author-review drafts.</p><h1 id="digital-learning-metrics-and-study-choices-predictive-evidence-and-a-proposed-repeat-credit-experiment">Digital Learning Metrics and Study Choices: Predictive Evidence and a Proposed Repeat-Credit Experiment</h1>
+<p><strong>Nicholai Chasseau</strong><br>Independent research manuscript | Version 1.0 | 4 October 2026</p>
+<p><strong>Status.</strong> Working-paper draft accompanying a research portfolio. Part I reports a completed retrospective analysis of public data. Part II specifies an unpiloted experiment; it contains no participant results. This manuscript has not been externally peer reviewed, submitted to a journal, or externally preregistered. Author review is pending.</p>
+<h2 id="abstract">Abstract</h2>
+<p>Learning dashboards can turn recorded activity into both an indicator of performance and an objective that learners pursue. These roles require different evidence: a metric&#39;s predictive value does not establish the consequences of making it a target. This manuscript links a completed retrospective analysis to a proposed experimental test of that distinction. In Part I, the Open University Learning Analytics Dataset supplied 20,441 eligible course enrollments across 19 offerings, including 17,019 observed later assessment marks. Four fixed linear models were fitted to development learners and evaluated in 3,399 reserved enrollments belonging to 3,197 learners. Adding log-transformed activity volume to earlier assessed performance and offering context reduced mean absolute prediction error from 11.621 to 11.302 mark points. The reduction was 0.319 points, with a 95% paired learner-cluster bootstrap interval of 0.207 to 0.426, conditional on the fitted models. Six planned sensitivity comparisons retained positive point estimates, but their magnitudes depended on reference specification, timing, and cohort selection. Part II proposes random assignment to practice scores that credit either every correct answer or only the first correct answer to each distinct item. The primary outcome is whether the first voluntary practice choice repeats a previously correct item; unfamiliar application performance and separate subjective ratings are secondary or exploratory. Materials, software, and analysis checks are complete development drafts, without human piloting or collection. Together, the contributions define a testable question about metric-contingent study choices while separating prediction, behavioral effects, and psychological mechanisms.</p>
+<p><strong>Keywords:</strong> digital metrics; motivation; study choices; learning analytics; scoring policies; reproducible research</p>
+<h2 id="1-introduction">1. Introduction</h2>
+<p>A learner can increase an activity count by opening another resource, returning on another day, or repeating an answer already given correctly. These actions need not have the same educational value. Nevertheless, a dashboard may combine them into a number that looks like progress. The research problem is therefore twofold: what information does a recorded activity metric add about subsequent assessed performance, and what happens when a visible scoring policy makes some actions count toward that metric?</p>
+<p>The present project connects those questions without treating them as interchangeable. Its completed analysis concerns the predictive information in historical platform records. Its proposed experiment concerns the causal effect of a transparent repeat-credit policy on an immediate study choice. The observational analysis does not establish the experiment&#39;s premise as an empirical finding: its dataset contains neither the proposed dashboard treatment nor the motivation measures needed to test that premise. Instead, it establishes a measurement context in which the limits of interpreting visible activity as learning are consequential.</p>
+<h3 id="11-metrics-as-evidence-and-as-incentives">1.1. Metrics as evidence and as incentives</h3>
+<p>Three constructs organize the argument. <strong>Recorded activity</strong> is a trace of actions captured by a platform. <strong>Assessed performance</strong> is a score on a specified criterion. <strong>Metric-contingent choice</strong> is a change in the probability of an action when the rule translating actions into visible credit changes. A fourth construct, <strong>goal displacement</strong>, is stronger: prioritizing the metric over the learning objective. Observing an action that earns points does not, by itself, establish displacement. A learner may repeat an item to consolidate an explanation, check recall, reduce uncertainty, or enjoy a familiar task.</p>
+<p>The core theoretical proposition is modest: when two available actions differ in their expected contribution to a visible score, changing that contribution can change their relative attractiveness. In the proposed task, repeating a known correct item can generate another point under one policy and no further point under the other. The policies therefore change an immediate score opportunity while holding the lesson, initial mastery experience, and available first choices constant. This yields a directional prediction about repetition without requiring the stronger assumption that repetition necessarily harms learning.</p>
+<p>Existing psychological work motivates this distinction. Etkin (2016) reported that personal quantification could increase activity while reducing enjoyment, with evidence across walking, reading, and coloring tasks. Those studies support examining quantity and experience separately; they do not establish the effect of duplicate-answer credit in learning. Silverman and Barasch (2023) found that highlighted intact versus broken behavioral streaks affected subsequent engagement, with evidence for a streak-maintenance goal. Maintaining a streak and earning points through exact repetition are different contingencies. These findings suggest that displayed records can matter to choices, rather than supplying a direct test of the present hypothesis. See the <a href="https://marketing.wharton.upenn.edu/wp-content/uploads/2016/10/Etkin-Jordan-11-12-15-Hidden-Cost.pdf">Etkin author manuscript</a> and <a href="https://udspace.udel.edu/server/api/core/bitstreams/7e3e3b64-8bf2-4527-ac93-94a160358165/content">Silverman and Barasch accepted manuscript</a>.</p>
+<p>Evidence also cautions against predicting a universal loss of motivation. In an image-annotation experiment, Mekler et al. (2017) found that points, levels, and leaderboards increased output quantity without significant differences in the measured intrinsic motivation and competence outcomes. Those null results are not evidence of equivalence. Koo and Fishbach (2008) showed that completed versus remaining goal information can have different motivational implications depending on commitment certainty. Their academic scenario measured intended study effort, rather than achieved learning. Ryan (1982) distinguished informational and controlling aspects of feedback. Together, these sources motivate attention to what a score communicates and what it rewards, while leaving the present policy&#39;s effects open. The proposed experiment does not independently manipulate commitment, controlling language, or autonomy. Primary materials are available from <a href="https://research.aalto.fi/en/publications/towards-understanding-the-effects-of-individual-gamification-elem/">Aalto University</a>, <a href="https://faculty.chicagobooth.edu/-/media/faculty/ayelet-fishbach/research/kf_jpsp08.pdf">Chicago Booth</a>, and <a href="https://selfdeterminationtheory.org/SDT/documents/1982_Ryan_ControlandInfo_JPSP.pdf">Self-Determination Theory</a>.</p>
+<h3 id="12-research-questions-and-contribution">1.2. Research questions and contribution</h3>
+<p>Part I asks whether recorded interaction volume adds predictive information about a later tutor-marked assessment beyond an earlier mark and course-offering context. Click volume is the primary indicator; active days and their combination are secondary. Part II asks whether crediting repeated correct answers increases the probability of selecting a previously correct item as the first voluntary practice action, relative to crediting only distinct correctly answered items.</p>
+<p>The contribution is an inspectable connection between measurement and experimental design. It comprises a reproducible public-data analysis, an explicit psychological argument, original task materials, a functioning development instrument, and a draft analysis contract. It does not claim a new general theory, establish literature-wide novelty, or demonstrate a dashboard&#39;s educational efficacy. Separating the contributions allows the proposed experiment to remain informative whether or not the historical activity indicators are strong predictors.</p>
+<h2 id="2-part-i-completed-retrospective-analysis">2. Part I: Completed Retrospective Analysis</h2>
+<h3 id="21-dataset-and-measurement-scope">2.1. Dataset and measurement scope</h3>
+<p>The <a href="https://archive.ics.uci.edu/dataset/349/open+university+learning+analytics+dataset">official OULAD release</a> contains anonymized course registrations, assessment records, and daily virtual-learning-environment interactions from 2013-2014 (Kuzilek et al., 2015, 2017). The source archive contains 32,593 registration records and 10,655,280 activity rows. Acquisition, checksums, schema, table counts, and joins were audited before modeling. The analysis unit is a course enrollment; one learner may contribute multiple enrollments.</p>
+<p>The records do not supply dwell time, within-day action order, practice-answer correctness, or exposure to a dashboard. They also lack grade-release timestamps. An earlier submitted assessment can therefore be used for retrospective adjustment, but its mark cannot be assumed available to a live dashboard at the cutoff. Platform interaction counts do not capture all offline study and should not be interpreted as total effort or time. The criterion is subsequent assessed performance, rather than a direct measure of learning gain or unfamiliar transfer.</p>
+<h3 id="22-cohort-and-temporal-rules">2.2. Cohort and temporal rules</h3>
+<p>Day 56 was selected from schedule and cohort-availability checks before inspecting activity-mark associations. Day 28 initially supported one offering, day 42 supported 14, and day 56 supported 19 across six modules; day 70 did not add offerings. The primary activity window comprises days 42-55. Registration must precede day 56, and no withdrawal may be recorded before that day. Withdrawal on day 56 is retained in the primary cohort.</p>
+<p>The prior assessment is the latest scheduled tutor-marked assessment (TMA) due before day 42. It requires a valid nonbanked mark between 0 and 100 and actual submission before the activity window. The target is the earliest positive-weight TMA due after day 56. Ties in either scheduled date use the smallest assessment identifier. Banked target credit and target work already submitted before the cutoff are excluded. A modeled target mark must arise from a nonbanked submission on or after day 56. Missing submissions and marks remain missing outcomes; they are not assigned zero.</p>
+<p><strong>Table 1. Cohort construction and outcome coverage.</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Stage</th>
+<th align="right">Enrollment records</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Source registrations</td>
+<td align="right">32,593</td>
+</tr>
+<tr>
+<td>Supported prior and target schedules</td>
+<td align="right">30,059</td>
+</tr>
+<tr>
+<td>Registered and not withdrawn before cutoff</td>
+<td align="right">24,109</td>
+</tr>
+<tr>
+<td>Valid prior score before activity window</td>
+<td align="right">20,506</td>
+</tr>
+<tr>
+<td>Eligible after target exclusions</td>
+<td align="right">20,441</td>
+</tr>
+<tr>
+<td>Target submission recorded</td>
+<td align="right">17,048</td>
+</tr>
+<tr>
+<td>Target mark observed</td>
+<td align="right">17,019</td>
+</tr>
+</tbody></table></div>
+<p>The eligible cohort contains 19,028 distinct learners across 19 offerings. Of 3,422 missing target marks, 3,393 lack a submission record and 29 have a submission without an observed mark. Overall mark coverage is 83.26%. Accordingly, the prediction task describes enrollments with earlier assessed work and an observed subsequent mark, rather than all registered learners.</p>
+<h3 id="23-indicators-models-and-evaluation">2.3. Indicators, models, and evaluation</h3>
+<p>Volume sums the official interaction counts within the activity window and enters as the natural logarithm of one plus that total. Active days counts days with positive recorded activity, from zero to 14. A zero indicates no recorded platform interaction in the window, not no studying. The primary encoding retains all official rows. The audit found 51,964 exact full-row repetitions beyond their first instance among 684,147 selected-window rows. Their origin is unknown; an alternative uniqueness encoding was specified as a sensitivity, rather than presumed to correct erroneous data.</p>
+<p>Four ordinary least-squares models were fixed: (a) a reference containing prior mark and course-offering fixed effects; (b) the reference plus log-transformed volume, the primary comparison; (c) the reference plus active days; and (d) the reference plus both indicators. Predictions are evaluated on their raw scale without clipping to 0-100. Later submission or withdrawal fields do not enter prediction formulas.</p>
+<p>A deterministic learner-level SHA-256 partition reserves approximately 20% of learners. All enrollments belonging to a learner stay in the same partition. Development includes 16,342 eligible enrollments and 13,620 observed target marks; evaluation includes 4,099 eligible enrollments and 3,399 observed marks. The observed evaluation records belong to 3,197 learners, with no learner overlap between partitions. Fixed models were fitted and saved before corresponding evaluation outcomes were opened. Evaluation records have now been used for these comparisons and are no longer an untouched resource for new model selection.</p>
+<p>The primary quantity is the reference mean absolute error (MAE) minus the volume-model MAE, in mark points. Positive values indicate lower error. Metrics are enrollment weighted. Uncertainty uses 2,000 paired percentile bootstrap resamples of evaluation learners, retaining their enrollment clusters, with seed 20261003. Models are not refitted in bootstrap samples. Intervals therefore describe evaluation-sample uncertainty conditional on the fitted development models, not uncertainty from the full training procedure. Root mean squared error (RMSE) and evaluation R-squared are secondary summaries.</p>
+<p>The locally dated version-0.2 plan followed availability and integrity checks and preceded activity-mark analysis. It is not an external preregistration. The exact implementation of a later-offering check was fixed after primary-result inspection and is labeled additional secondary analysis. Frozen configurations, dated amendments, execution records, and aggregate results remain available for inspection.</p>
+<h3 id="24-primary-results">2.4. Primary results</h3>
+<p>Adding volume reduced MAE from 11.621 to 11.302 points. The reduction was 0.319 points, with a 95% learner-cluster bootstrap interval of 0.207 to 0.426, approximately 2.75% of the reference MAE. This is modest incremental information, with substantial error remaining. It is not a 0.319-point increase in a learner&#39;s assessment score.</p>
+<p><strong>Table 2. Reserved-learner prediction results.</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Model</th>
+<th align="right">MAE</th>
+<th align="right">RMSE</th>
+<th align="right">R²</th>
+<th>MAE reduction [95% interval]</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Prior mark + offering</td>
+<td align="right">11.621</td>
+<td align="right">15.155</td>
+<td align="right">.186</td>
+<td>Reference</td>
+</tr>
+<tr>
+<td>+ Volume (primary)</td>
+<td align="right">11.302</td>
+<td align="right">14.721</td>
+<td align="right">.232</td>
+<td>0.319 [0.207, 0.426]</td>
+</tr>
+<tr>
+<td>+ Active days (secondary)</td>
+<td align="right">11.256</td>
+<td align="right">14.683</td>
+<td align="right">.236</td>
+<td>0.365 [0.250, 0.470]</td>
+</tr>
+<tr>
+<td>+ Both (secondary)</td>
+<td align="right">11.231</td>
+<td align="right">14.633</td>
+<td align="right">.241</td>
+<td>0.390 [0.268, 0.505]</td>
+</tr>
+</tbody></table></div>
+<p>Note. All models use the same 3,399 observed evaluation enrollments. MAE and RMSE are mark points; reductions compare each model with the reference. Intervals are conditional on fitted models. R-squared uses the evaluation-mean benchmark. No primary-model prediction lay outside 0-100.</p>
+<p><img src="../figures/primary-error-improvement.png" alt="Figure 1. Primary and secondary reductions in assessment-mark prediction error."></p>
+<p>Figure 1. Paired, enrollment-weighted MAE reductions with 95% learner-cluster intervals. The volume comparison is primary. Secondary models have numerically lower errors, but no prespecified direct superiority test compares active days with volume. Their ordering does not justify changing the primary indicator after observing results.</p>
+<h3 id="25-sensitivities-missingness-and-a-later-offering-check">2.5. Sensitivities, missingness, and a later-offering check</h3>
+<p>The six planned volume comparisons all produced positive reductions, ranging from 0.073 to 0.477 points (Table 3). They answer different robustness questions and should not be read as six independent replications. The quadratic specification strengthens the prior-mark reference as well as altering the activity model. The 28-day window narrows eligibility by requiring the selected prior submission before day 28. The day-70 cutoff reapplies assessment selection and can change the criterion. Consequently, different magnitudes cannot be attributed solely to window length or prediction timing.</p>
+<p><strong>Table 3. Planned sensitivity comparisons for volume.</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Comparison</th>
+<th align="right">Evaluation marks</th>
+<th>MAE reduction [95% interval]</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Positive-weight prior assessments only</td>
+<td align="right">3,109</td>
+<td>0.177 [0.095, 0.263]</td>
+</tr>
+<tr>
+<td>Exclude withdrawal on cutoff day</td>
+<td align="right">3,399</td>
+<td>0.319 [0.207, 0.426]</td>
+</tr>
+<tr>
+<td>Quadratic prior and activity terms</td>
+<td align="right">3,399</td>
+<td>0.198 [0.111, 0.281]</td>
+</tr>
+<tr>
+<td>Exact-full-row-unique volume</td>
+<td align="right">3,399</td>
+<td>0.318 [0.208, 0.424]</td>
+</tr>
+<tr>
+<td>Days 28-55; restricted earlier prior submission</td>
+<td align="right">2,270</td>
+<td>0.477 [0.340, 0.623]</td>
+</tr>
+<tr>
+<td>Day-70 cutoff; recomputed assessments</td>
+<td align="right">3,218</td>
+<td>0.073 [0.019, 0.128]</td>
+</tr>
+</tbody></table></div>
+<p>Note. Intervals are paired learner-cluster percentile intervals. The cutoff-day withdrawal exclusion removes five eligible records without observed target marks, leaving mark-error estimates unchanged. Nonlinear sensitivities retain raw predictions, including occasional values above 100; range diagnostics are preserved in the aggregate outputs.</p>
+<p>Observed and missing outcomes describe different groups. In reserved evaluation, enrollments with observed marks had median 81 clicks and six active days, compared with 25 clicks and two active days among those without target submissions. Mean prior marks were 76.98 and 68.13, respectively. These diagnostics identify selection differences, but do not recover missing scores or establish reasons for non-submission. Coverage was 83.34% in eligible development records and 82.92% in eligible evaluation records.</p>
+<p>An additional check trained on earlier development offerings and evaluated reserved learners in 2014J, replacing offering-specific effects with module effects so that an unseen offering did not require an unavailable coefficient. Training contained 8,911 observed enrollments; evaluation contained 1,189. Reference MAE was 16.379, falling to 15.873 with volume: a reduction of 0.506 points, interval 0.365 to 0.650. Large remaining errors, including a volume MAE of 34.287 in module BBB, limit confidence in transport to future offerings. This check reuses a subset of the primary reserved learners and changes the reference and population; it is neither fresh confirmation nor an isolated estimate of temporal degradation.</p>
+<p>Course-specific diagnostics are descriptive and do not establish causal heterogeneity. The importance of instructional context is consistent with Gašević et al. (2016), who examined prediction across nine undergraduate courses. Their work supports accounting for course conditions rather than assuming that the same logged action has a common meaning across instructional designs. The <a href="https://www.pure.ed.ac.uk/ws/files/21853000/Learn_engag_student_perf_Version21_authors.pdf">accepted author manuscript</a> provides the primary evidence.</p>
+<h3 id="26-interpretation">2.6. Interpretation</h3>
+<p>Volume adds some information about a later assessment among enrollments satisfying the specified criteria. The result supports using activity as contextual evidence, with explicit uncertainty and coverage limits. It does not validate volume as a measure of understanding, establish a causal benefit from increasing clicks, or indicate how learners react to seeing a count. Independent NumPy least-squares reconstruction reproduced all 32 reported MAEs to within 0.00000001 points. This checks numeric implementation, not causal identification, construct validity, or the bootstrap intervals independently.</p>
+<h2 id="3-part-ii-proposed-repeat-credit-experiment">3. Part II: Proposed Repeat-Credit Experiment</h2>
+<h3 id="31-experimental-question-and-hypothesis">3.1. Experimental question and hypothesis</h3>
+<p>The proposed study tests whether a repeat-credit policy changes the first voluntary practice choice. Adults would be randomly assigned to a score that credits every correct answer, including repetitions, or a score that credits only the first correct answer to each distinct item. The directional primary hypothesis is that the all-correct policy produces a higher probability of choosing a previously correct item to repeat.</p>
+<p>This prediction concerns a behavioral response to an explicit score opportunity. It does not require assuming that learners abandon a learning goal. A positive result would identify an effect of the bundled, transparent policy in this task. It would leave open whether the effect reflects score pursuit, reassurance, perceived competence, task difficulty, demand characteristics, or another process. No directional confirmatory prediction is made for transfer performance or the six separate subjective ratings.</p>
+<h3 id="32-population-materials-and-procedure">3.2. Population, materials, and procedure</h3>
+<p>The proposed population is English-reading adults aged 18 or older who can use the browser task. Recruitment source, approval requirements, contact arrangements, compensation, and data storage must be settled before human use. There is currently no participant access or budget. No participant experiment or pilot has been conducted, and the public walkthrough disables participant collection.</p>
+<p>Original materials teach counts, rates, denominators, and comparisons across pooled groups. Four baseline items are completed without points or correctness feedback. A common lesson and a required correct response to the same warm-up item follow. Completing the warm-up establishes a previously correct item before randomization, preventing the primary choice from depending on whether a learner happened to obtain a correct response in one arm.</p>
+<p>Assignment occurs after the warm-up through a browser-generated random 32-bit value, using its high bit for 1:1 allocation. Both groups start voluntary practice with one point. A future deployment would need a reviewed enrollment and allocation log; the current local instrument is a software demonstration rather than an enrolled trial system. The first menu presents the same options in the same order: repeat the warm-up item, attempt a new item, or review the warm-up explanation. Fixing order holds it constant between arms, while leaving a possible order effect on absolute choice rates.</p>
+<p><strong>Table 4. Proposed scoring-policy contrast.</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>All-correct policy</th>
+<th>Distinct-correct policy</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>First correct answer to an item</td>
+<td>+1 point</td>
+<td>+1 point</td>
+</tr>
+<tr>
+<td>Correct repetition of an already correct item</td>
+<td>+1 point</td>
+<td>No additional point</td>
+</tr>
+<tr>
+<td>Incorrect answer or explanation review</td>
+<td>No additional point</td>
+<td>No additional point</td>
+</tr>
+<tr>
+<td>Lesson, warm-up, initial points, first menu</td>
+<td>Identical</td>
+<td>Identical</td>
+</tr>
+<tr>
+<td>Policy description and score</td>
+<td>Accurate and visible</td>
+<td>Accurate and visible</td>
+</tr>
+</tbody></table></div>
+<p>Practice lasts eight minutes. Later menus permit new questions, repetition of previously correct items, review of encountered explanations, and retry of previously incorrect items. A rule-comprehension error is corrected without exclusion or reassignment. The engine prevents duplicate submissions for a single selection. After practice, six unfamiliar application items are answered without the lesson, point display, or correctness feedback. Six individual ratings follow, covering score-goal endorsement, learning-goal endorsement, interest, enjoyment, perceived competence, and pressure.</p>
+<h3 id="33-outcomes-and-analysis-contract">3.3. Outcomes and analysis contract</h3>
+<p>The primary outcome is the first valid voluntary practice selection. Choosing a previously correct item to repeat is coded one, irrespective of whether its subsequent answer is correct. Selecting a new item or an explanation is coded zero. A fully observed practice window with no choice is retained as a distinct no-action category and coded zero for the binary contrast. Incomplete observation, withdrawal, corrupted records, or an absent export do not become no-action observations. A first valid choice can remain ascertainable even if later task stages are incomplete, except when the record is marked withdrawn.</p>
+<p>The primary effect is the all-correct minus distinct-correct difference in repetition probabilities, with a two-sided 95% Newcombe interval combining Wilson intervals without continuity correction (Newcombe, 1998). The available-case denominator and each arm&#39;s repeat, new, review, no-action, and unavailable counts will be reported. An all-randomized estimand requires complete ascertainment. An available-case comparison under differential missingness does not automatically identify the randomized effect.</p>
+<p>If approved enrollment totals are available, worst-case binary bounds will accompany missingness reporting. For each arm, with N randomized, s observed repetitions, and m unavailable outcomes, the repetition probability is bounded by s/N and (s + m)/N. Subtracting the opposite arm&#39;s endpoints gives risk-difference bounds. The current analysis script cannot reconstruct people whose records were never exported; future enrollment accounting is therefore necessary. Differential availability can remain consequential even when a confidence interval for observed choices is narrow.</p>
+<p>The secondary performance outcome is the number of correct first answers on all six unfamiliar items, from zero to six. If any item is missing, the total is unavailable rather than a partial score treated as complete. The draft analysis uses ordinary least squares with assignment and baseline score, HC2 standard errors, and a normal-approximation confidence interval, alongside arm-specific completeness and unadjusted 0-6 score bounds. Baseline and transfer forms are not calibrated parallel measures, so their difference will not be labeled learning gain.</p>
+<p>The six ratings are original, unvalidated items scored separately from one to seven. In particular, endorsing a score goal and endorsing a learning goal do not establish which goal has priority or whether one displaced the other. The items borrow broad construct vocabulary, not validation, from motivation research and the <a href="https://selfdeterminationtheory.org/intrinsic-motivation-inventory/">Intrinsic Motivation Inventory documentation</a>. No validated composite, confirmatory mediation analysis, or causal mechanism claim is specified. Secondary and exploratory intervals will be interpreted as estimates across several outcomes, without converting isolated favorable results into confirmatory support.</p>
+<h3 id="34-sample-planning-and-feasibility">3.4. Sample planning and feasibility</h3>
+<p>A provisional target of 400 randomized adults would provide approximately 200 per arm. Under balanced allocation, complete outcomes, and worst-case independent binary variances, the normal-approximation 95% risk-difference half-width is about 1.96 divided by the square root of total N: approximately .098 at N = 400, .139 at N = 200, and .196 at N = 100. These values guide precision; they are not an exact Newcombe interval calculation or a power claim for an assumed effect.</p>
+<p>Ten or twenty percent unavailable outcomes at N = 400 would increase that approximate observed-case half-width to .103 or .110 if missingness were balanced. Those calculations do not remove possible selection bias. A 40-60-person feasibility exercise would have rough worst-case half-widths of .310-.253 and should be used to evaluate understanding, timing, item difficulty, and record completeness rather than to conclude that a small policy effect is absent.</p>
+<p>The immediate feasible work is technical and conceptual review. Human use would begin only after appropriate institutional guidance, finalized consent and data procedures, and access to participants. A small development pilot could then inform revisions before a fixed confirmatory design, recruitment, and external preregistration. The present manuscript is a proposed-study package, not a commitment that 400 participants can be recruited before an application deadline.</p>
+<h3 id="35-implementation-readiness-and-anticipated-interpretations">3.5. Implementation readiness and anticipated interpretations</h3>
+<p>The development instrument stores the current session in memory, makes no participant upload, and offers an optional local JSON export for technical inspection. A stop action marks withdrawal; a reset or refresh clears in-memory state. Already downloaded files are not remotely deleted. Before participant use, development controls, forced condition selection, answer-key inspection, and accelerated clocks must be removed or appropriately separated. Recruitment, server-side collection, and a reviewed data-management process are not yet implemented.</p>
+<p>Technical validation includes 17 engine checks, 19 contract and numerical checks, 15 analyzer self-checks, and a 240-record explicitly synthetic example. These verify rule application, outcome coding, and analysis behavior. They are not human piloting, item validation, participant evidence, or tests of the psychological hypothesis.</p>
+<p><strong>Table 5. Interpretation of possible future results.</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Future pattern</th>
+<th>Supported inference</th>
+<th>Remaining uncertainty</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>More first-choice repetition under all-correct credit</td>
+<td>Policy affected the measured choice, subject to ascertainment</td>
+<td>Motive and educational value of repetition</td>
+</tr>
+<tr>
+<td>More repetition and lower unfamiliar-item scores</td>
+<td>Policy altered choice and performance in this task</td>
+<td>Whether repetition mediated the performance effect</td>
+</tr>
+<tr>
+<td>More repetition with similar performance estimates</td>
+<td>Choice can change without a clearly resolved score difference</td>
+<td>Practical equivalence without a margin and sufficient precision</td>
+</tr>
+<tr>
+<td>No clear choice difference</td>
+<td>Effect estimate and interval bound plausible effects in this setting</td>
+<td>Comprehension, precision, and generalization</td>
+</tr>
+<tr>
+<td>Differential outcome availability</td>
+<td>Observed-case results may be selected</td>
+<td>Full randomized effect without assumptions or adequate bounds</td>
+</tr>
+</tbody></table></div>
+<p>No anticipated pattern is a result of the present project. Table 5 specifies how future findings would be interpreted before data collection, including findings inconsistent with the directional hypothesis.</p>
+<h2 id="4-general-discussion">4. General Discussion</h2>
+<h3 id="41-what-the-combined-project-contributes">4.1. What the combined project contributes</h3>
+<p>The completed analysis and proposed experiment concern two roles of digital metrics. The first demonstrates modest predictive information in historical interaction volume beyond earlier assessed performance and course offering. The second turns the scoring rule itself into a manipulable factor and gives that factor a concrete, observable choice outcome. Their connection is conceptual and methodological: a metric can describe behavior and simultaneously alter the value attached to available actions.</p>
+<p>The strongest psychological argument is not that points necessarily reduce learning. It is that an interface defines which behaviors receive credit, and the effects of that definition require evidence separate from a metric&#39;s association with performance. An accurate activity count can still be incomplete evidence of understanding. Conversely, an imperfect indicator may have useful motivational effects. Prediction accuracy alone cannot settle either possibility. The proposed comparison would begin to test the behavioral consequence of one specific credit rule.</p>
+<h3 id="42-limits-and-next-evidence">4.2. Limits and next evidence</h3>
+<p>The archival criterion is course-specific assessed performance among a selected subset of enrollments. Unmeasured learner characteristics, course differences, offline study, and missing outcomes restrict interpretation. Learner separation avoids repeated-person leakage but does not provide a new institution, modern platform, or prospective intervention population. The later-offering check is informative about fragility while sharing evaluation learners with the primary analysis. Conditional bootstrap intervals and independent numeric reconstruction address particular uncertainties, rather than validating every claim a dashboard could make.</p>
+<p>The proposed experiment isolates a transparent policy contrast, not the mere presence of measurement: both arms see points. It therefore cannot determine whether displaying any score is better than displaying none. Policy instructions also necessarily convey what earns credit, so effects could include strategic response and demand. The fixed first-menu order, brief numeracy task, original item bank, and short practice period constrain ecological validity. A later study could compare a no-score condition or manipulate mechanism-relevant information, but these additions should follow feasibility evidence rather than expand the present primary hypothesis.</p>
+<p>Performance on unfamiliar items would add a criterion beyond the practice score, but the six-item form requires difficulty, clarity, and reliability assessment. Self-reported goals cannot establish goal displacement, especially when collected after choices and transfer performance. Identifying a psychological mechanism would require stronger measures and additional design constraints; a post-task mediation model would not supply those by itself. Repetition may also be useful practice. Any claim about detrimental study allocation must therefore be supported by independent performance evidence, not inferred from the choice label alone.</p>
+<p>The next substantive milestone is author and research-methods review, followed by an appropriately reviewed feasibility pilot when access becomes available. Review should challenge the competing explanations, task difficulty, primary ascertainment rule, and precision assumptions. A revision log should distinguish changes made before human data from later exploratory amendments. For the present portfolio, the manuscript offers a coherent writing sample and a reviewable research proposal, without claiming that the proposed experiment has already supplied evidence.</p>
+<h2 id="5-transparency-and-availability">5. Transparency and Availability</h2>
+<p>The <a href="https://github.com/NickChass/what-counts-as-progress">public repository</a> includes analysis scripts, frozen settings, locally dated plans and amendments, aggregate results, the original technical report, and proposed-study materials. The <a href="https://nickchass.github.io/case-studies/what-counts-as-progress.html">portfolio case study</a> links the readable paper and software demonstrations. The earlier public display name was <em>What Counts as Progress?</em>; existing URLs, historical identifiers, and frozen files retain that name for continuity. This manuscript synthesizes the evidence already reported rather than representing a new empirical dataset.</p>
+<p>OULAD is available from UCI under CC BY 4.0 and must be credited separately. Raw learner records, derived enrollment-level records, evaluation outcomes, fitted models, private documents, and resumes are excluded from the public package. Synthetic experimental records are explicitly labeled and cannot be treated as findings. Future human-participant data handling remains to be specified and approved as appropriate.</p>
+<p>AI assistance was used for drafting, coding, literature checking, and document preparation. The manuscript is an author-review draft; its claims, citations, and analysis decisions require the author&#39;s substantive review before use as a final application writing sample. Technical checks and primary-source review reduce particular errors but do not substitute for author responsibility or independent peer review. No participant recruitment, external preregistration, journal submission, or ethics approval is represented as completed.</p>
+<h2 id="references">References</h2>
+<p>Etkin, J. (2016). The hidden cost of personal quantification. <em>Journal of Consumer Research, 42</em>(6), 967-984. <a href="https://doi.org/10.1093/jcr/ucv095">https://doi.org/10.1093/jcr/ucv095</a></p>
+<p>Gašević, D., Dawson, S., Rogers, T., &amp; Gasevic, D. (2016). Learning analytics should not promote one size fits all: The effects of instructional conditions in predicting academic success. <em>The Internet and Higher Education, 28</em>, 68-84. <a href="https://doi.org/10.1016/j.iheduc.2015.10.002">https://doi.org/10.1016/j.iheduc.2015.10.002</a></p>
+<p>Koo, M., &amp; Fishbach, A. (2008). Dynamics of self-regulation: How (un)accomplished goal actions affect motivation. <em>Journal of Personality and Social Psychology, 94</em>(2), 183-195. <a href="https://doi.org/10.1037/0022-3514.94.2.183">https://doi.org/10.1037/0022-3514.94.2.183</a></p>
+<p>Kuzilek, J., Hlosta, M., &amp; Zdrahal, Z. (2015). Open University Learning Analytics dataset [Data set]. <em>UCI Machine Learning Repository</em>. <a href="https://doi.org/10.24432/C5KK69">https://doi.org/10.24432/C5KK69</a></p>
+<p>Kuzilek, J., Hlosta, M., &amp; Zdrahal, Z. (2017). Open University Learning Analytics dataset. <em>Scientific Data, 4</em>, Article 170171. <a href="https://doi.org/10.1038/sdata.2017.171">https://doi.org/10.1038/sdata.2017.171</a></p>
+<p>Mekler, E. D., Brühlmann, F., Tuch, A. N., &amp; Opwis, K. (2017). Towards understanding the effects of individual gamification elements on intrinsic motivation and performance. <em>Computers in Human Behavior, 71</em>, 525-534. <a href="https://doi.org/10.1016/j.chb.2015.08.048">https://doi.org/10.1016/j.chb.2015.08.048</a></p>
+<p>Newcombe, R. G. (1998). Interval estimation for the difference between independent proportions: Comparison of eleven methods. <em>Statistics in Medicine, 17</em>(8), 873-890. <a href="https://onlinelibrary.wiley.com/doi/10.1002/%28SICI%291097-0258%2819980430%2917%3A8%3C873%3A%3AAID-SIM779%3E3.0.CO%3B2-I">Publisher record</a></p>
+<p>Ryan, R. M. (1982). Control and information in the intrapersonal sphere: An extension of cognitive evaluation theory. <em>Journal of Personality and Social Psychology, 43</em>(3), 450-461. <a href="https://doi.org/10.1037/0022-3514.43.3.450">https://doi.org/10.1037/0022-3514.43.3.450</a></p>
+<p>Self-Determination Theory. (n.d.). <em>Intrinsic Motivation Inventory (IMI)</em> [Instrument documentation]. Retrieved October 3, 2026, from <a href="https://selfdeterminationtheory.org/intrinsic-motivation-inventory/">https://selfdeterminationtheory.org/intrinsic-motivation-inventory/</a></p>
+<p>Silverman, J., &amp; Barasch, A. (2023). On or off track: How (broken) streaks affect consumer decisions. <em>Journal of Consumer Research, 49</em>(6), 1095-1117. <a href="https://doi.org/10.1093/jcr/ucac029">https://doi.org/10.1093/jcr/ucac029</a></p>
+<h2 id="appendix-a-companion-materials">Appendix A. Companion Materials</h2>
+<p>The manuscript is the conceptual and empirical synthesis. Detailed executable decisions and materials are retained separately to make review possible without treating software documentation as participant evidence.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Material</th>
+<th>Review purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="Research-Report.html">Original technical report</a> and <a href="../research-report.pdf">PDF</a></td>
+<td>Archived analysis detail and first-version report</td>
+</tr>
+<tr>
+<td><a href="Psychological-Argument.html">Psychological argument</a> and <a href="Literature-Map.html">literature map</a></td>
+<td>Construct boundaries and scope of supporting evidence</td>
+</tr>
+<tr>
+<td><a href="Proposed-Experiment-Protocol.html">Proposed experiment protocol</a></td>
+<td>Estimands, exclusions, missingness, stopping and analysis decisions</td>
+</tr>
+<tr>
+<td><a href="Study-Materials.html">Study materials</a></td>
+<td>Original lesson, baseline, practice, transfer, ratings, and keys</td>
+</tr>
+<tr>
+<td><a href="Consent-and-Debrief-Drafts.html">Consent and debrief drafts</a></td>
+<td>Draft language requiring review and final arrangements before human use</td>
+</tr>
+<tr>
+<td><a href="Experiment-Package-Guide.html">Experiment package guide</a></td>
+<td>Instrument, synthetic example, checks, and readiness limits</td>
+</tr>
+</tbody></table></div>
+<p>The proposed protocol and item bank are version 0.1.0-draft; the event schema is 1.0.0-draft. These versions describe development materials and do not imply a registered or approved participant study.</p>
+<p class="source-note">Readable copy of <a href="https://github.com/NickChass/what-counts-as-progress/blob/main/docs/Manuscript.md">docs/Manuscript.md</a>. Participant collection is disabled in the development walkthrough. <a href="https://github.com/NickChass/what-counts-as-progress">Full source repository</a>.</p></main></body></html>
