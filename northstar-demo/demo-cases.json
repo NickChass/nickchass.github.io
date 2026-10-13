@@ -1,0 +1,147 @@
+{
+  "version": 1,
+  "fictional_only": true,
+  "description": "Ten fictional inputs for a Make enquiry-intake demonstration. Expectations describe the intended workflow, not results already observed. Use a clean demo sheet, then send cases in order. The duplicate case requires build to have completed first.",
+  "cases": [
+    {
+      "case_id": "build",
+      "description": "New website-build enquiry routes to Maya.",
+      "payload": {
+        "submission_id": "demo-enquiry-001",
+        "submitted_at": "2026-10-11T12:00:00Z",
+        "name": "Alex Rivera",
+        "email": "alex.rivera@example.com",
+        "company": "Fictional Harbor Studio",
+        "service": "website_build",
+        "message": "We would like a five-page website. This is fictional test data."
+      },
+      "expected": {"status": "recorded", "owner": "Maya", "new_rows": 1, "notifications": 1}
+    },
+    {
+      "case_id": "care",
+      "description": "New website-care enquiry routes to Theo.",
+      "payload": {
+        "submission_id": "demo-enquiry-002",
+        "submitted_at": "2026-10-11T12:01:00Z",
+        "name": "Sam Chen",
+        "email": "sam.chen@example.com",
+        "company": "Fictional Maple Services",
+        "service": "website_care",
+        "message": "We need monthly website care. This is fictional test data."
+      },
+      "expected": {"status": "recorded", "owner": "Theo", "new_rows": 1, "notifications": 1}
+    },
+    {
+      "case_id": "unknown_service",
+      "description": "An unrecognized service value goes to manual review.",
+      "payload": {
+        "submission_id": "demo-enquiry-003",
+        "submitted_at": "2026-10-11T12:02:00Z",
+        "name": "Jordan Lee",
+        "email": "jordan.lee@example.com",
+        "company": "Fictional Orchard Works",
+        "service": "brand_strategy",
+        "message": "Can you help with a brand project? This is fictional test data."
+      },
+      "expected": {"status": "recorded", "owner": "manual-review", "new_rows": 1, "notifications": 1}
+    },
+    {
+      "case_id": "duplicate_build",
+      "description": "Replay of build with the same stable submission ID. Complete build first.",
+      "requires_case": "build",
+      "payload": {
+        "submission_id": "demo-enquiry-001",
+        "submitted_at": "2026-10-11T12:00:00Z",
+        "name": "Alex Rivera",
+        "email": "alex.rivera@example.com",
+        "company": "Fictional Harbor Studio",
+        "service": "website_build",
+        "message": "We would like a five-page website. This is fictional test data."
+      },
+      "expected": {"status": "duplicate_ignored", "owner": null, "new_rows": 0, "notifications": 0}
+    },
+    {
+      "case_id": "same_email_new_submission",
+      "description": "Same person, different submission ID: this is a legitimate new enquiry.",
+      "payload": {
+        "submission_id": "demo-enquiry-004",
+        "submitted_at": "2026-10-11T12:03:00Z",
+        "name": "Alex Rivera",
+        "email": "alex.rivera@example.com",
+        "company": "Fictional Harbor Studio",
+        "service": "website_care",
+        "message": "We also want website care for a different project. Fictional test data."
+      },
+      "expected": {"status": "recorded", "owner": "Theo", "new_rows": 1, "notifications": 1}
+    },
+    {
+      "case_id": "malformed_email",
+      "description": "Intentionally invalid email: surface the rejection without a lead row or owner notification.",
+      "payload": {
+        "submission_id": "demo-enquiry-005",
+        "submitted_at": "2026-10-11T12:04:00Z",
+        "name": "Casey Morgan",
+        "email": "not-an-email",
+        "company": "Fictional Bluebird Team",
+        "service": "website_build",
+        "message": "Intentional input-validation test."
+      },
+      "expected": {"status": "rejected", "invalid_fields": ["email"], "owner": null, "new_rows": 0, "notifications": 0}
+    },
+    {
+      "case_id": "missing_submission_id",
+      "description": "Intentionally missing stable submission ID: reject before creating a lead.",
+      "payload": {
+        "submitted_at": "2026-10-11T12:05:00Z",
+        "name": "Riley Brooks",
+        "email": "riley.brooks@example.com",
+        "company": "Fictional Cedar Partners",
+        "service": "website_care",
+        "message": "Intentional required-field test."
+      },
+      "expected": {"status": "rejected", "invalid_fields": ["submission_id"], "owner": null, "new_rows": 0, "notifications": 0}
+    },
+    {
+      "case_id": "email_whitespace_case",
+      "description": "Trim surrounding whitespace and lowercase email before storing it.",
+      "payload": {
+        "submission_id": "demo-enquiry-006",
+        "submitted_at": "2026-10-11T12:06:00Z",
+        "name": "Taylor Singh",
+        "email": "  TAYLOR.SINGH@EXAMPLE.COM  ",
+        "company": "Fictional Ember Collective",
+        "service": "website_build",
+        "message": "Fictional email-normalization test."
+      },
+      "expected": {"status": "recorded", "owner": "Maya", "new_rows": 1, "notifications": 1, "normalized_email": "taylor.singh@example.com"}
+    },
+    {
+      "case_id": "formula_text",
+      "description": "External enquiry text starts with equals: store literal text in Sheets, not a formula.",
+      "payload": {
+        "submission_id": "demo-enquiry-007",
+        "submitted_at": "2026-10-11T12:07:00Z",
+        "name": "Avery Patel",
+        "email": "avery.patel@example.com",
+        "company": "Fictional Fern Workshop",
+        "service": "website_care",
+        "message": "=1+1"
+      },
+      "expected": {"status": "recorded", "owner": "Theo", "new_rows": 1, "notifications": 1, "literal_message": "=1+1"}
+    },
+    {
+      "case_id": "blank_service",
+      "description": "Blank service goes to manual review rather than being silently dropped.",
+      "payload": {
+        "submission_id": "demo-enquiry-008",
+        "submitted_at": "2026-10-11T12:08:00Z",
+        "name": "Robin Davis",
+        "email": "robin.davis@example.com",
+        "company": "Fictional Juniper Digital",
+        "service": "",
+        "message": "Please help us choose a service. Fictional test data."
+      },
+      "expected": {"status": "recorded", "owner": "manual-review", "new_rows": 1, "notifications": 1}
+    }
+  ]
+}
